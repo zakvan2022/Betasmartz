@@ -1,0 +1,148 @@
+{% load static from staticfiles %}
+{% load humanize %}
+{% load i18n filters %}
+<div id="page12-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark twolines">Supplementary Information 1</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <div class="page-div-inner">
+    <div class="page-content">
+      <h4 class="page-subtitle-h4">
+        Value of advice
+      </h4>
+      <p>
+        Making the most of the opportunities available to you and making sure you
+        don't miss out on anything along the way means you need expert advice.
+      </p>
+      <p>
+        No matter what your personal financial situation is, or how much money you have,
+        proper planning can help you achieve your best possible financial outcome.
+        From straight-forward advice on how to make the most of your retirement dollars,
+        to addressing complex financial issues, we have the experience and knowledge to
+        help you realize your dreams.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Regular Check-Ups <span style="font-size: 7.5pt; font-style: normal; ">(example only)</span>
+      </h4>
+      <p>
+        <img src="{% static 'statements/retirement/page12-checkups.png' %}" alt="" class="full-width" />
+      </p>
+      <h4 class="page-subtitle-h4">
+        Platform Fees
+      </h4>
+      <p>
+        The Retirement Plan is one part of the {{firm.name}} program. The fee for
+        this Retirement Plan is $300. However, for {{firm.name}} clients this fee
+        is waived and is included as part of your membership with {{firm.name}}.
+      </p>
+      <table class="page12-table">
+        <thead>
+          <tr>
+            <th class="top-left-radius"></th>
+            <th style="border-right: 1pt solid #fff;">
+              {{firm.name}}
+            </th>
+            <th class="top-right-radius">Non-member</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <i>RetireSmartz program</i> (Telephone service)<br />
+              Charged Every 3 years<br />
+              Includes a 3 yearly RetireSmartz plan
+            </td>
+            <td class="text-center" style="font-weight: 700;">
+              FEES WAIVED
+            </td>
+            <td class="text-center">
+              $300
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <i>RetireSmartz plan</i> (Telephone service) <br />
+              if requested more often <br />
+              than regular RetireSmartz 3 year interval
+            </td>
+            <td class="text-center" colspan="2">
+              Add $300
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <i>RetireSmartz plan</i> (face to face)
+            </td>
+            <td class="text-center" colspan="2">
+              Add $200
+            </td>
+          </tr>
+          <tr>
+            <td class="bottom-left-radius">
+              Comprehensive financial plan
+            </td>
+            <td class="text-center bottom-right-radius" colspan="2">
+              Add $1,200
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        You're never locked in - If you want to leave the program at any point,
+        for any reason, you can with no additional costs or charges to you.
+      </p>
+      <p>
+        For more information on the {{firm.name}} Program please refer to the
+        RetireSmartz section of our website.
+      </p>
+      <h4 class="page-subtitle-h4">
+        {{firm.name}} Fees
+      </h4>
+      <p style="margin-bottom: 5pt;">
+        {{firm.name}}'s fees are amongst the lowest you will find.
+        No commissions are received or paid by {{firm.name}} or its representatives.
+      </p>
+      <p>
+        Changes in investment options may alter the fees you currently pay. Please refer
+        to the relevant Product Disclosure Statement for a full disclosure on fees.
+      </p>
+      <p style="margin-bottom: 30pt;">Sincerely yours</p>
+      <p style="font-weight: 700; margin-bottom: 3pt;">{{advisor.name}}</p>
+      <p>Financial Advisor</p>
+    </div>
+    <div class="sidebar" style="bottom: 0;">
+      <div class="banner banner-grey full-height">
+        <h4 class="green-color italic">
+          Important Information
+        </h4>
+        <p class="justified">
+          You have chosen this retirement plan using RetireSmartz. You should also read
+          the relevant product brochure for more information including terms, conditions
+          and definitions.
+        </p>
+        <p class="justified">
+          {{firm.name}} and its affiliates do not provide tax, legal or accounting advice.
+          This material has been prepared for informational purposes only, and is not intended
+          to provide, and should not be relied on for, tax, legal or accounting advice.
+          You should consult your own tax, legal and accounting advisors before engaging
+          in any transaction.
+        </p>
+        <h4 class="green-color italic" style="margin-top: 60pt;">
+          How to stay on track
+        </h4>
+        <p class="justified">
+          You can get more help with your retirement accounts by using RetireSmartz as part of your online account.
+        </p>
+        <p class="justified">
+          You can find more information and ideas and use the RetireSmartz online planning
+          tools to help you make the right decisions. If you have any questions or concerns
+          please call your advisor, {{advisor.first_name}}, on {{advisor.phone_num}} before
+          implementing the advice.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+      Risk Management
+    </h3>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7">
+        <p class="title">Portfolio Return Metrics</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background">
+              <th>Metric</th>
+              <th>1 Year</th>
+              <th>3 Years</th>
+              <th>5 Years</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="even border">
+              <td>Aplha</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="title">Top Fund Contribution to Performance</p>
+            <table class="w-100">
+              <thead>
+                <tr class="text-white dark-red-background">
+                  <th>Company</th>
+                  <th>Month return</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-12">
+            <p class="title">Top Fund Detractors From Performance</p>
+            <table class="w-100">
+              <thead>
+                <tr class="text-white dark-red-background">
+                  <th>Fund</th>
+                  <th>Month return</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+                <tr class="even border">
+                  <td>xyz</td>
+                  <td>y%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>  
+    </div>   
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

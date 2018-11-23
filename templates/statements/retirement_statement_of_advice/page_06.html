@@ -1,0 +1,59 @@
+{% load static from staticfiles %}
+{% load humanize %}
+<div id="page6-div" class="page-div">
+  <div class="page-header">
+    <div class="headline">Personal Situation 4</div>
+  </div>
+  <h2 class="page-title" style="text-align: center; margin: 20pt 0;">
+    Your Household Budget
+  </h2>
+  <p>
+    Based on the information you have provided to us we have determined your peer group
+    based on your age, your income bracket and where you live. This helps you in understanding
+    your budget in comparison to other people similar to you to:
+  </p>
+  <ol>
+    <li>Enable you to compare your monthly household budget to other Americans, and</li>
+    <li>Identify spending areas where you could find additional money to save for your retirement.</li>
+  </ol>
+  <!-- TODO: implement waterfall chart of expenses -->
+  <h3 class="page-subtitle">
+    Waterfall Chart or Cascade Chart
+  </h3>
+
+  <div class="waterfall-chart">
+    <div class="waterfall-chart-inner">
+      <div class="y-axis">
+        {% for y in waterfall_chart.y_axis %}
+          <div class="y-axis-item" style="height: {{waterfall_chart.y_unit_width}}%">
+            <div class="y-label">${{y|intcomma}}</div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="x-axis">
+        {% for x in waterfall_chart.x_axis %}
+          <div class="x-axis-item" style="width: {{waterfall_chart.x_unit_width}}%">
+            <span class="x-label">{{x}}</span>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="bars">
+        {% for item in waterfall_chart.bars %}
+          <div class="bar-item" style="width: {{waterfall_chart.x_unit_width}}%; height: {{item.height}}%; background-color: {{item.color}}; margin-left: {{item.left}}%">
+            <span class="bar-amt">
+              ${{item.amt|intcomma}}
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="legends">
+        {% for item in waterfall_chart.legends %}
+          <div class="legend-item">
+            <span class="legend-colorbox" style="background-color: {{item.color}};"></span>
+            <span class="legend-label">{{item.label}}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

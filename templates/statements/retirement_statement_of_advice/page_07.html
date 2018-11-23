@@ -1,0 +1,83 @@
+{% load static from staticfiles %}
+{% load humanize %}
+{% load i18n filters %}
+<div id="page7-div" class="page-div">
+  <div class="page-header">
+    <div class="headline">Personal Situation 5</div>
+  </div>
+  <h2 class="page-title" style="text-align: center; margin: 20pt 0;">
+    Your Tax Situation
+  </h2>
+  <p>
+    Based on the information you have provided to us we have optimized your retirement
+    income to ensure you maximize your after tax income. This is based on your most recent
+    tax filing information you provided to us.
+  </p>
+  <!-- TODO: implement tax situation -->
+  <div class="page7-tax-bill">
+    <div class="tax-percents">
+      <img class="bg-img" src="{% static 'statements/retirement/page7_dollar_bill.png' %}" alt="" />
+      <div class="tax-percents-inner">
+        <div class="tax-item" style="background: #44A247; width: {{tax_situation.client.yours_to_keep|percentage}}">
+          <div class="line bottom" style="height: 10pt;">
+            <div class="label">{{tax_situation.client.yours_to_keep|percentage}} Yours To Keep</div>
+          </div>
+        </div>
+        <div class="tax-item" style="background: #4F4A9B; width: {{tax_situation.client.state_income_tax|percentage}};">
+          <div class="line top" style="height: 10pt;">
+            <div class="label">{{tax_situation.client.state_income_tax|percentage}} State Income Tax</div>
+          </div>
+        </div>
+        <div class="tax-item" style="background: #B6896A; width: {{tax_situation.client.federal_income_tax|percentage}};">
+          <div class="line top" style="height: 22pt;">
+            <div class="label">{{tax_situation.client.federal_income_tax|percentage}} Federal Income Tax</div>
+          </div>
+        </div>
+        <div class="tax-item" style="background: #F57E20; width: {{tax_situation.client.medicare|percentage}};">
+          <div class="line top" style="height: 34pt;">
+            <div class="label">{{tax_situation.client.medicare|percentage}} Medicare</div>
+          </div>
+        </div>
+        <div class="tax-item" style="background: #CE2B27; width: {{tax_situation.client.social_security|percentage}}; margin-right: -0.1%;">
+          <div class="line top" style="height: 46pt;">
+            <div class="label">{{tax_situation.client.social_security|percentage}} Social Security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if has_partner %}
+    <div class="page7-tax-bill">
+      <div class="tax-percents">
+        <img class="bg-img" src="{% static 'statements/retirement/page7_dollar_bill.png' %}" alt="" />
+        <div class="tax-percents-inner">
+          <div class="tax-item" style="background: #44A247; width: {{tax_situation.partner.yours_to_keep|percentage}}">
+            <div class="line bottom" style="height: 10pt;">
+              <div class="label">{{tax_situation.partner.yours_to_keep|percentage}} Yours To Keep</div>
+            </div>
+          </div>
+          <div class="tax-item" style="background: #4F4A9B; width: {{tax_situation.partner.state_income_tax|percentage}};">
+            <div class="line top" style="height: 10pt;">
+              <div class="label">{{tax_situation.partner.state_income_tax|percentage}} State Income Tax</div>
+            </div>
+          </div>
+          <div class="tax-item" style="background: #B6896A; width: {{tax_situation.partner.federal_income_tax|percentage}};">
+            <div class="line top" style="height: 22pt;">
+              <div class="label">{{tax_situation.partner.federal_income_tax|percentage}} Federal Income Tax</div>
+            </div>
+          </div>
+          <div class="tax-item" style="background: #F57E20; width: {{tax_situation.partner.medicare|percentage}};">
+            <div class="line top" style="height: 34pt;">
+              <div class="label">{{tax_situation.partner.medicare|percentage}} Medicare</div>
+            </div>
+          </div>
+          <div class="tax-item" style="background: #CE2B27; width: {{tax_situation.partner.social_security|percentage}}; margin-right: -0.1%;">
+            <div class="line top" style="height: 46pt;">
+              <div class="label">{{tax_situation.partner.social_security|percentage}} Social Security</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>

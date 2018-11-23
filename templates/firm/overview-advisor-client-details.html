@@ -1,0 +1,195 @@
+{% extends "layouts_new/base.html" %}
+{% load static from staticfiles %}
+{% load i18n humanize bootstrap3 filters pricing_plan %}
+{% load app_filters %}
+
+{% block foot_js %}
+  <script type="application/javascript" src="{% static "js/widgets.js" %}"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('[name=access_level]').on('change', function() {
+        $(this).get(0).form.submit();
+      })
+    })
+  </script>
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+  <div class="clients-show">
+    <div class="pull-right">
+      <a href="{% url "firm:overview-advisor" advisor.id %}">Back to Advisor</a>
+    </div>
+    <h3>{{ client.full_name }}</h3>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6 m-b">
+      <div class="statcard statcard-primary">
+        <div class="p-a">
+          <span class="statcard-desc">Total balance</span>
+          <h2>
+            {{ client.total_balance|currency }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 m-b">
+      <div class="statcard statcard-primary">
+        <div class="p-a">
+          <span class="statcard-desc">Total returns</span>
+          <h2>
+            {{ client.total_earnings|currency }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accounts -->
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Account Type</th>
+            <th>Account Name</th>
+            <th>Status</th>
+            <th>Balance</th>
+            <th>Returns</th>
+            <th>Fees</th>
+            <th>Group</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in accounts %}
+            {% with account=item.account %}
+            <tr>
+              <td>{{ account.account_type_name }}</td>
+              <td>{{ account.name }}</td>
+              <td>{% if account.on_track %}<span style='color:green;'>On Track</span>{% else %}<span style='color:red;'>Off Track</span>{% endif %}</td>
+              <td>{{ account.total_balance|currency }}</td>
+              <td>{{ account.total_earnings|currency }}</td>
+              <td>{{ account.custom_fee|currency }}</td>
+              <td>
+                {% if account.account_group %}
+                  {{ account.account_group.name }}
+                {% else %}
+                  &nbsp;None
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">
+                {% if item.formset %}
+                  {% with formset=item.formset %}
+                    {% include "partials_new/formset-portfoliosets.html" %}
+                  {% endwith %}
+                {% else %}
+                  <p class="text-center text-danger">
+                    {{ account.name }} has no goals.
+                  </p>
+                {% endif %}
+              </td>
+            </tr>
+            {% endwith %}
+          {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">
+                No entries
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="profile-information">
+    <h4>Profile Information</h4>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Personal information</div>
+          <table class="table">
+            <tbody>
+            <tr class="member-since">
+              <td>Member since</td>
+              <td>{{ client.create_date | b_date }}</td>
+            </tr>
+            <tr class="date-of-birth">
+              <td>Date of birth</td>
+              <td>{{ client.date_of_birth | b_date}}</td>
+            </tr>
+            <tr class="age">
+              <td>Age</td>
+              <td>{{ client.age }}</td>
+            </tr>
+            <tr class="address-1">
+              <td>Address</td>
+              <td>{{ client.residential_address.address }}</td>
+            </tr>
+            <tr class="phone">
+              <td>Phone</td>
+              <td>{{ client.phone_num }}</td>
+            </tr>
+            <tr class="email">
+              <td>Email</td>
+              <td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
+            </tr>
+            <tr>
+              <td>Access Level</td>
+              <td>
+                <form method="post">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      {% csrf_token %}
+                      {% bootstrap_field form.access_level show_label=False size='small' form_group_class='' %}
+                    </div>
+                  </div>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Employment and income</div>
+          <table class="table">
+            <tbody>
+            <tr class="status">
+              <td>Employment status</td>
+              <td>{{ client.get_employment_status_display }}</td>
+            </tr>
+            <tr>
+              <td>Industry Sector</td>
+              <td>{{ client.get_industry_sector_display|default:'-' }}</td>
+            </tr>
+            <tr class="occupation">
+              <td>Occupation</td>
+              <td>{{ client.ocupation }}</td>
+            </tr>
+            <tr class="employer">
+              <td>Employer</td>
+              <td>{{ client.employer }}</td>
+            </tr>
+            <tr class="annual-income">
+              <td>Annual income</td>
+              <td>${{ client.income |bs_big_number }}</td>
+            </tr>
+            <tr class="liquid-net-worth">
+              <td>Liquid net worth</td>
+              <td>${{ client.net_worth |bs_big_number }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

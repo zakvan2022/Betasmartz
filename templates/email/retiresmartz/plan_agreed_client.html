@@ -1,0 +1,38 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+<table cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="color:{{text_color}};line-height:120%;font-family:{{font_family}};">
+      	<div style="font-size:12px;line-height:14px;color:{{text_color}};font-family:{{font_family}};text-align:left;">
+
+          <p style="margin: 0 0 20px 0;font-size: 20px;line-height: 30px;text-align: center">
+            Thank you for completing your Retirement Plan with <strong>{{advisor.firm.name}}</strong>
+          </p>
+
+          <p style="margin-bottom: 20px; font-size: 14px;line-height: 20px;">
+            A Statement of Advice is attached to this email to give you a record of the plan you have agreed will help you better achieve your retirement goals.
+            Feel free to contact me with any questions that you might have about your plan, or log back in to your online account to make adjustments to the plan should any of the details you have provided us significantly change.
+            I'm glad we could get you on your path to achieving your retirement dreams.
+          </p>
+          <p style="margin-bottom: 20px; font-size: 14px;line-height: 20px;">
+            {{advisor.name}}
+          </p>
+        </div>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td align="center" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="height: 0px;">
+        <table align="center" border="0" cellspacing="0" style="border-spacing: 0;border-collapse: collapse;vertical-align: top;border-top: 0px solid transparent;width: 100%"><tbody><tr style="vertical-align: top"><td align="center" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top"></td></tr></tbody></table>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+{% endblock %}

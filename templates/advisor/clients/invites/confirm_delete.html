@@ -1,0 +1,19 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load filters %}
+
+
+{% block main_content %}
+  <div class="container">
+    <h3>Delete Action Confirmation</h3>
+	<p> Because the status of invite was accepted we need to confirm delete action. (This action is not reversible)</p>
+    <div class="m-t">
+    <form method="post" action="{% url 'advisor:clients:delete' invite.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="confirmed" value="True">
+        <button type="submit" class="btn btn-primary">Confirm</button>
+        <a class="btn btn-danger-outline" href="{% url 'advisor:clients:invites' %}">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

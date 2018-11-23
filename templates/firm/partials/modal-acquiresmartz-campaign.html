@@ -1,0 +1,22 @@
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+<!--Modal -->
+<div class="modal fade" id="editCampaignModal" tabindex="-1" role="dialog" aria-labelledby="editCampaignModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="form-horizontal" method="post" action="{% url 'firm:acquiresmartz:campaign-new' %}">
+        {% csrf_token %}
+        <input type="hidden" name="firm" value="{{firm.id}}" />
+        <div class="modal-header">
+          <h4 class="modal-title" id="editCampaignModalLabel">Edit campaign</h4>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            Loading ...
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

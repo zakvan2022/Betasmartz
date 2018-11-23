@@ -1,0 +1,19 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+  <title>Connect Betasmartz with your Health Device</title>
+</head>
+<body>
+<script type="text/javascript">
+window.opener.postMessage({
+  type: 'oauth2-healthdevices',
+  payload: {
+    provider: {{provider}},
+    status: {% if status %}true{% else %}false{% endif %}
+  }
+}, '*')
+
+window.close()
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+<form method="post" id="liveportfolioForm">
+  {% csrf_token %}
+  {{ form.id }}
+  {% bootstrap_field form.name %}
+  {% bootstrap_field form.clients %}
+
+  {{ lpi_formset.management_form }}
+  <h4>Portfolio Items</h4>
+  {% for form in lpi_formset %}
+    {{ form.id }}
+    <div class="panel panel-default form-row">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-5">
+            {% bootstrap_field form.asset %}
+          </div>
+          <div class="col-sm-5">
+            {% bootstrap_field form.percentage %}
+          </div>
+          <div class="col-sm-2">
+            <div class="control-label">&nbsp;</div>
+            <a href="#" class="btn btn-primary btn-block remove-form-row" type="button">- Remove</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  <div class="panel panel-default form-row">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-5 text-right">
+          Total Percentage
+        </div>
+        <div class="col-sm-5" id="total_percentage"></div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary add-form-row" type="button">+ Add Item</button>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <span id="liveportfolioForm_sum_error" class="text-danger" style="display: none;">
+        Total allocation percentage must be 100%
+      </span>
+    </div>
+    <div class="col-sm-4 text-right">
+      <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </div>
+</form>
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css_new/listswap.css' %}" />
+{% endblock %}
+
+{% block foot_js %}
+  <script type="text/javascript" src="{% static 'js/jquery.listswap.js' %}"></script>
+  <script type='text/javascript'>
+    function updateElementIndex(el, prefix, ndx) {
+      var id_regex = new RegExp('(' + prefix + '-\\d+)');
+      var replacement = prefix + '-' + ndx;
+      if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+      if (el.id) el.id = el.id.replace(id_regex, replacement);
+      if (el.name) el.name = el.name.replace(id_regex, replacement);
+    }
+
+    function cloneMore(selector, prefix) {
+      var newElement = $(selector).clone(true);
+      var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+      newElement.find(':input').each(function() {
+        var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');
+        var id = 'id_' + name;
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+      });
+      newElement.find('label').each(function() {
+        var name = $(this).attr('for').replace('-' + (total-1) + '-', '-' + total + '-');
+      });
+      total++;
+      $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+      $(selector).after(newElement);
+      return false;
+    }
+
+    function deleteForm(prefix, btn) {
+      var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+      if (total > 1){
+        btn.closest('.form-row').remove();
+        var forms = $('.form-row');
+        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+        for (var i=0, formCount=forms.length; i<formCount; i++) {
+          $(forms.get(i)).find(':input').each(function() {
+            updateElementIndex(this, prefix, i);
+          });
+          $(forms.get(i)).find('label').each(function() {
+            updateElementIndex(this, prefix, i);
+          });
+        }
+      }
+      return false;
+    }
+
+    function updateTotalPercentage() {
+      var sum = 0;
+      $('[id$=-percentage]').each(function() {
+        sum += parseFloat($(this).val());
+      });
+      $('#total_percentage').text(sum + '%');
+      console.log(sum);
+    }
+
+    $(document).on('click', '.add-form-row', function(e){
+      e.preventDefault();
+      cloneMore('.form-row:last', 'items');
+      return false;
+    });
+    $(document).on('click', '.remove-form-row', function(e){
+      e.preventDefault();
+      deleteForm('items', $(this));
+      return false;
+    });
+
+    $(document).on('ready', function() {
+      var $clients = $('#id_clients');
+      $clients.css({ 'opacity': '0', 'height': 0, 'padding': 0, 'pointer-events': 'none' });
+      $clients.parent().append('<select id="id_clients_source" data-text="Available Clients" data-search="Search for clients"></select>');
+      $clients.parent().append('<select id="id_clients_destination" data-text="Selected clients" data-search="Search for clients"></select>');
+      var $clients_source = $('#id_clients_source');
+      var $clients_destination= $('#id_clients_destination');
+      $clients.find('> option').each(function() {
+        if (this.selected) {
+          $clients_destination.append(new Option(this.text, this.value));
+        } else {
+          $clients_source.append(new Option(this.text, this.value));
+        }
+      });
+
+      $('#id_clients_source, #id_clients_destination').listswap({
+        label_add: '<i class="fa fa-chevron-right hidden-xs"></i><i class="fa fa-chevron-down visible-xs"></i>', 
+        label_remove: '<i class="fa fa-chevron-left hidden-xs"></i><i class="fa fa-chevron-up visible-xs"></i>', 
+        truncate: true,
+        height: 200, 
+        is_scroll: true, 
+      });
+
+      $('#id_clients_destination').on('optionsChanged', function() {
+        var newValue = [];
+        $(this).find('option').each(function(){
+          newValue.push(this.value)
+        });
+        $('#id_clients').val(newValue);
+      });
+
+      $('#liveportfolioForm').on('submit', function(e) {
+        console.log('here', e);
+        if ($('#total_percentage').text() !== '100%') {
+          $('#liveportfolioForm_sum_error').show();
+          return false;
+        }
+      });
+
+      $(document).on('change', '[id$=-percentage]', function() {
+        updateTotalPercentage();
+      });
+
+      updateTotalPercentage();
+    });
+  </script>
+{% endblock %}

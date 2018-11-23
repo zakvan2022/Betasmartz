@@ -1,0 +1,256 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+
+{% block main_content %}
+  <div class="container">
+
+    <h3>New Client</h3>
+
+    {% for item in form.errors.items %}
+      {{item}}
+    {% endfor %}
+
+    <form method="post" enctype="multipart/form-data" id="clientAppForm">
+      {% csrf_token %}
+      <h4 class="m-t">Personal Information</h4>
+      <div class="row">
+        <div class="col-sm-2">
+          {% bootstrap_field form.salutation %}
+        </div>
+        <div class="col-sm-8">
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.first_name %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.middle_name %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.last_name %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          {% bootstrap_field form.suffix %}
+        </div>
+      </div>
+      <h4 class="m-t">Contact Information</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.email %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.address1 %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.address2 %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.city %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.phone_num %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.post_code %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.state %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.country %}
+        </div>
+      </div>
+      <h4 class="m-t">Miscellaneous Information</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.gender %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.civil_status %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.date_of_birth %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.ssn %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_assistance_program %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_graduate_looking %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_parent_looking %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_eligible %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_provider_name %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_state %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_coverage_type %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.politically_exposed %}
+        </div>
+      </div>
+      <h4 class="m-t">Employment</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.employment_status %}
+        </div>
+        <div class="col-sm-9">
+          <div class="row employement-row"{% if not form.employment_status.value in employed_statuses %} style="display: none"{% endif %}>
+            <div class="col-sm-4">
+              {% bootstrap_field form.industry_sector %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.occupation %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.employer %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 income-col"{% if not form.employment_status.value in employed_statuses %} style="display: none"{% endif %}>
+          {% bootstrap_field form.income %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.other_income %}
+        </div>
+      </div>
+      <h4 class="m-t">Advisor</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.advisor %}
+        </div>
+      </div>
+      <hr />
+      <div class="text-center">
+        <button class="btn btn-primary-outline" type="reset">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block foot_js %}
+  <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeqDOMTcsTwwY6SBbOHIIx8Zb8jXH5jk0&libraries=places&callback=initAutocomplete" async defer></script>
+  <script type="application/javascript">
+  $(function () {
+    $('#id_ssn').mask('999-99-9999');
+    $('#id_ib_onboard-0-account_number').mask('U9999999');
+
+    $("#id_date_of_birth").datepicker({
+      format: 'yyyy-mm-dd',
+      endDate: "0d",
+      orientation: "top"
+    });
+
+    $("form button[type=reset]").click(function () {
+      window.location.href = "{% url 'firm:application' %}";
+    });
+
+    $('#id_employment_status').on('change', function(e) {
+      var val = parseInt(e.target.value);
+      if ({{employed_statuses}}.includes(val)) {
+        $('.employement-row').show();
+        $('.income-col input').attr('required', 'required');
+        $('.income-col').show();
+      } else {
+        $('.employement-row').hide();
+        $('.income-col input').removeAttr('required');
+        $('.income-col').hide();
+      }
+    });
+  });
+
+  var placeSearch;
+  function isComponentTypeOf(field) {
+    var func = function(component) {
+      return component.types[0] === field;
+    }
+    return func;
+  }
+  function AutoComplete(fieldMapping, autocompleteId) {
+    this.componentForm = {
+      street_number: 'long_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'short_name',
+      country: 'short_name',
+      postal_code: 'short_name'
+    };
+
+    this.fieldMapping = fieldMapping;
+
+    this.autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById(autocompleteId)),
+      {types: ['geocode']}
+    );
+    this.autocomplete.addListener('place_changed', this.fillInAddress.bind(this));
+  }
+
+  AutoComplete.prototype.fillInAddress = function() {
+    // Get the place details from the autocomplete object.
+    var place = this.autocomplete.getPlace();
+
+    for (var item of this.fieldMapping) {
+      var vals = [];
+      for (var field of item.fields) {
+        var component = place.address_components.find(isComponentTypeOf(field))
+        if (component) {
+          var type = component.types[0];
+          vals.push(component[this.componentForm[type]])
+        }
+      }
+      document.getElementById(item.elementId).value = vals.join(' ')
+    }
+  }
+
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
+
+  function initAutocomplete() {
+    new AutoComplete([
+      { elementId: 'id_address1', fields: ['street_number', 'route'] },
+      { elementId: 'id_city', fields: ['locality'] },
+      { elementId: 'id_state', fields: ['administrative_area_level_1'] },
+      { elementId: 'id_country', fields: ['country'] },
+      { elementId: 'id_post_code', fields: ['postal_code'] }
+    ], 'id_address1')
+  }
+
+  </script>
+{% endblock %}

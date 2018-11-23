@@ -1,0 +1,33 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+  <title>Betasmartz Client</title>
+</head>
+<body style="margin: 0; padding: 0;">
+<script language="JavaScript" type="text/javascript" src="//vhss-d.oddcast.com/vhost_embed_functions_v2.php?acc=6180320&js=1"></script>
+<script language="JavaScript" type="text/javascript">AC_VHost_Embed(6180320,window.innerWidth,window.innerWidth,'',1,1, 2535262, 2843138,1,0,'1531dfd8582728c8068dbdc8a8bc740d',0);</script>
+<script type="text/javascript">
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
+
+window.onmessage = function(e) {
+  if (e.data.type == 'oddcast') {
+    loadText(strip(e.data.payload), 2, 1, 3);
+    sayText(strip(e.data.payload), 2, 1, 3);
+  }
+};
+
+function vh_sceneLoaded (sceneIndex) {
+  window.parent && window.parent.postMessage({
+    type: 'oddcast',
+    payload: 'loaded'
+  }, '*')
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+      {% if site %}
+        {{ site.name }}
+      {% else %}
+        BetaSmartz
+      {% endif %}
+    </title>
+
+    <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,400italic" rel="stylesheet">
+
+    {# bootstrap css #}
+    <link href="{% static 'themes/betasmartz/dist/toolkit-light.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.13/integration/font-awesome/dataTables.fontAwesome.css" />
+    <link rel="stylesheet" href="{% static 'bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+    <link href="{% static 'css_new/app.css' %}" rel="stylesheet">
+
+    <script type="application/javascript">
+      window.betasmartz = {};
+    </script>
+
+    <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{% static 'themes/betasmartz/dist/toolkit.min.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static "js/autologout.js" %}"></script>
+
+    {% block head_js %}{% endblock %}
+    {% block css %}{% endblock %}
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+    {% include "partials_new/dialogs.html" %}
+
+    {% include "layouts_new/betasmartz/header.html" %}
+
+    <div class="m-t">
+      {% include "partials_new/flashes.html" %}
+    </div>
+
+    {% block main_content %}
+    {% endblock %}
+
+    {% include "layouts_new/betasmartz/footer.html" %}
+  </body>
+
+  {% block scripts %}
+    <script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
+    <script src="{% static 'bower_components/Chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'bower_components/typeahead.js/dist/typeahead.bundle.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
+    <script src="{% static 'js_new/app.js' %}"></script>
+  {% endblock %}
+  {% block foot_js %}{% endblock %}
+</html>

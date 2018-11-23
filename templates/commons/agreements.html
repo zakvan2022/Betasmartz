@@ -1,0 +1,94 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load filters %}
+
+
+{% block main_content %}
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <p>
+          Below is a list of clients that have electronically executed your advisory agreement.
+          If you would like to add or update your agreement, please email a PDF of your advisory
+          agreement, Form ADV Part 2, and initial privacy disclosure to
+          <a href="mailto:{{ firm.firm_details.advisor_support_email }}">
+            {{ firm.firm_details.advisor_support_email }}
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="row m-t">
+      <div class="col-sm-8">
+          <h3>Client agreements and KYC</h3>
+      </div>
+      <div class="col-sm-4">
+        <form>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" id="search"><span class="icon icon-magnifying-glass"></span></span>
+              <input type="search" name="search" placeholder="Search advisors..." value="{{ search }}" class="form-control" onchange="this.form.submit();" aria-describedby="search">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date executed</th>
+            <th>Agreement</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for client in clients %}
+            <tr>
+              <td>{{ client.full_name }}</td>
+              <td>{{ client.email }}</td>
+              <td>{{ client.create_date|date:'d-M-y H:i' }}</td>
+              <td>
+                {% if client.client_agreement %}
+                <a href="{% url "advisors:download-agreement" client.id %}">View</a>
+                {% else %}
+                  <i>Not available</i>
+                {% endif %}
+              </td>
+            </tr>
+           {% empty %}
+            <tr>
+              <td colspan="4" class="text-center">
+                No entries
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-muted m-t">
+      <p>This list does not include your clients who signed up while your firm
+        had no active agreement.</p>
+      <p>'Date executed' means the date on which the client electronically
+        signed your advisory agreement.</p>
+      <p>The agreements made available on this page are the agreements between
+        you and your client that your client executed electronically through
+        BetaSmartz's technology on the date provided. If you and your client
+        have updated and/or amended your agreement, the version provided on
+        this page will no longer be accurate. BetaSmartz has no responsibility
+        for storing and/or making available any subsequently updated and/or
+        amended agreements that you may have entered into with your clients
+        outside of BetaSmartz's technology. BetaSmartz has not reviewed your
+        agreements with your clients and takes no responsibility for the
+        contents of those agreements. This file also contains the Form ADV Part
+        2 and initial privacy disclosure, should you have provided these
+        documents to BetaSmartz to distribute to your clients along with your
+        advisory agreement.</p>
+
+    </div>
+  </div>
+{% endblock %}

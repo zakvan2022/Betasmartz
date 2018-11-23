@@ -1,0 +1,22 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ firm.name }}</title>
+  <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <link data-turbolinks-track="true" href="{% static 'css/client/app.css' %}" media="all" rel="stylesheet" />
+</head>
+
+<body class="advised-user">
+  {% include "partials/form-header.html" %}
+
+  <div class="clearfix" style="position: relative; margin-bottom: 40px;">
+    <section id="mainContent">
+      {% block main_content %}
+      {% endblock %}
+    </section>
+  </div>
+
+  {% include "partials/form-footer.html" %}
+</body>
+</html>

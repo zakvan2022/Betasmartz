@@ -1,0 +1,21 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+<table cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="color:{{text_color}};line-height:120%;font-family:{{font_family}};">
+      	<div style="font-size:12px;line-height:14px;color:{{text_color}};font-family:{{font_family}};text-align:left;">
+
+          <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: center">Hi <strong>{{client.name}}</strong></p>
+          <p style="margin: 0;font-size: 18px;line-height: 24px;text-align: center">
+            Information we hold for your follows, please contact <a href="mailto:{{advisor.firm.details.client_support_email}}">{{firm.details.client_support_email}}</a> to make any changes
+          </p>
+
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+
+{% endblock %}

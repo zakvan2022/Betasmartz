@@ -1,0 +1,57 @@
+<!-- Personality Modal -->
+{% block foot_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("click", ".personality-group .dropdown-item", function() {
+      var $this = $(this)
+      var percentage = $this.data('value');
+      $this.closest('.personality-group').find('.personality-percentage-value')
+        .css('left', percentage)
+        .find('.value').html(percentage)
+      $this.closest('.dropdown').find('.personality-value').html($this.html());
+    });
+    // $(document).on('show.bs.dropdown', '.personality-group .dropdown', function () {
+    //   var $this = $($(this).context);
+    //   var $parent = $this.parent();
+    //   $('body').append($this.css({
+    //     position:'absolute',
+    //     left:$this.offset().left,
+    //     top:$this.offset().top,
+    //     zIndex: 9999
+    //   }).detach()).data('parent', $parent);
+    //   var $space = $('<div />')
+    //     .addClass('spacing')
+    //     .css({ width: $this.outerWidth(), height: $this.outerHeight() })
+    //     .prependTo($parent);
+    // });
+    //
+    // $(document).on('hidden.bs.dropdown', '.personality-group .dropdown', function () {
+    //   console.log($this.data('parent'));
+    //   var $this = $(this);
+    //   $('.bs-example').append($this.css({
+    //     position:false, left:false, right:false, zIndex: false
+    //   }).detach());
+    // });
+  });
+
+</script>
+{% endblock %}
+
+<div tabindex="-1" class="modal fade" id="personalityModal" role="dialog" aria-hidden="true" aria-labelledby="personalityModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="personalityModalLabel">Personality Insights</h4>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          Loading...
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-link" data-target=".chartModal" data-toggle="modal" data-dismiss="#personalityModal">See Sunburst Visualisation <i class="fa fa-chevron-right"></i></a>
+        <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Cancel</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

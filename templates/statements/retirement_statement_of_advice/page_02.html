@@ -1,0 +1,76 @@
+{% load static from staticfiles %}
+{% load humanize %}
+
+<div id="page2-div" class="page-div">
+  <div class="page-div-inner">
+    <p><img class="bgimg" src="{% static 'statements/retirement/next_steps.png' %}" style="width: 1.6344in; height: 0.3899in;" /></p>
+    <p>
+      You should read the attached SOA and our Form ADV Part 2 and ensure you understand
+      our advice and the basis for it before proceeding. In addition,
+      {{owner.user.first_name}} {% if has_partner %} and {{partner_name}}{% endif %},
+      you should review your situation on a regular basis.
+    </p>
+    <p>
+      You can use our online planning tools as frequently as you like, and find more information
+      and ideas to help you make the right decisions.
+    </p>
+    <p style="margin-bottom: 0;">This SOA is comprised of 3 parts:</p>
+    <ul>
+      <li>Personal situation - which contains details of the information you have provided.</li>
+      <li>Recommendations - which contains details of the recommendations we are making for you.</li>
+      <li>Supplementary information - which contains fee and other important information.</li>
+    </ul>
+    <p>
+      If you have questions, or your situation changes, you can go online and update your details
+      or contact us on {{firm.daytime_phone_num}}.
+    </p>
+    <p style="margin-bottom: 40pt;">
+      We can help you keep your plan for your retirement up-to-date and give you the confidence
+      you need to keep on track for your future.
+    </p>
+    <p style="margin-bottom: 35pt;">
+      Sincerely yours
+    </p>
+    <p style="margin-bottom: 25pt;">
+      {{advisor.user.full_name}}
+    </p>
+    <p>
+      Financial Advisor<br />
+      Representative<br />
+      {{firm.name}}
+    </p>
+    {% if plan.agreed_on %}
+      <p>
+        By electronically signing this Statement of Advice you agree to the following retirement plan
+        being created by a representative of {{firm.name}}
+      </p>
+      <table style="border: none; width: 100%; margin-bottom: 15pt; font-size: 11pt;">
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <div style="position: relative; display: inline-block; font-family: 'Dancing Script'; font-size: 30pt; padding: 10pt 40pt 0;">
+                {{client.full_name}}
+                <hr style="border-bottom: 1pt solid #333; position: absolute; bottom: 5pt; width: 100%; left: 0; margin: 0;" />
+              </div>
+            </td>
+          <tr/>
+          <tr>
+            <td style="padding-top: 10pt; text-align: center;">
+              Date: {{agreed_on.date}}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-top: 10pt; text-align: center;">
+              Time: {{agreed_on.time}}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-top: 10pt; text-align: center;">
+              IP Address: {{client_ip}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,59 @@
+{% load static from staticfiles %}
+{% load pricing_plan app_filters %}
+
+
+{% for form in formset %}
+  <tr class="{{ type }}{% if form.instance.id %} existing{% endif %}">
+    <td>
+      {{ type|capfirst }}
+    </td>
+    <td class="form-group{% if form.errors %} has-error{% endif %}">
+      {% if form.instance.id %}
+        {{ form.instance.person }}
+        <input type="hidden" name="{{ form.person.html_name }}" value="{{ form.instance.person.id }}">
+      {% else %}
+        {{ form.person|add_class:"hidden" }}
+        <input type="text" class="form-control autocomplete" placeholder="Enter a name...">
+      {% endif %}
+      {{ form.id }}
+      <input type="hidden" class="form-parent" value="{{ firm.pricing_plan.id }}">
+      <input type="hidden" name="{{ form.parent.html_name }}" value="{% if form.instance.id %}{{ firm.pricing_plan.id }}{% endif %}">
+    </td>
+    <td>
+      {% if form.instance.id %}
+        {{ form.instance|display:"total" }}
+      {% else %}
+        {{ firm.pricing_plan|display:"total" }}
+      {% endif %}
+    </td>
+    <td>
+      {% if form.instance.id %}
+        {{ form.instance.parent|display:"system" }}
+      {% else %}
+        {{ firm.pricing_plan|display:"system" }}
+      {% endif %}
+    </td>
+    <td>{{ form.instance|display }}</td>
+    <td>
+        <div class="column">
+          {% if form.bps.errors %}
+            <span class="error">{{ form.bps.errors|join:"; " }}</span>
+          {% endif %}
+          <span>{{ form.bps|widget_class:'form-control' }} bps</span>,
+        </div>
+        <div class="column">
+          {% if form.fixed.errors %}
+            <span class="error">{{ form.fixed.errors|join:"; " }}</span>
+          {% endif %}
+          <span>$ {{ form.fixed|widget_class:'form-control' }}</span>
+        </div>
+        <div class="column">
+          <button type="submit" class="btn btn-primary-outline" data-type="{{ type }}">Save</button>
+          {% if form.instance.id %}
+            {{ form.DELETE }}
+            <button type="submit" data-type="{{ type }}" class="btn btn-danger-outline delete">Delete</button>
+          {% endif %}
+        </div>
+    </td>
+  </tr>
+  {% endfor %}

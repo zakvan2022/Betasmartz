@@ -1,0 +1,251 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <link href="{% static 'css_new/loading_spinner.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main_content %}
+  <div class="container">
+    <form class="row m-t">
+      <div class="col-sm-offset-3 col-sm-6">
+        <div class="row">
+          <div class="col-sm-3 text-right">
+            <h4 style='padding-top: 8px;'>Filter by:</h4></li>
+          </div>
+          <div class="col-sm-9">
+            {% bootstrap_field users_filter.form.users show_label=False show_help=False %}
+          </div>
+
+          <div class="hidden">
+              <!-- Semi-hidden fields -->
+            {% bootstrap_field filter.form.worth show_label=False show_help=False %}
+            {% bootstrap_field filter.form.risk show_label=False show_help=False %}
+          </div>
+        </div>
+      </div>
+
+      <!-- RESERVED
+      {% comment %}
+      <div class="col-sm-3">
+        {% bootstrap_field filter.form.group show_label=False show_help=False %}
+      </div>
+      {% endcomment %}
+      -->
+      <div class="col-sm-3">
+        {% bootstrap_field filter.form.worth show_label=False show_help=False %}
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-sm-3" style='position:relative; top:-52px;'>
+        {% for item in risks %}
+        <div onclick="onChangeRisk(event, {{ item.level }})" class="statcard statcard-analytics {% if item.level|stringformat:'i' in filter.form.risk.value %}statcard-primary{% else %}statcard-default{% endif %} {% if not forloop.first %}m-t{% endif %}">
+          <div class="p-a">
+            <span class="statcard-desc">{{ item.name }} <span class="icon icon-help-with-circle text-muted" data-toggle="tooltip" data-placement="right" title="
+            {% if item.name == 'Protected' %}
+              Clients that value protecting principal over seeking appreciation. This type of client is comfortable accepting lower returns for a higher degree of liquidity and/or stability. Typically, a Protected client primarily seeks to minimize risk and loss of principal.
+            {% elif item.name == 'Semi-protected' %}
+              Clients that value principal preservation, but are comfortable accepting a small degree of risk and volatility to seek some degree of appreciation. This type of client desires greater liquidity, is willing to accept lower returns, and is willing to accept minimal losses.
+            {% elif item.name == 'Moderate' %}
+              Clients that value reducing risks and enhancing returns equally. This type of client is willing to accept modest risks to seek higher long-term returns. A Moderate client may endure a short-term loss of principal and lower degree of liquidity in exchange for long-term appreciation.
+            {% elif item.name == 'Semi-dynamic' %}
+              Clients that value higher long-term returns and are willing to accept considerable risk. This type of client is comfortable with short-term fluctuations in exchange for seeking long-term appreciation. A Semi-Dynamic investor is willing to endure larger short-term losses of principal in exchange for the potential of higher long-term returns. Liquidity is a secondary concern to a Semi-Dynamic investor.
+            {% elif item.name == 'Dynamic' %}
+              Clients that value maximizing returns and are willing to accept substantial risk. This type of client believes maximizing long-term returns is more important than protecting principal. A Dynamic client may endure extensive volatility and significant losses. Liquidity is generally not a concern to these clients.
+            {% endif %}"></span></span>
+            <h4>
+              {{ item.value|currency }}
+              <small>{{ item.value_percent|percentage100 }}</small>
+            </h4>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="col-sm-9 loading" style="display: none;">Loading&#8230;</div>
+
+      <div class="col-sm-9" id='charts'>
+        <div>
+          {% if not empty_worth %}
+          <div>
+              <canvas id="lineChartA" width="300" height="100"></canvas>
+          </div>
+          {% else %}
+            No net worth results.
+          {% endif %}
+
+          {% if not empty_segments %}
+          <div class="m-t-md">
+            <h5>Segments</h5>
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td width="25%" class="text-center">
+                    <canvas id="doughnutChartA" width="100" height="100"></canvas>
+                    <div>
+                      Asset&nbsp;Class&nbsp;<span class="icon icon-help-with-circle text-muted" data-toggle="tooltip" data-placement="right" title="The different asset classes that clients have selected"></span>
+                    </div>
+                  </td>
+                  <td width="25%" class="text-center">
+                    <canvas id="doughnutChartB" width="100" height="100"></canvas>
+                    <div>
+                      Region&nbsp;<span class="icon icon-help-with-circle text-muted" data-toggle="tooltip" data-placement="right" title="The geographic regions that clients' investments are focussed on"></span>
+                    </div>
+                  </td>
+                  <td width="25%" class="text-center">
+                    <canvas id="doughnutChartC" width="100" height="100"></canvas>
+                    <div>
+                      Investment Type&nbsp;<span class="icon icon-help-with-circle text-muted" data-toggle="tooltip" data-placement="right" title="A client's allocation to stocks and bonds"></span>
+                    </div>
+                  </td>
+                  <td width="25%" class="text-center">
+                    <canvas id="doughnutChartD" width="100" height="100"></canvas>
+                    <div>
+                      Portfolio&nbsp;<span class="icon icon-help-with-circle text-muted" data-toggle="tooltip" data-placement="right" title="The asset portfolio that clients have selected"></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+            No segments results.
+          {% endif %}
+
+
+          {% if not empty_events %}
+          <div class="m-t-md">
+            <h5>Goal Analysis</h5>
+            <canvas id="lineChartB" width="300" height="100"></canvas>
+          </div>
+          {% else %}
+            No goal analysis results.
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% include "firm/partials/modal-analytics-metric.html" %}
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+
+<script type='text/javascript'>
+$(document).ready(function(){
+  // Sonstructs the suggestion engine
+  var users = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/api/v1/user-names/?search=%QUERY',
+      wildcard: '%QUERY',
+      transform: function(res) {
+        return res.data;
+      }
+    }
+  });
+  users.initialize();
+
+  var $users_input = $('#id_users');
+  $users_input.tagsinput({
+    tagClass: function(item) {
+      switch (item.role) {
+        case 'advisor': return 'label label-danger';
+        case 'client': return 'label label-primary';
+      }
+    },
+    itemValue: 'id',
+    itemText: 'name',
+    typeaheadjs: {
+      name: 'users',
+      displayKey: 'name',
+      source: users.ttAdapter()
+    }
+  });
+  var filtered_users_json = {{filtered_users_json|safe}};
+  for(user of filtered_users_json) {
+    $users_input.tagsinput('add', user);
+  }
+  var submitForm = function() {
+    $(this).closest('form').submit();
+  }
+  $users_input
+    .on('itemAdded', submitForm)
+    .on('itemRemoved', submitForm);
+});
+</script>
+
+<script src="{% static 'js_new/randomColor.js' %}" type="text/javascript"></script>
+{% include "firm/partials/chart-worth.html" %}
+{% include "firm/partials/chart-events.html" %}
+{% include "firm/partials/chart-trinity.html" %}
+
+<script>
+  // Risk Filter Trigger
+  var onChangeRisk = function(event, value) {
+    // loading spinner
+    $('.loading').show();
+
+    // multiple select
+    // onclick, toggle event and value from select
+    // id_risk_1: value = 0
+    // id_risk_2: value = 20
+    // id_risk_3: value = 40
+    // id_risk_4: value = 60
+    // id_risk_5: value = 80
+
+    // pass if clicking on child elements
+    if (event.target.tagName == 'A') { return; }
+
+
+    function toggle_checked(id) {
+      if ($(id).is(':checked')) {
+        $(id).prop('checked', false);
+      } else {
+        $(id).prop('checked', true);
+      }
+    }
+
+    if (value == 0) {
+      toggle_checked("#id_risk_1");
+    } else if (value == 20) {
+      toggle_checked("#id_risk_2");
+    } else if (value == 40) {
+      toggle_checked("#id_risk_3");
+    } else if (value == 60) {
+      toggle_checked("#id_risk_4");
+    } else if (value == 80) {
+      toggle_checked("#id_risk_5");
+    }
+
+    $('#id_risk').closest('form').submit();
+  }
+</script>
+
+<script type='text/javascript'>
+  // Loading Spinner Triggers
+  $(document).on('change', '#id_worth', function() {
+    $('.loading').show();
+  });
+  /*
+  $('#id_advisor').closest('form').submit(function(e) {
+    e.preventDefault();
+    $('.loading').show();
+    this.submit();
+  });
+
+  $('#id_client').closest('form').submit(function(e) {
+    e.preventDefault();
+    $('.loading').show();
+    this.submit();
+  });
+  */
+</script>
+
+{% endblock %}

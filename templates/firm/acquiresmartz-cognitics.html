@@ -1,0 +1,43 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css_new/acquiresmartz.css' %}">
+{% endblock %}
+
+{% block foot_js %}
+<script type="text/javascript" src="{% static 'js/firm/acquiresmartz.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+<section>
+  <div class="container">
+    <h3>Cognitive client acquisition</h3>
+    <div class="row">
+      {% include "firm/partials/acquiresmartz-tabs.html" %}
+      {% include "firm/partials/acquiresmartz-period.html" %}
+    </div>
+    <div class="row">
+      {% include "firm/partials/acquiresmartz-sidebar.html" %}
+      <div class="col-lg-9 col-md-8 rightBig">
+        <table id="bigTable" class="table table-acquiresmartz">
+          <tr>
+            <td class="big-chart">
+              <div class="text-center">Feature not yet implemented.</div>
+              <!-- <p>Personality insights</p>
+              <div style="margin: auto;">
+                <canvas id="sunburst_chart"></canvas>
+              </div> -->
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "firm/partials/modal-acquiresmartz-campaign.html" %}
+{% include "firm/partials/modal-acquiresmartz-send-message.html" %}
+{% include "firm/partials/modal-acquiresmartz-personality.html" %}
+{% include "firm/partials/modal-acquiresmartz-chart.html" %}
+{% endblock %}

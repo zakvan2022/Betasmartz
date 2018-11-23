@@ -1,0 +1,44 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block main_content %}
+<section class="container m-t-lg">
+  <h1 class="text-center m-t-md m-b-md">Log in to your {{ user_group }} account</h1>
+
+  <div class="row">
+    <div class="col-sm-8 col-md-6 col-lg-6 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">
+
+      <form method="post">{% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+        {% csrf_token %}
+
+        {% bootstrap_form_errors form %}
+
+        <div class="form-group">
+          <input name="{{ form.username.html_name }}" type="text" placeholder="{{ form.username.label }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <input name="{{ form.password.html_name }}" type="password" placeholder="{{ form.password.label }}" class="form-control" required>
+        </div>
+
+        <!--
+        <div class="checkbox m-b">
+          <label>
+            <input name="{{ form.remember_me.html_name }}" type="checkbox"/>
+            {{ form.remember_me.label }}
+          </label>
+        </div>
+        -->
+        <button type="submit" class="btn btn-primary btn-block">{% trans 'Login' %}</button>
+      </form>
+
+      <ul class="list-unstyled text-center m-t-md">
+        <li><a href="{% url 'password_reset' %}">Forgot your password?</a></li>
+        <li><a href="{% url 'confirmation' %}">Didn't receive confirmation instructions?</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

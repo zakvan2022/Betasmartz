@@ -1,0 +1,200 @@
+.action-icon {
+	margin: 0 5px;
+	font-size: 20px;
+	text-decoration: none !important;
+}
+.action-icon:first-child {
+	margin-left: 0;
+}
+.action-target-user .fa-star {
+	display: none;
+}
+
+.action-target-user:active .fa-star,
+.action-target-user.active .fa-star {
+	display: inline-block;
+}
+
+.action-target-user:active .fa-star-o,
+.action-target-user.active .fa-star-o {
+	display: none;
+}
+
+.tweet-icon {
+	color: #29a8df;
+	font-size: 20px;
+}
+
+.btn-period {
+	text-align: left;
+	position: relative;
+}
+.btn-period .caret {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.table-acquiresmartz {
+	border: 1px solid #DDD;
+}
+
+.table-acquiresmartz .tweet-body {
+	white-space: normal;
+}
+
+.campaign-search-box {
+	margin-bottom: 0 !important;
+}
+
+.campaign-item {
+	display: table;
+	width: 100%;
+}
+.campaign-item.active a {
+	color: #FFFFFF;
+}
+
+.campaign-item a:hover, .campaign-item a:focus {
+	text-decoration: none;
+}
+
+.campaign-item:not(:last-child) {
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.campaign-item-left,
+.campaign-item-right {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.campaign-item-left {
+	padding: 10px 0 10px 10px;
+	width: 80%;
+}
+.campaign-item-right {
+	width: 20%;
+	text-align: right;
+}
+/*Main Modal CSS */
+.modal-header {
+	background-color: #DDD;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.star {
+	color: red;
+}
+.hr-small {
+	margin: 10px 0 !important;
+}
+.error-msg {
+	text-align: left;
+}
+.error-msg p {
+	font-size: 10px;
+	display: inline-block;
+	color: red;
+}
+/* Message Modal CSS */
+.text-left {
+	text-align: left !important;
+}
+.modal-input-border-bottom input {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	box-shadow: none;
+	border-radius: 0;
+}
+/* Star Modal CSS */
+/* Personality Modal*/
+.consumption-preferences {
+	max-height: 200px;
+	overflow: auto;
+}
+.personality-percentage {
+	position: relative;
+	height: 24px;
+	padding-top: 12px;
+	margin: 0 10px 10px;
+}
+.personality-percentage:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 5px;
+	border-bottom: 2px solid #DDD;
+}
+
+.personality-percentage-value {
+	transform: translate(-50%, 0%);
+	position: absolute;
+	text-align: center;
+	transition: left .5s;
+	font-size: 12px;
+	line-height: 1;
+}
+
+.personality-percentage-value .value {
+	transform: translate(-50%, 0%);
+	left: 50%;
+	position: absolute;
+	bottom: 100%;
+}
+.personality-percentage-value .circle {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-top: 1px;
+}
+.personality-item-label {
+	padding: 0 10px;
+	font-size: 12px;
+}
+.personality-box {
+	border: 1px solid #DDD;
+	padding: 15px;
+	overflow: auto;
+	margin-bottom: 15px;
+}
+.lit-right {
+	float: right;
+	font-size: 12px;
+	padding: 5px;
+}
+.glyphicon-menu-right {
+	clear: both;
+}
+/* Chart Modal */
+.chart {
+	width: 70%;
+}
+.big-chart {
+	text-align: center;
+}
+@media only screen and (min-width: 992px) {
+	.rightBig {
+		padding-left: 0;
+	}
+	.personality-box {
+		height: 350px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.modal-title {
+		margin: 0;
+	}
+	.rightBig {
+		margin-left: 0;
+	}
+}
+@media only screen and (min-width: 501px) and (max-width: 767px) {
+	.rightBig {
+		margin-left: 0;
+	}
+}

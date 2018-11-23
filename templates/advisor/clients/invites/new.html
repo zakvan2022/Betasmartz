@@ -1,0 +1,191 @@
+{% extends "layouts_new/base.html" %}
+
+{% load static from staticfiles %}
+{% load i18n bootstrap3 filters %}
+
+
+{% block main_content %}
+  <div class="container">
+
+    <h3>Enter your client's details</h3>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-lg-6 col-md-5">
+
+          <p class="m-t">Enter your client's name and email to invite them to open their account.</p>
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.salutation %}
+            </div>
+            <div class="col-sm-8">
+              {% bootstrap_field form.first_name %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.middle_name %}
+            </div>
+            <div class="col-sm-8">
+              {% bootstrap_field form.last_name %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.suffix %}
+            </div>
+            <div class="col-sm-8">
+              {% bootstrap_field form.access_level %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.reason %}
+            </div>
+            <div class="col-sm-8">
+              {% bootstrap_field form.email %}
+            </div>
+          </div>
+        </div>
+
+        {% if site.config.abridged_onboarding_enabled %}
+          <div class="col-lg-6 col-md-7">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h4>Clients with existing Interactive Brokers Accounts</h4>
+                <div class="row">
+                  {% bootstrap_field form.ib_account_number label_class='col-xs-12' field_class='col-xs-4' placeholder="U_______" %}
+                </div>
+                <hr style="margin: 15px -15px;" />
+                <h6>To apply a risk tolerance classification to your client's account</h6>
+                <h4>Risk tolerance</h4>
+                <div class="clearfix">
+                  <div class="col-1-5 text-center">
+                    <label class="control-label">Conservative</label>
+                  </div>
+                  <div class="col-1-5 text-center">
+                    <label class="control-label">Moderately Conservative</label>
+                  </div>
+                  <div class="col-1-5 text-center">
+                    <label class="control-label">Moderate Growth</label>
+                  </div>
+                  <div class="col-1-5 text-center">
+                    <label class="control-label">Moderately Aggressive</label>
+                  </div>
+                  <div class="col-1-5 text-center">
+                    <label class="control-label">Aggressive</label>
+                  </div>
+                </div>
+                <div class="form-group" id="risk_score_group">
+                  <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-sm btn-primary-outline">
+                      <input type="radio" name="risk_score" value="0.0" autocomplete="off"> Protective
+                    </label>
+                    <label class="btn btn-sm btn-primary-outline">
+                      <input type="radio" name="risk_score" value="0.19" autocomplete="off"> Semi-Protective
+                    </label>
+                    <label class="btn btn-sm btn-primary-outline">
+                      <input type="radio" name="risk_score" value="0.35" autocomplete="off"> Moderate
+                    </label>
+                    <label class="btn btn-sm btn-primary-outline">
+                      <input type="radio" name="risk_score" value="0.54" autocomplete="off"> Semi-Dynamic
+                    </label>
+                    <label class="btn btn-sm btn-primary-outline">
+                      <input type="radio" name="risk_score" value="0.7" autocomplete="off"> Dynamic
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix">
+                  <div class="col-1-5">
+                    <p><small>Values protecting principal over seeking appreciation</small></p>
+                  </div>
+                  <div class="col-1-5">
+                    <p><small>Values principal preservation: comfortable accepting small degree of risk and volatility</small></p>
+                  </div>
+                  <div class="col-1-5">
+                    <p><small>Reducing risks and enhancing returns equally: modest risks to seek higher long-term returns</small></p>
+                  </div>
+                  <div class="col-1-5">
+                    <p><small>Values higher long-term returns and is willing to accept significant risk</small></p>
+                  </div>
+                  <div class="col-1-5">
+                    <p><small>Values maximizing returns and is willing to accept substantial risk</small></p>
+                  </div>
+                </div>
+                <h6 class="text-primary">
+                  <strong>Note:</strong> By applying a risk profile to your client's account,
+                  they will not be asked additional risk profile questions and only you, as advisor,
+                  will be able to update their risk profile in the future.
+                </h6>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="m-t">
+        <button class="btn btn-primary-outline" type="reset">Cancel</button>
+        <button id="id_submit" class="btn btn-primary pull-right" type="submit">Send Invite</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block foot_js %}
+  <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+  <script type="application/javascript">
+  $(function() {
+    $("form button[type=reset]").click(function () {
+        window.location.href = "{% url "advisor:clients:invites" %}";
+    });
+    $('#id_ib_account_number').mask('U9999999').attr('placeholder', 'U_______');
+    $('#risk_score_group label').on('click', function(e) {
+      var $this = $(this);
+      if ($this.hasClass('active')) {
+        $this.removeClass('active');
+        $this.find('input').removeAttr('checked');
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    var handleAccessLevelChange = function(val) {
+      if (val == 3) { // CLIENT_NO_ACCESS
+        $('[name=risk_score]').attr('required', 'required');
+
+        $('#id_email')
+          .removeAttr('required')
+          .attr('disabled', 'disabled')
+          .closest('.form-group').removeClass('required');
+
+        $('#id_ib_account_number')
+          .attr('required', 'required')
+          .closest('.form-group').addClass('required');
+
+        $('#id_submit').html('Create Client');
+      } else {
+        $('[name=risk_score]').removeAttr('required');
+
+        $('#id_email')
+          .attr('required', 'required')
+          .removeAttr('disabled')
+          .closest('.form-group').addClass('required');
+
+        $('#id_ib_account_number')
+          .removeAttr('required')
+          .closest('.form-group').removeClass('required');
+
+        $('#id_submit').html('Send Invite');
+      }
+    };
+    $('[name=access_level]').on('change', function() {
+      var $this = $(this);
+      handleAccessLevelChange($this.val());
+    });
+    handleAccessLevelChange($('[name=access_level]').val());
+  })
+
+  </script>
+{% endblock %}

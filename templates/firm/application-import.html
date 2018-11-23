@@ -1,0 +1,19 @@
+{% extends "layouts_new/base.html" %}
+{% load static from staticfiles %}
+
+
+{% block main_content %}
+  <div class="container">
+    <h3>Upload Clients from CSV</h3>
+    <form method="POST" enctype="multipart/form-data" class="form m-t">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Choose a CSV File that contains clients data. <a href="{% static 'sample_downloads/import_client_sample.csv' %}" target="_blank">Download Sample</a></label>
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+      </div>
+      <div class="text-right">
+        <button class="btn btn-primary">Upload</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

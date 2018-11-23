@@ -1,0 +1,123 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+      Risk Management
+    </h3>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="title">Major Equity Holdings vs Benchmark Weight</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background height-50">
+              <th>Company</th>
+              <th>Country</th>
+              <th>Ticker code</th>
+              <th>Weight (%)</th>
+              <th>Benchmark weight (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+            <tr class="even">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+            <tr class="odd">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+            <tr class="even">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+            <tr class="odd">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+            <tr class="even">
+              <td>Alphabet</td>
+              <td>US</td>
+              <td>GOOGL</td>
+              <td>0.5</td>
+              <td>0.2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-6">
+        <p class="title">Major Equity Contributors to Performance</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background height-50">
+              <th>Company</th>
+              <th>Month Return</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+            <tr class="even">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+            <tr class="odd">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-6">
+        <p class="title">Major Equity Detractors from Performance</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background height-50">
+              <th>Company</th>
+              <th>Month Return</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+            <tr class="even">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+            <tr class="odd">
+              <td>Alphabe</td>
+              <td>US</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div>   
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

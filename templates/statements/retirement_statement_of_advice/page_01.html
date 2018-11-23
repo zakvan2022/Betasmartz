@@ -1,0 +1,96 @@
+<div id="page1-div" class="page-div">
+  <div class="page-div-inner">
+
+    <div class="page-content" style="padding-left: 0.26in;">
+      <p style="padding-top: 50px; margin-bottom: 74px; white-space:nowrap">
+      	{{statement.create_date|date:"F d, Y"}}
+      </p>
+
+      <p style="margin-bottom: 45px;">
+      	{{owner.full_name}}<br/>
+      	{{owner.residential_address.address}}<br/>
+      	{{owner.residential_address.region.name}}
+      	{{owner.residential_address.post_code}}
+      	{{owner.residential_address.global.name}}<br/>
+      </p>
+
+      <p style="margin-bottom: 30px;">
+      	Dear {{owner.first_name}}{% if has_partner %} and {{partner_name}}{% endif %},
+      </p>
+      <div class="justified">
+        <p>We are here to help you achieve your retirement dreams.</p>
+        <p>Thank you for the opportunity to help you plan your retirement and get you on track for the future.</p>
+        <p>We're pleased to provide your Retirement Plan Statement of Advice (SOA), which details our advice. This document will help you understand how you're placed to meet your dream retirement outcome.</p>
+        <p>In preparing this document we have taken into account the information you provided, together with your financial situation, needs and goals. In particular you told us that:</p>
+        <ul>
+          <li>
+            {{client.first_name}}, you want to retire at {{plan.retirement_age}}
+            {% if has_partner %} and {{partner_name}}, you want to retire at {{plan.partner_data.retirement_age}}{% endif %}.
+          </li>
+          <li>
+            At retirement you want to start using your retirement savings as income.
+          </li>
+          <li>
+            You want to know how long your money will last through retirement.
+          </li>
+          <li>
+            You want to know what type of lifestyle you’ll have in retirement.
+          </li>
+        </ul>
+        <p>Full details of how we meet these objectives and goals can be found within the Recommendations section of this Statement of Advice (SOA).</p>
+      </div>
+    </div>
+    <div class="sidebar">
+      <p>
+      	<img src="{{ firm.colored_logo }}" class="firm_logo" />
+      </p>
+      <p class="firm_row">
+      	{{firm.name}} <br />
+      	{{firm.firm_details.office_address.address}}<br />
+      	{{firm.firm_details.office_address.region.name}}<br />
+      	{{firm.firm_details.office_address.post_code}}<br />
+      	{{firm.firm_details.office_address.global.name}}<br />
+      </p>
+
+      <div class="banner banner-intro">
+        <h3>Dream</h3>
+        <p style="margin-bottom: 40pt;">
+          It all starts with a dream<br />
+          for life after work. We'll<br />
+          talk to members first<br />
+          about where they want to<br />
+          be so we can find the<br />
+          best way to get them
+          there.
+        </p>
+        <h3>Plan</h3>
+        <p style="margin-bottom: 40pt;">
+          Dreams without a plan are<br />
+          just wishes. Your unique<br />
+          retirement dreams need a<br />
+          plan that's made just for<br />
+          them - a personal, ongoing<br />
+          plan that changes as their<br />
+          life does.
+        </p>
+        <h3>Achieve</h3>
+        <p>
+          Success doesn't happen<br />
+          by chance. A watchful eye<br />
+          and dependable support<br />
+          can help get you where<br />
+          you want to be.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="intro-footer">
+    Retirement Plan Statement of Advice (SOA) Please make sure you read each section of this SOA as
+    it explains the advice provided by a representative of {{firm.name}}, AFSL No {{firm.afsl_asic}}
+    ABN {{firm.australian_business_number}}. You can visit us at
+    {{firm.firm_details.office_address.full_address}},
+    write to us at {{firm.firm_details.postal_address.full_address}},
+    or visit us at {{firm.firm_details.site_url}}.
+    Please refer to the enclosed SFS Financial Services Guide (FSG).
+  </div>
+</div>

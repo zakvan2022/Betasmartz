@@ -1,0 +1,86 @@
+{% extends "layouts_new/base.html" %}
+{% load static from staticfiles %}
+{% load i18n filters pricing_plan %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static "css/firm/pricing-plan.css" %}">
+  <link rel="stylesheet" href="{% static "css/jquery-ui.min.css" %}">
+{% endblock %}
+
+
+{% block head_js %}
+  <script src="{% static "js/jquery-ui.min.js" %}" type="application/javascript"></script>
+  <script src="{% static 'js/client/firm/pricing-plans.js' %}" type="application/javascript"></script>
+{% endblock %}
+
+
+{% block main_content %}
+  <div class="container">
+    <div class="row m-t">
+      <div class="col-sm-8">
+          <!--h3 class="header">Support</h3 -->
+      </div>
+    </div>
+
+    <div>
+      {% include "firm/partials/menu-support.html" %}
+    </div>
+
+    <div class="panel panel-default m-t">
+      <form method="post" id="pricing-plans">
+        <div class="table-responsive">
+          {% csrf_token %}
+
+          <input type="hidden" name="submit" value="">
+
+          {{ advisor_formset.management_form }}
+          {{ client_formset.management_form }}
+
+          <table class="table">
+            <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Name</th>
+              <th>Total fee</th>
+              <th>Platform fee</th>
+              <th>Fee</th>
+              <th>BPS, Monthly fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="firm">
+              <td>Firm</td>
+              <td>{{ firm.name }}</td>
+              <td>{{ firm.pricing_plan|display:"total" }}</td>
+              <td>{{ firm.pricing_plan|display:"system" }}</td>
+              <td>{{ firm.pricing_plan|display }}</td>
+              <td>
+                  <div class="column">
+                    {% if firm_form.bps.errors %}
+                      <span class="error">{{ firm_form.bps.errors|join:"; " }}</span>
+                    {% endif %}
+                    <span>{{ firm_form.bps|widget_class:'form-control' }} bps</span>,
+                  </div>
+                  <div class="column">
+                    {% if firm_form.fixed.errors %}
+                      <span class="error">{{ firm_form.fixed.errors|join:"; " }}</span>
+                    {% endif %}
+                    <span>$ {{ firm_form.fixed|widget_class:'form-control' }}</span>
+                  </div>
+                  <div class="column">
+                    <button type="submit" class="btn btn-primary-outline" data-type="firm">Save</button>
+                  </div>
+              </td>
+            </tr>
+
+            {% include "firm/support-pricing-form.html" with type="advisor" formset=advisor_formset firm=firm %}
+
+            {% include "firm/support-pricing-form.html" with type="client" formset=client_formset firm=firm %}
+
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

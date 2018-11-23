@@ -1,0 +1,23 @@
+{% extends "layouts_new/base.html" %}
+
+{% block main_content %}
+  <section class="container m-t-lg">
+    {% if error %}
+      <div class="text-center">
+        Invalid token.
+      </div>
+      <div class="text-center">
+        <a href="{% url "login" %}">back</a>
+      </div>
+    {% else %}
+
+      <h1 class="text-center m-t-md m-b-md">Congratulations!</h1>
+
+      <div class="text-center">
+        Your joint account with {{ confirmation.cosignee.user.full_name }} has
+        been created.
+        You will receive an email message as well.
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

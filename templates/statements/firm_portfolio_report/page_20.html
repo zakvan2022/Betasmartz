@@ -1,0 +1,84 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+      Risk Management
+    </h3>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 chart-div">
+        <p class="title">Fund Performance:1m, 6m, 1y Returns</p>
+        {% if type == 'html' %}
+          <div id="fund_performance">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.fund_performance }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="col-sm-6 chart-div">
+        <p class="title">Fund Risk:1m, 6m, 1y Standard Deviation</p>
+        {% if type == 'html' %}
+          <div id="fund_risk">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.fund_risk }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="chart-last"></div>
+      <div class="col-sm-6">
+        <p class="title">Fund Performance Table vs Benchmark 1m, 6m, 1y</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background">
+              <th>Company</th>
+              <th>Month return</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-6">
+        <p class="title">Actual Asset Class Returns Total Over Month, 6m, 1y</p>
+        <table class="w-100">
+          <thead>
+            <tr class="text-white dark-red-background">
+              <th>Fund</th>
+              <th>Month return</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+            <tr class="even border">
+              <td>xyz</td>
+              <td>y%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div> 
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

@@ -1,0 +1,1 @@
+[{"fields": {"name": "BONDS", "description": ""}, "model": "portfolios.investmenttype", "pk": 1}, {"fields": {"name": "STOCKS", "description": ""}, "model": "portfolios.investmenttype", "pk": 2}, {"fields": {"name": "MIXED", "description": ""}, "model": "portfolios.investmenttype", "pk": 3}]

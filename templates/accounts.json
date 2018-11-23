@@ -1,0 +1,67 @@
+{% load app_filters%}[{% for account in profile.accounts.all %}{% for goal in account.goals.all %}{% if forloop.counter == 1 and forloop.parentloop.counter == 1 %}{% else %},{% endif %}
+    {
+      "id": {{goal.pk}},
+      "regions_currencies": {{goal.regions_currencies}},
+      "regions_allocation": {{goal.regions_allocation}},
+      "stocks_and_bonds": "{{goal.stocks_and_bonds}}",
+      "optimization_mode": {{goal.optimization_mode}},
+      "picked_regions": {{goal.picked_regions}},
+      "hedges": {{goal.hedges}},
+      "name": "{{goal.name}}",
+      "accountNumber": "{{account.pk}}",
+      "ordering": {{forloop.counter0}},
+      "rebalanceEnabled": true,
+      "smartDepositViolations": [
+        "not_plaid"
+      ],
+      "smartDepositConfig": {
+        "enabled": false
+      },
+      "accountGroupId": {{ account.pk }},
+      "portfolioSetId": {{goal.portfolio_set_id}},
+      "accountType": "{{goal.account_type}}",
+      "createdDate": "{{goal.created |c_datetime}}",
+      "goalAmount": {% if goal.target != None %}"{{goal.target}}" {% else %} null{% endif %},
+      "income": {% if goal.income %} true {% else %} false{% endif %},
+      "goalType": "{{goal.type}}",
+      "goalCompletionDate": "{{goal.completion_date |c_datetime}}",
+      "automaticDepositId": {% if goal.auto_deposit %}{{goal.auto_deposit.pk}}{% else %}null{% endif %},
+      {% if goal.auto_deposit %}"automaticDeposit": {"transactionDateTime2": {% if goal.auto_deposit.transaction_date_time_2 %}"{{goal.auto_deposit.transaction_date_time_2| c_datetime}}" {% else %} null {% endif %}, "transactionDateTime1": "{{goal.auto_deposit.transaction_date_time_1 | c_datetime}}", "nextTransaction": "{{goal.auto_deposit.next_transaction| c_datetime}}", "lastPlanChange": "{{goal.auto_deposit.last_plan_change| c_datetime}}", "id": {{goal.auto_deposit.pk}}, "frequency": "{{goal.auto_deposit.frequency}}", "amount": "{{goal.auto_deposit.amount}}", "enabled": {{goal.auto_deposit.is_enabled}} },{% endif %}
+      "automaticWithdrawalId": {% if goal.auto_withdrawal %}{{goal.auto_withdrawal.pk}}{% else %}null{% endif %},
+      {% if goal.auto_withdrawal %}"automaticWithdrawal": {"transactionDateTime2": {% if goal.auto_withdrawal.transaction_date_time_2 %}"{{goal.auto_withdrawal.transaction_date_time_2| c_datetime}}" {% else %} null {% endif %}, "transactionDateTime1": "{{goal.auto_withdrawal.transaction_date_time_1 | c_datetime}}", "nextTransaction": "{{goal.auto_withdrawal.next_transaction| c_datetime}}", "lastPlanChange": "{{goal.auto_withdrawal.last_plan_change| c_datetime}}", "id": {{goal.auto_withdrawal.pk}}, "frequency": "{{goal.auto_withdrawal.frequency}}", "amount": "{{goal.auto_withdrawal.amount}}", "enabled": {{goal.auto_withdrawal.is_enabled}} },{% endif %}
+      "allocation": {{goal.allocation}},
+      "satelliteAlloc": {{goal.satellite_pct}},
+      "canChangeAllocation": true,
+      "currentBalance": "{{goal.total_balance}}",
+      "availableBalance": "{{goal.available_balance}}",
+      "availableBalanceForWithdrawal": "{{goal.available_balance}}",
+      "pendingDeposits": "{{goal.pending_incomings}}",
+      "transferAllTo": null,
+      "pendingWithdrawals": "{{goal.pending_outgoings}}",
+      "pendingConversions": "{{goal.pending_conversions}}",
+      "recharacterized": "{{goal.recharacterized}}",
+      "stockBalance": "{{goal.stock_balance}}",
+      "bondBalance": "{{goal.bond_balance}}",
+      "cashBalance": "{{goal.cash_balance}}",
+      "lifetimeAverageBalance": "{{goal.life_time_average_balance}}",
+      "lifetimeReturn": "{{goal.life_time_personal_return}}",
+      "totalInvested": "{{goal.total_invested}}",
+      "totalEarned": "{{goal.total_earned}}",
+      "accountReturn": {
+        "deposits": "{{goal.total_deposits}}",
+        "withdrawals": "{{goal.total_withdrawals}}",
+        "otherAdjustments": "{{goal.other_adjustments}}",
+        "fees": "{{goal.total_fees}}",
+        "dividends": "{{goal.total_dividends}}",
+        "marketChanges": "{{goal.market_changes}}",
+        "totalInvested": "{{goal.total_invested}}",
+        "totalEarned": "{{goal.total_earned}}",
+        "lifetimeReturn": "{{goal.life_time_return}}",
+        "lifetimePersonalReturn": "{{goal.life_time_personal_return}}",
+        "lastEndingBalance": "{{goal.total_balance}}",
+        "averageBalance": "{{goal.life_time_average_balance}}"
+      }
+    }
+    {% endfor %}
+  {% endfor %}
+]

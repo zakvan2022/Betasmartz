@@ -1,0 +1,10 @@
+<div class="col-sm-4 bordered chart-comment">
+  {% if commentary.market_key_commentary %}
+    <p class="title">Key Commentary</p>
+    <p>{{ commentary.market_key_commentary }}</p>
+  {% endif %}
+  {% if commentary.market_near_term_outlook %}
+    <p class="title">Near term Outlook</p>
+    <p>{{ commentary.market_near_term_outlook }}</p>
+  {% endif %}
+</div>

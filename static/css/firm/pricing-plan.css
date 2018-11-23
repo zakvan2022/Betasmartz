@@ -1,0 +1,31 @@
+#pricing-plans .column {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+#pricing-plans table {
+  margin-bottom: 0;
+}
+
+#pricing-plans td {
+  vertical-align: middle;
+}
+
+#pricing-plans .column input {
+    width: 7rem;
+    text-align: right;
+    display: inline-block;
+}
+
+#pricing-plans span.error {
+    color: red;
+    display: block;
+}
+
+
+#pricing-plans [name$='-DELETE'],
+#pricing-plans .existing [name$='-person'],
+#pricing-plans [name$='-parent']
+{
+    display: none;
+}

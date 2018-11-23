@@ -1,0 +1,7 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+
+    Your client {{ account.primary_owner }} has requested that their assets held in {{ account.name }} ({{ account.id }}) be liquidated. The account will be closed when this liquidation has taken place.
+	
+{% endblock %}

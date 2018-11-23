@@ -1,0 +1,86 @@
+{% load static from staticfiles %}
+<div class="a4-page" id="economic">
+  <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}"> Economic Information - Hong Kong</h3>
+  
+  <div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 chart-div">
+          <p class="title">Chart 1.</p>
+          {% if type == 'html' %}
+            <div id="hk_economic_chart1"></div>
+          {% elif type == 'pdf' %}
+            <img src="{{ charts.hk_economic_chart1 }}" alt="" class="chart-img" />
+          {% endif %}
+        </div>
+        <div class="col-sm-6 chart-div">
+          <p class="title">Chart 2.</p>
+          {% if type == 'html' %}
+            <div id="hk_economic_chart2"></div>
+          {% elif type == 'pdf' %}
+            <img src="{{ charts.hk_economic_chart2 }}" alt="" class="chart-img" />
+          {% endif %}
+        </div>
+        <div class="chart-last"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="title">Table 1.</p>
+          <table class="w-100">
+            <thead>
+              <tr class="text-white dark-red-background">
+                <th>Key Economic Statistics</th>
+                <th>Latest</th>
+                <th>&#9651 3m</th>
+                <th>&#9651 6m</th>
+                <th>&#9651 12m</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for table_content in tables.hk_economic_table1 %}
+                <tr class="{%if forloop.counter0|divisibleby:2 %}odd{% else %}even{% endif %}">
+                  <td>{{ table_content.label }}</td>
+                  <td>{{ table_content.latest }}</td>
+                  <td>{{ table_content.last_three }}</td>
+                  <td>{{ table_content.last_six }}</td>
+                  <td>{{ table_content.last_year }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-6">
+          <p class="title">Table 2.</p>
+          <table class="w-100">
+            <thead>
+              <tr class="text-white dark-red-background">
+                <th>Key Economic Statistics</th>
+                <th>Latest</th>
+                <th>&#9651 3m</th>
+                <th>&#9651 6m</th>
+                <th>&#9651 12m</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for table_content in tables.hk_economic_table2 %}
+                <tr class="{%if forloop.counter0|divisibleby:2 %}odd{% else %}even{% endif %}">
+                  <td>{{ table_content.label }}</td>
+                  <td>{{ table_content.latest }}</td>
+                  <td>{{ table_content.last_three }}</td>
+                  <td>{{ table_content.last_six }}</td>
+                  <td>{{ table_content.last_year }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>   
+    </div>
+
+    {% include "statements/firm_portfolio_report/partials/economic_commentary.html" %}
+    
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

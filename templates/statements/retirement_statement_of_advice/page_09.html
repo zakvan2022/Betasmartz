@@ -1,0 +1,149 @@
+{% load i18n filters %}
+<div id="page9-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark">Recommendations 1</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <div class="page-div-inner">
+    <div class="page-content">
+      <p class="green-color italic" style="font-weight: 700;">
+        Current Sources of Qualified Retirement Income
+      </p>
+      <p style="text-transform: uppercase; font-weight: 700;">
+        PENSIONS &amp; ANNUITIES
+      </p>
+      <table class="page9-table light-green italic">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="top-left-radius">{{client.full_name}}</th>
+            <th class="top-right-radius">{% if has_partner %}{{partner_name}}{% else %}Spouse{% endif %}</th>
+          </tr>
+        </thad>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>{{pensions_annuities.name}}</td>
+            <td>&nbsp;</td><!-- TODO: spouse's pension_name -->
+          </tr>
+          <tr>
+            <td>Start Date</td>
+            <td>{% if pensions_annuities.begin_date %}{{pensions_annuities.begin_date}}{% else %}N/A{% endif %}</td><!-- TODO: pension_start -->
+            <td>&nbsp;</td><!-- TODO: spouse's pension_start -->
+          </tr>
+          <tr>
+            <td>Amount(future dollars)</td>
+            <td>{% if pensions_annuities.amount %}{{pensions_annuities.amount|currency:0}}{% else %}N/A{% endif %}</td><!-- TODO: pension_amount -->
+            <td>&nbsp;</td><!-- TODO: spouse's pension_amount -->
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>{{pensions_annuities.account_type|account_type_text}}</td>
+            <td>{% if has_partner %}{{pensions_annuities.account_type|account_type_text}}{% endif %}</td><!-- TODO: spouse's account_type -->
+          </tr>
+          <tr>
+            <td>Taxable Amount</td>
+            <td>{% if pensions_annuities.amount %}{{pensions_annuities.amount|currency:0}}{% else %}N/A{% endif %}</td><!-- TODO: taxable_amount -->
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td class="bottom-left-radius">&nbsp;</td>
+            <td class="bottom-right-radius">&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <table class="page9-table green italic">
+        <thead>
+          <tr>
+            <th style="padding: 0; font-weight: 700; text-align: left; vertical-align: top;">SOCIAL SECURITY <br />ESTIMATED BENEFIT</th>
+            <th class="top-left-radius">{{client.full_name}}</th>
+            <th class="top-right-radius">{% if has_partner %}{{partner_name}}{% else %}Spouse{% endif %}</th>
+          </tr>
+        </thad>
+        <tbody>
+          <tr>
+            <td>Estimated start age</td>
+            <td>{{plan.retirement_age}}</td>
+            <td>&nbsp;</td><!-- TODO: spouse's pension_start -->
+          </tr>
+          <tr>
+            <td>Social Security amount <br />(todays dollars)</td>
+            <td>{{client.ss_fra_todays|currency:0}}</td>
+            <td>&nbsp;</td><!-- TODO: spouse's ss_fra_todays -->
+          </tr>
+          <tr>
+            <td>Social Security amount <br />(future dollars)</td>
+            <td>{{client.ss_fra_retirement|currency:0}}</td>
+            <td>&nbsp;</td><!-- TODO: spouse's ss_fra_retirement -->
+          </tr>
+          <tr>
+            <td>Taxable Amount</td>
+            <td>{{client.ss_fra_todays|currency:0}}</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td class="bottom-left-radius">&nbsp;</td>
+            <td class="bottom-right-radius">&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <table class="page9-table green italic">
+        <thead>
+          <tr>
+            <th style="padding: 0; font-weight: 700; text-align: left; vertical-align: top;">REVERSE MORTGAGE</th>
+            <th class="top-left-radius top-right-radius">&nbsp;</th>
+          </tr>
+        </thad>
+        <tbody>
+          <tr>
+            <td>Property valuation (today)</td>
+            <td>{{client.home_value|currency:0}}</td>
+          </tr>
+          <tr>
+            <td>Property valuation (future)</td>
+            <td>{{projection.house_value_at_retire_in_todays|currency:0}}</td>
+          </tr>
+          <tr>
+            <td>Estimated reverse mortgage payment</td>
+            <td>{{projection.reverse_mort_pymnt_at_retire_in_todays|currency:0}}</td><!-- TODO: reverse_mort_payment -->
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td class="bottom-left-radius bottom-right-radius">&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="sidebar" style="bottom: 0;">
+      <div class="banner banner-grey full-height">
+        <h4 class="green-color italic">
+          Important Information
+        </h4>
+        <p class="justified">
+          In relation to any Federal Social
+          Security payment noted (OASDI)
+          these are estimates only and not
+          guaranteed. You need to
+          contact the United States Social
+          Security Administration to find
+          out your actual entitlements.
+          Contact details can be found on
+          their website.
+        </p>
+        <p><a href="https://www.ssa.gov">www.ssa.gov</a></p>
+      </div>
+    </div>
+  </div>
+</div>

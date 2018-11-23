@@ -1,0 +1,314 @@
+{% extends "layouts/form-base.html" %}
+{% load i18n %}
+{% load app_filters %}
+{% block main_content %}
+<div id="signup">
+
+<h1 class="tab-header" id="signupWelcomeHeader">Sign up for a personal account</h1>
+
+<div class="left">
+
+
+<div class="uncaught-errors panel">
+<p>Oops! Looks like some things were missing:</p>
+<ul></ul>
+</div>
+
+<div class="panel card body big-form">
+<div class="clearfix">
+<h2>Tell us about yourself</h2>
+<p class="right header-detail">All required and confidential</p>
+</br></br>
+<p class="right header-detail"> What you need to apply:</p>
+    </br>
+<p class="right header-detail">You must be 18 years of age or older</p>
+    </br>
+<p class="right header-detail">You must be a citizen or  permanent resident of Australia</p>
+
+
+</div>
+
+<div>
+
+<form id="basicContact" action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="advisor" value="{{ advisor.pk }}">
+    {% for section in form.sections %}
+        <div class="section-container {{ section.css_class }}">
+        <div class="guest-form">
+
+            <div class="section-header">
+                <span class="left blue-circle">{{ forloop.counter }}</span>
+                <h3 class="left">{{ section.header }}</h3>
+                {%  if section.detail %}
+                <p class="section-details">{{ section.detail }}</p>
+                {% endif %}
+            </div>
+        {% for field in section.fields %}
+            <div class="input-line">
+            {{ field.label_tag }}
+                <span class="input-area">
+                    {{ field | add_class:'white' }}
+                    {% if field.help_text %}
+                        <h3 class="help_text">{{ field.help_text }}</h3>
+                    {% endif %}
+                    <div class="conversation-text"><span class="bad">{{ field.errors }}</span></div>
+                </span>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+        <hr>
+    {% endfor %}
+  <div class="tos client-agreement">
+        <div class="title">Adviser's Agreements:</div>
+
+        <div class="clearfix tos-line">
+            <input class="left" type="checkbox" name="advisor_agreement" value="true" data-error-element-selector=".agreement-error-client">
+            <div class="left">
+                By checking this box, you acknowledge that you have read and agree to the terms below.
+            </div>
+        </div>
+        <div class="agreement" data-expand="120">
+
+By checking the above box and clicking submit below, you agree to be bound by your advisor’s  <a href="{{ MEDIA_URL }}{{ advisor.firm.client_agreement_url }}" target="_blank">advisory agreement</a>.
+
+You understand and agree that this is solely an agreement between you and your advisor, and that BetaSmartz and its affiliates are not by any means acquiring any obligation or legal duties by permitting you and your advisor to execute the advisory agreement between you and your advisor. You understand that BetaSmartz has not reviewed the advisory agreement between you and your advisor. You further agree to hold harmless and indemnify BetaSmartz and its affiliates in connection with any content in your advisory agreement with your advisor.
+
+You consent to receive these documents in electronic form via this webpage. If you are unable to download and view these PDF documents, or do not consent to electronic delivery, you cannot submit your application using this application form. BetaSmartz will not charge you a fee to use this website, but you could incur expenses from your Internet service provider when you access information online. Your consent applies only to this transaction.
+
+By checking the above box and clicking submit below, you agree to be legally bound by your advisor’s advisory agreement’s terms and conditions. You understand that checking the above box and clicking submit below is the legal equivalent of signing your advisor’s advisory agreement by hand.
+
+</div>
+        <div class="agreement-error-client agreement-error conversation-text">
+            <span class="bad">{{ form.advisor_agreement.errors}}</span>
+        </div>
+
+        <hr>
+    </div>
+
+
+      <div class="tos client-agreement">
+            <div class="title">BetaSmartz's agreements</div>
+
+            <div class="clearfix tos-line">
+                <input class="left" type="checkbox" name="betasmartz_agreement" value="true" data-error-element-selector=".agreement-error-client">
+                <div class="left">
+                    By checking this box, you acknowledge that you have read and agree to the terms below.
+                </div>
+            </div>
+
+            <div class="agreement" data-expand="120">
+                 BetaSmartz’s <a href="http://www.betasmartz.com/terms-and-conditions/">privacy policy</a> and <a href="http://www.betasmartz.com/terms-and-conditions/">customer agreements</a>, which include the Brokerage Agreement, Advisory Agreement, Arbitration Agreements therein, consent to electronic delivery of documents and written communications, and other important agreements.
+                 (These agreements are also available on the terms and conditions page of this website.)
+            </div>
+             <div class="conversation-text">
+                    <span class="bad">{{ form.betasmartz_agreement.errors}}</span>
+                </div>
+            <hr>
+        </div>
+
+
+<div class="buttons" style="clear:both;">
+<input type="submit" class="blue ok" id="signup-complete">
+</div>
+</form>
+
+
+
+
+</div>
+</div>
+
+<div class="panel card body big-form identity-correction-form" style="display: none;">
+<div class="clearfix">
+<h2 class="form-header">Please verify the following and submit again.</h2>
+</div>
+
+<!-- SECTION 7 - identity correction -->
+<form id="identityCorrection"></form>
+
+<div class="buttons" style="clear:both;">
+<button class="blue ok" id="signup-complete">Submit</button>
+</div>
+</div>
+</div>
+
+<div class="right-rail">
+
+<div class="benefits-pane">
+</div>
+
+<div class="panel card body post-account-signup unadvised-user-only">
+<h4>After signing up for a personal account you can:</h4>
+<ul>
+<li>Set up a Joint Account</li>
+<li>Create a Trust Account</li>
+</ul>
+</div>
+
+
+
+<div class="panel card body support unadvised-user-only">
+<h5>Support</h5>
+<h4>Questions? Talk to us.</h4>
+
+<ul>
+<li>
+<span class="icon"><span class="phone-icon"></span></span>
+<span class="text">{{ SUPPORT_PHONE }}</span>
+</li>
+<li>
+<span class="icon"><span class="mail-icon"></span></span>
+<span class="text"><a href="mailto:{{ SUPPORT_EMAIL }}">{{ SUPPORT_EMAIL }}</a></span>
+</li>
+</ul>
+</div>
+
+<div class="panel card body support advised-user-only">
+<h4>Financial advice</h4>
+<p>For financial questions and advice, contact your advisor, {{ advisor.name }}.</p>
+<ul>
+<li>
+<span class="icon"><span class="phone-icon"></span></span>
+<span class="text advisor-phone" maxlength="14" autocomplete="off">{{ advisor.phone |phone_format }} </span>
+</li>
+<li>
+<span class="icon"><span class="mail-icon"></span></span>
+<span class="text"><a href="mailto:{{ advisor.email }}">Email</a></span>
+</li>
+</ul>
+
+<hr>
+
+<h4>Technical support</h4>
+<p>For technical questions, contact one of our support specialists.</p>
+<ul>
+<li>
+<span class="icon"><span class="phone-icon"></span></span>
+<span class="text">{{ SUPPORT_PHONE| phone_format }}</span>
+</li>
+<li>
+<span class="icon"><span class="mail-icon"></span></span>
+<span class="text"><a href="mailto:{{ SUPPORT_EMAIL }}">Email Support</a></span>
+</li>
+
+</ul>
+</div>
+
+<div class="panel card body security">
+<h4 class="advised-user-only">Security &amp; Privacy</h4>
+<h5 class="unadvised-user-only">Security &amp; Privacy</h5>
+<h4 class="unadvised-user-only">Betterment's Promise</h4>
+<div class="promise">
+<div class="icon advised-user-only unbranded-lock-icon"></div>
+<p>
+We promise to ensure the utmost security and privacy when it comes to your account.
+</p>
+<div class="clearfix"></div>
+</div>
+<ul>
+<li>
+<span class="icon"><span class="security-lock-icon"></span></span>
+<span class="text">Bank Level Security</span>
+<div class="clearfix"></div>
+</li>
+<li>
+<span class="icon"><span class="fraud-icon"></span></span>
+<span class="text">Fraud Protection</span>
+<div class="clearfix"></div>
+</li>
+
+<li>
+<span class="icon"><span class="ssl-icon"></span></span>
+<span class="text">Strongest Available Browser Encryption</span>
+<div class="clearfix"></div>
+</li>
+<li>
+<span class="icon small"><span class="privacy-icon"></span></span>
+<span class="text small">Paramount Privacy Protection</span>
+<div class="clearfix"></div>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    var set_tfn = function(){
+        var current_mask  = "";
+
+        $("#id_medicare_number").mask("9999 99999 9/9");
+        var SPMaskBehavior = function (val) {
+            return val.slice(0, 2) === "04" ? '9999 999 999' : '(99) 9999 9999';
+        }, spOptions = {
+            onKeyPress: function(val, e, field, options) {
+                if(field!==null && field!=undefined){
+
+                    var new_mask = SPMaskBehavior(field.cleanVal());
+                    console.log(new_mask);
+                    if (current_mask!==new_mask) {
+                        $("#id_phone_number").unmask();
+                        $("#id_phone_number").mask(new_mask, options);
+                        current_mask = new_mask;
+                    }
+
+                }
+
+            }
+        };
+        current_mask  = SPMaskBehavior("02");
+        $("#id_phone_number").mask(current_mask, spOptions);
+
+        $("#id_date_of_birth").attr("placeholder", "DD-MM-YYYY");
+        $("#id_date_of_birth").mask("99-99-9999", {placeholder: "DD-MM-YYYY"});
+
+        var value = $("ul#id_provide_tfn input:radio:checked").val();
+        if(value !=0){
+            $("input[name=tax_file_number]").parent().parent().hide();
+
+        }
+        else{
+            $("input[name=tax_file_number]").parent().parent().show();
+        }
+
+    };
+
+     var set_employment_status = function(){
+        var value = $("#id_employment_status option:selected").val();
+        if(value != 'FULL_TIME' && value != 'PART_TIME'){
+            $("#id_occupation").parent().parent().hide();
+            $("#id_employer").parent().parent().hide();
+            $("#id_occupation").val("");
+            $("#id_employer").val("");
+
+        }
+        else{
+            $("#id_occupation").parent().parent().show();
+            $("#id_employer").parent().parent().show();
+        }
+
+    };
+
+
+    set_tfn();
+    set_employment_status();
+    $("ul#id_provide_tfn input:radio").click(function() {
+        set_tfn();
+    });
+
+     $("#id_employment_status").change(function() {
+        set_employment_status();
+    });
+});
+
+
+</script>
+
+{% endblock %}
+
+
+

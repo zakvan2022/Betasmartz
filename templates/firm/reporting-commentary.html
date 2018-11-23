@@ -1,0 +1,28 @@
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="personalityModalLabel">{% if object %}Edit Commentary{% else %}New Commentary{% endif %}</h4>
+</div>
+<div class="modal-body">
+  <form method="post" action="{%if object %}{% url 'firm:reporting-commentary-edit' pk=object.id %}{% else %}{% url 'firm:reporting-commentary-new' %}{% endif %}">
+    {% csrf_token %}
+    {% bootstrap_field form.portfolio %}
+    {% bootstrap_field form.category %}
+    {% bootstrap_field form.key_commentary %}
+    {% if form.category.value != 1 %}
+      {% bootstrap_field form.near_term_outlook %}
+    {% endif %}
+    {% bootstrap_field form.publish_at %}
+    <div class="text-right">
+      <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+  $( "#id_publish_at" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+</script>

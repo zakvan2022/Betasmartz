@@ -1,0 +1,55 @@
+<!-- Message Modal -->
+<div tabindex="-1" class="modal fade" id="msgModal" role="dialog" aria-hidden="true" aria-labelledby="msgModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="msgModalLabel">Send message</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4 text-left"><input type="radio" name="text" value="" />Default message</label>
+                        <div class="col-xs-8"><input type="text" name="desc" placeholder="Hi, @CouEdwards, @BetaSmartz is in Chicago..." class="form-control modal-input-border-bottom" /></div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label class="control-label col-xs-4 text-left"><input type="radio" name="text" value="" />Custom message</label>
+                        <div class="col-xs-8"><input type="text" name="desc" placeholder="Max 140 characters" class="form-control modal-input-border-bottom" /></div>
+                    </div>
+                    <hr />
+                    <p class="text-center"><strong>@CouEdwards is most active at 6pm.</strong></p>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                          <label class="control-label">
+                              <input type="radio" name="text" value="">
+                              Send at 6pm
+                          </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-xs-6" style="padding-right: 0">
+                                    <input type="radio" name="text" value="">
+                                    Custom time
+                                </label>
+                                <div class="col-xs-6">
+                                    <input type="time" name="time" class="form-control modal-input-border-bottom">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                <input type="radio" name="text" value="">
+                                Send now
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary pull-right" type="button">Send</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

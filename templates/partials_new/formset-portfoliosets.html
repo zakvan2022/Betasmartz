@@ -1,0 +1,75 @@
+{% load bootstrap3 filters %}
+{% load static from staticfiles %}
+{% block foot_js %}
+  <script type="application/javascript" src="{% static "js_new/formset-portfoliosets.js" %}"></script>
+{% endblock %}
+<form method="post" target="_self" class="portfolio">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  <table class="table goals">
+    <thead>
+    <tr>
+      <th>Goal Name</th>
+      <th>Status</th>
+      <th>Balance</th>
+      <th>Return</th>
+      <th>Portfolio Strategy</th>
+      <th>Auto Frequency</th>
+      <th>Auto Amount</th>
+      <th>Term (yrs)</th>
+      <th>Target</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for form in formset %}
+      {% if form.id.value %}
+        {% with goal=form.instance %}
+        <tr class="tr-middle">
+          <td>
+            {{ form.id }}
+            {{ goal.name }}
+            {% if goal.is_pending %}
+              <br /><span class="text-danger">(Pending)</span>
+            {% endif %}
+          </td>
+          <td>{{ goal.get_state_display }}</td>
+          <td>{{ goal.total_balance|currency }}</td>
+          <td>{{ goal.total_return|currency }}</td>
+          <td>
+            {% if goal.is_open %}
+              <span id="initial_{{ form.portfolio_set.auto_id }}" data-value="{{form.portfolio_set.value}}"></span>
+              {% bootstrap_field form.portfolio_set show_label=False size='small' %}
+            {% endif %}
+          </td>
+          <td>{{ goal.auto_frequency }}</td>
+          <td>{{ goal.auto_amount }}</td>
+          <td>{{ goal.get_term }}</td>
+          <td>{{ goal.active_settings.target|currency }}</td>
+        </tr>
+        {% endwith %}
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-right">
+    <button type="button" data-target="#confirm_portfolio_changes_modal" data-toggle="modal" data-backdrop="static" class="show-confirm-modal btn btn-primary btn-sm hidden">Save Changes</button>
+  </div>
+</form>
+
+<div tabindex="-1" class="modal fade" id="confirm_portfolio_changes_modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h4 class="m-t">
+          Do you wish to save changes to the Portfolio Strategy?
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-primary save-portfolio" type="button">Yes</button>
+          <button class="btn btn-primary-outline" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,110 @@
+{% load i18n bootstrap3 filters %}
+{% block foot_js %}
+<script type="text/javascript">
+  var json_data = {{personality_insights|safe}};
+</script>
+{% endblock %}
+
+<div class="modal-header">
+  <h4 class="modal-title" id="personalityModalLabel">Personality Insights</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>@{{targetuser.twitter_username}} is likely to:</h4>
+      <div class="consumption-preferences">
+        {% for item in personality_insights.consumption_preferences %}
+          {% for subitem in item.consumption_preferences %}
+            {% if subitem.score >= 0.5 %}
+              <p><i class="fa fa-check-circle-o text-primary"></i> {{subitem.name}}</p>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <h4>@{{targetuser.twitter_username}} is unlikely to:</h4>
+      <div class="consumption-preferences">
+        {% for item in personality_insights.consumption_preferences %}
+          {% for subitem in item.consumption_preferences %}
+            {% if subitem.score < 0.5 %}
+              <p><i class="fa fa-times-circle-o text-danger"></i> {{subitem.name}}</p>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr class="hr-small" />
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="personality-box">
+        <p class="lit-right text-primary"><span>*% percentile</span></p>
+        <h4>Personality</h4>
+        {% for item in personality_insights.personality %}
+          <div class="personality-group">
+            <div class="dropdown">
+              <a id="personality_label_{{item.trait_id}}" class="btn btn-sm" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="personality-value">{{item.children.0.name}}</span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="personality_label_{{item.trait_id}}">
+                {% for subitem in item.children %}
+                  <li><a class="dropdown-item" href="#" data-value={{subitem.percentile|percentage100}}>{{subitem.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% with first_item=item.children.0 %}
+              <div class="personality-percentage">
+                <div class="personality-percentage-value" style="left: {{first_item.percentile|percentage100}}">
+                  <div class="value">{{first_item.percentile|percentage100}}</div>
+                  <div class="circle bg-primary"></div>
+                </div>
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="personality-box">
+        <p class="lit-right text-primary"><span>*% percentile</span></p>
+        <h4>Customer Needs</h4>
+        {% for item in personality_insights.needs %}
+          <div class="personality-group">
+            <div class="personality-item-label">{{item.name}}</div>
+            <div class="personality-percentage">
+              <div class="personality-percentage-value" style="left: {{item.percentile|percentage100}}">
+                <div class="value">{{item.percentile|percentage100}}</div>
+                <div class="circle bg-primary"></div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="personality-box">
+        <p class="lit-right text-primary"><span>*% percentile</span></p>
+        <h4>Values</h4>
+        {% for item in personality_insights.values %}
+          <div class="personality-group">
+            <div class="personality-item-label">{{item.name}}</div>
+            <div class="personality-percentage">
+              <div class="personality-percentage-value" style="left: {{item.percentile|percentage100}}">
+                <div class="value">{{item.percentile|percentage100}}</div>
+                <div class="circle bg-primary"></div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-link" data-target=".chartModal" data-toggle="modal" data-dismiss="#personalityModal" onClick="setupcontext(json_data, '{{targetuser.twitter_image}}')">
+    See Sunburst Visualisation <i class="fa fa-chevron-right"></i>
+  </a>
+  <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Cancel</button>
+</div>

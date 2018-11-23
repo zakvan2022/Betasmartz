@@ -1,0 +1,28 @@
+{% block foot_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#starModal .btn-target").on('click', function() {
+      $('#' + $('#starModal_target_form_id').val()).submit();
+    });
+  });
+
+</script>
+{% endblock %}
+
+<!-- Star Modal -->
+<div tabindex="-1" class="modal fade" id="starModal" role="dialog" aria-hidden="true" aria-labelledby="starModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h3 id="starModalLabel">Target user</h3>
+                <p>Do you want to target the selected user</p>
+                <p><strong id="starModal_target_username">@CouEdwards</strong></p>
+                <input type="hidden" id="starModal_target_form_id" value="" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary btn-target" type="button">Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

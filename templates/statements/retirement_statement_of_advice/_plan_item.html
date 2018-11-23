@@ -1,0 +1,25 @@
+{% load static from staticfiles %}
+{% load humanize %}
+<div class="plan-item">
+  <div class="plan-item-inner">
+    <div class="target">
+      Target
+    </div>
+    {% include "statements/retirement_statement_of_advice/_stars.html" with stars=lifestyle.stars desc=lifestyle.title star_size="lg" %}
+    <div class="title">
+      {{lifestyle.subtitle}}
+    </div>
+    <hr />
+    <div class="lifestyle-desc">
+      {{lifestyle.description}}
+    </div>
+    <hr />
+    <div class="lifestyle-income">
+      ${{lifestyle.income|intcomma}}
+    </div>
+    <hr />
+    <div class="lifestyle-image">
+      <img src="{% static lifestyle.image %}" alt="" />
+    </div>
+  </div>
+</div>

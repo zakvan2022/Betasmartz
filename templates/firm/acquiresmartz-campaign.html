@@ -1,0 +1,121 @@
+{% load i18n bootstrap3 filters %}
+<form class="form-horizontal" method="post" action="{%if campaign %}{% url 'firm:acquiresmartz:campaign-edit' pk=campaign.id %}{% else %}{% url 'firm:acquiresmartz:campaign-new' %}{% endif %}">
+  {% csrf_token %}
+  <input type="hidden" name="firm" value="{{firm.id}}" />
+  <div class="modal-header">
+    <h4 class="modal-title" id="editCampaignModalLabel">{%if campaign %}Edit{% else %}Add{% endif %} campaign</h4>
+  </div>
+  <div class="modal-body">
+    {% bootstrap_field form.title show_help=False label_class='col-xs-3 text-left' field_class='col-xs-9 modal-input-border-bottom' %}
+    <hr class="hr-small" />
+    {% bootstrap_field form.description show_help=False label_class='col-xs-3 text-left' field_class='col-xs-9 modal-input-border-bottom' %}
+    <hr class="hr-small" />
+    {% bootstrap_field form.search_term show_help=False label_class='col-xs-3 text-left' field_class='col-xs-9 modal-input-border-bottom' %}
+    <!-- <hr class="hr-small" />
+    <div class="form-group">
+      <label class="control-label col-xs-3 text-left">String</label>
+      <div class="col-xs-9">
+        <input type="text" name="string+" value="" class="form-control modal-input-border-bottom" />
+      </div>
+    </div> -->
+    <hr class="hr-small" />
+    {% bootstrap_field form.location show_help=False label_class='col-xs-3 text-left' field_class='col-xs-6' addon_before='<span class="icon icon-magnifying-glass"></span>' %}
+    <hr class="hr-small" />
+    <div class="row">
+      <label class="control-label col-xs-3 text-left"><br />Activity</label>
+      <div class="col-xs-3">
+        <div class="text-center">Tweets</div>
+        {% bootstrap_field form.statuses_count show_help=False show_label=False field_class='col-xs-12' %}
+      </div>
+      <div class="col-xs-3">
+        <div class="text-center">Following</div>
+        {% bootstrap_field form.following show_help=False show_label=False field_class='col-xs-12' %}
+      </div>
+      <div class="col-xs-3">
+        <div class="text-center">Followers</div>
+        {% bootstrap_field form.followers show_help=False show_label=False field_class='col-xs-12' %}
+      </div>
+    </div>
+    <hr class="hr-small" />
+    <div class="form-group">
+      <label class="control-label col-xs-3 text-left"><br />Usage</label>
+      <div class="col-xs-3">
+        <div class="text-center">Day</div>
+        <select id="sel4" class="form-control">
+          <option>All</option>
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
+      </div>
+      <div class="col-xs-3">
+        <div class="text-center">Time</div>
+        <select id="sel5" class="form-control">
+          <option>All</option>
+          <option>Morning</option>
+          <option>Afternoon</option>
+          <option>Evening</option>
+          <option>Overnight</option>
+        </select>
+      </div>
+      <div class="col-xs-3">
+        <div class="text-center">Hour</div>
+        <select id="sel6" class="form-control">
+          <option>All</option>
+          <option>0:00 am</option>
+          <option>1:00 am</option>
+          <option>2:00 am</option>
+          <option>3:00 am</option>
+          <option>4:00 am</option>
+          <option>5:00 am</option>
+          <option>6:00 am</option>
+          <option>7:00 am</option>
+          <option>8:00 am</option>
+          <option>9:00 am</option>
+          <option>10:00 am</option>
+          <option>11:00 am</option>
+          <option>12:00 am</option>
+          <option>1:00 pm</option>
+          <option>2:00 pm</option>
+          <option>3:00 pm</option>
+          <option>4:00 pm</option>
+          <option>5:00 pm</option>
+          <option>6:00 pm</option>
+          <option>7:00 pm</option>
+          <option>8:00 pm</option>
+          <option>9:00 pm</option>
+          <option>10:00 pm</option>
+          <option>11:00 pm</option>
+        </select>
+      </div>
+    </div>
+    <hr class="hr-small" />
+    {% bootstrap_field form.sentiment show_help=False label_class='col-xs-3 text-left' field_class='col-xs-6 modal-input-border-bottom' %}
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <label class="control-label col-xs-4 text-left">
+        Translation<br />
+        (non-English Tweets)
+      </label>
+      <div class="col-xs-3">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-primary group">YES</button>
+          <button type="button" class="btn btn-default group">NO</button>
+        </div>
+      </div>
+      <div class="col-xs-5 text-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    <div class="error-msg">
+      <p style="display: none;">Please include a campaign title</p>
+      <p style="display: none;">Please include a campaign description</p>
+      <p style="display: none;">Please include a campaign search string</p>
+    </div>
+  </div>
+</form>

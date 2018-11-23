@@ -1,0 +1,15 @@
+<style type="text/css">
+  /* for chart div
+  # if (type == html) origin else config
+  # trigger chart code in app.js if type == html*/
+  {% if type == 'pdf' %}
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    .a4-page {
+      height: 8.27in;
+    }
+  {% endif %}
+</style>

@@ -1,0 +1,110 @@
+.round-frame {
+  border: 1px solid @border-color;
+  box-sizing: content-box;
+  border-radius: 6px;
+  margin: 30px 0;
+  &:after {
+    clear:both;
+    content: '';
+    display: table;
+  }
+}
+
+.round-frame-row {
+  margin: 0 -15px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.round-frame-sidebar {
+  z-index: 10;
+  .nav-tabs {
+    border-bottom: none;
+  }
+}
+
+.round-frame-sidebar-inner {
+  height: 100%;
+}
+
+.round-frame-sidebar-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, .2);
+  }
+}
+
+.round-frame-sidebar-panel {
+  z-index: 1;
+  position: relative;
+  margin: 0;
+  border: none !important;
+  border-radius: 0;
+  align-self: stretch;
+  box-shadow: none;
+  background: none;
+  > .panel-body {
+    padding: 0;
+  }
+
+  .nav > li {
+    margin-top: 0;
+  }
+
+  .nav > li > a {
+    border-radius: 0;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left-width: 5px !important;
+    border-left-style: solid;
+    border-left-color: transparent;
+    color: #333;
+    margin-right: 0;
+    padding: 10px 15px;
+  }
+
+  .nav > li > a {
+    &, &:active, &:focus, &:hover {
+      background: inherit;
+      color: inherit;
+      font-weight: bold;
+    }
+  }
+
+  .nav > li:nth-child(odd) a {
+    background-color: #F9F9F9;
+  }
+
+  .nav > .active > a {
+    &, &:active, &:focus, &:hover {
+      border-left-color: @brand-primary;
+      color: #BBB;
+    }
+  }
+}
+
+.round-frame-sidebar-inner, .round-frame-sidebar-shadow:before {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  overflow: hidden;
+}
+
+.round-frame-content-pane {
+  margin: 0 0 0 -15px;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 30px 15px;
+}

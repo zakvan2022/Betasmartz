@@ -1,0 +1,7 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+
+	Client {{ account.primary_owner }} has elected to take transfer assets held in their {{ account.name }} ({{ account.id }}).
+
+{% endblock %}

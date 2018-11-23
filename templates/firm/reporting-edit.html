@@ -1,0 +1,15 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+{% block main_content %}
+  <div class="container">
+
+    <h3>Edit Portfolio</h3>
+
+    {% for item in form.errors.items %}
+      {{item}}
+    {% endfor %}
+    {% include "firm/partials/liveportfolio-form.html" %}
+  </div>
+{% endblock %}

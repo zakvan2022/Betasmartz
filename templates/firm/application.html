@@ -1,0 +1,68 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load filters %}
+
+
+{% block main_content %}
+  <div class="container">
+
+    <h3>
+      Application manager
+      <span class="pull-right">
+        <a href="{% url 'firm:application-new' %}" class="btn btn-primary">New Client</a>
+        &nbsp;
+        <a href="{% url 'firm:application-import' %}" class="btn btn-primary">Import CSV</a>
+      </span>
+    </h3>
+
+    <div class="row m-t">
+      <div class="col-sm-3 col-sm-offset-9">
+        <form>
+          {% bootstrap_field filter.form.search show_label=False show_help=False bound_css_class='' addon_before='<span class="icon icon-magnifying-glass"></span>' %}
+        </form>
+      </div>
+    </div>
+
+    <div class="m-t">
+      <div class="panel panel-default">
+        <div class="table-responsive">
+          <table class="table" id='client_application'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Advisor</th>
+                <th>Invited</th>
+                <th>Started</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for client in filter %}
+                <tr>
+                  <td>
+                    <a href="{% url 'firm:application-detail' client.id %}">
+                      {{ client.name }} <i class="fa fa-external-link"></i>
+                    </a>
+                  </td>
+                  <td><a href="mailto:{{ client.user.email }}">{{ client.user.email }}</a></td>
+                  <td><a href="{% url 'firm:overview-advisor' client.advisor.id %}">{{ client.advisor.name }}</a></td>
+                  <td>{{ client.user.invitation.created_at }}</td>
+                  <td>{{ client.user.invitation.last_sent_at }}</td>
+                  <td>{{ client.create_date }}</td>
+                </tr>
+               {% empty %}
+                <tr>
+                  <td colspan="6" class="text-center">
+                    No clients
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+
+{% block foot_js %}
+<script type="application/javascript" src="{% static "js/widgets.js" %}"></script>
+<script type="application/javascript" src="{% static "js/firm/activity.js" %}"></script>
+{% endblock %}
+
+
+{% block main_content %}
+  <div class="container">
+    <form id="activityFilterForm">
+      <div class="row m-t">
+        <div class="col-sm-6">
+            <h3>View your company activity</h3>
+        </div>
+        <div class="col-sm-2">
+          {% bootstrap_field filter.form.group show_label=False show_help=False bound_css_class='' %}
+        </div>
+        <div class="col-sm-2">
+          {% bootstrap_field filter.form.verb show_label=False show_help=False bound_css_class='' %}
+        </div>
+        <div class="col-sm-2">
+          {% bootstrap_field filter.form.period show_label=False show_help=False bound_css_class='' %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-xs-6 col-sm-offset-10" {% if filter.form.period.value == 'ytd' %} style="display: block" {% endif %} id="ytdPicker">
+          {% bootstrap_field filter.form.ytd show_label=False show_help=False %}
+        </div>
+      </div>
+      <div class="row" {% if filter.form.period.value == 'custom' %} style="display: block" {% endif %} id="customDatepicker">
+        <div class="col-sm-4 col-xs-8 col-sm-offset-8 col-xs-offset-2">
+          <div class="input-daterange input-group form-group">
+            {% bootstrap_field filter.form.start form_group_class='' show_label=False show_help=False bound_css_class='' %}
+            <span class="input-group-addon" style="width: 30px">to</span>
+            {% bootstrap_field filter.form.end form_group_class='' show_label=False show_help=False bound_css_class='' %}
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="page" value="{% if request.GET.page %}{{request.GET.page}}{% else %}1{% endif %}" />
+    </form>
+
+    <div class="panel panel-default">
+      <div class="table-responsive">
+        <table class="table" id="activity">
+          <thead>
+          <tr>
+            <th>Who</th>
+            <th>Did</th>
+            <th>What</th>
+            <th>When</th>
+            <th>Comment</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for item in activities %}
+            <tr>
+              <td>
+                {{ item.actor }} (<a href="mailto:{{ item.recipient.email }}">{{ item.recipient.email }}</a>)
+              </td>
+              <td>{{ item.verb }}</td>
+              <td>
+                {% if item.action_object|to_class_name == retirement_plan_class_name %}
+                  New Retirement Plan
+                  <br />
+                  <a href="{{ item.action_object.statement_of_advice.pdf_url }}" target="_blank">
+                    Statement of Advice
+                  </a>
+                  <br />
+                  {{ item.target|default_if_none:"&mdash;" }}
+                {% elif item.action_object|to_class_name == roa_class_name %}
+                  <a href="{{ item.action_object.pdf_url }}" target="_blank">
+                    Record of Advice
+                  </a>
+                  <br />
+                  {{ item.target.name }} Goal
+                {% else %}
+                  {{ item.target|default_if_none:"&mdash;" }} <br /> {{ item.action_object|default_if_none:"&mdash;" }}
+                {% endif %}
+              </td>
+              <td>{{ item.timestamp|date:'d-M-y H:i' }}</td>
+              <td>{{ item.description|default_if_none:"&mdash;" }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row hidden-xs">
+      <div class="col-xs-3" style="margin: 21px 0;">
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i> Download Activity as CSV</button>
+        </form>
+      </div>
+      <div class="col-xs-9 text-right">
+        {% bootstrap_pagination activities url=request.get_full_path pages_to_show=5 %}
+      </div>
+    </div>
+    <div class="visible-xs text-center">
+      {% bootstrap_pagination activities url=request.get_full_path pages_to_show=5 %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i> Download Activity as CSV</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

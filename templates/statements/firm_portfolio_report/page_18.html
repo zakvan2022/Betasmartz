@@ -1,0 +1,33 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+      Risk Management
+    </h3>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 chart-div">
+        <p class="title">Portfolio Weight and Risk Contributions</p>
+        {% if type == 'html' %}
+          <div id="portfolio_weight_risk1"></div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.portfolio_weight_risk1 }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="col-sm-6 chart-div">
+        <p class="title">Portfolio Weight and Return Contributions</p>
+        {% if type == 'html' %}
+          <div id="portfolio_weight_contributions">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.portfolio_weight_contributions }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="chart-last"></div>
+    </div>
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

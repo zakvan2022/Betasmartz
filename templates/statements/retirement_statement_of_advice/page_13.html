@@ -1,0 +1,52 @@
+{% load static from staticfiles %}
+{% load humanize %}
+{% load i18n filters %}
+<div id="page13-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark twolines">Supplementary Information 2</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <h4 class="page-subtitle-h4">
+    Appendix - projections (based on recommendations)
+  </h4>
+  <div style="height: 600pt; margin-top: 30pt; position: relative;">
+    {% if income_chart %}
+      <div class="income-chart" style="width: {{income_chart.x_width}}pt;">
+        <div class="chart-title">Retirement income (today's dollars)</div>
+        <div class="income-chart-inner">
+          <div class="income-chart-bars">
+            <div class="y-axis">
+              {% for y in income_chart.y_axis %}
+                <div class="y-label" style="height: {{income_chart.y_height}}%;">
+                  {{y|currency:0}}
+                </div>
+              {% endfor %}
+            </div>
+            {% for item in income_chart.values %}
+              <div class="chart-item" style="width: {{income_chart.x_interval}}pt;">
+                <div class="x-label">{{item.x_label}}</div>
+                <div class="bar">
+                  <div class="y-seg" style="height: {{item.y_offset}}%;"></div>
+                  {% for value in item.y_values %}
+                    <div class="y-seg" style="height: {{value}}%; background-color: {{income_chart.colors|index:forloop.counter0}};"></div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+            <div class="desired-income" style="top: {{income_chart.desired_income}}%;"></div>
+          </div>
+          <div class="clearfix">
+            {% for legend in income_chart.legends %}
+              <div class="legend">
+                <span class="legend-color" style="background-color: {{income_chart.colors|index:forloop.counter0}};"></span>
+                <span class="legend-label">{{legend}}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

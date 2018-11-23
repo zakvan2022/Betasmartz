@@ -1,0 +1,94 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    {% if is_client %}
+      {% if firm %}
+        {{ firm.name }}
+      {% else %}
+        BetaSmartz
+      {% endif %}
+    {% else %}
+      BetaSmartz
+    {% endif %}
+  </title>
+
+  <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <link data-turbolinks-track="true" href="{% static 'css/client/blessed3.css' %}" media="all" rel="stylesheet" /> 
+  <link data-turbolinks-track="true" href="{% static 'css/app.css' %}" media="all" rel="stylesheet" /> 
+  <script data-turbolinks-track="true" src="{% block main_js %}{% static 'js/app.js' %}{% endblock %}"></script>
+  <script data-turbolinks-track="true" src="{% static 'js/jquery-ui.min.js' %}"></script>
+
+  {{ csrf_meta }}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <script>
+    if ($.browser.msie) {
+    $('body').addClass('ie');
+    }
+  </script>
+  {% include "partials/header.html" %}
+
+  {% if is_advisor_view %}
+    <nav class="nav-bar advisor-nav">
+      <div>
+        <ul>
+          <li class="{% block nav_summary %}{% endblock %}">
+            <a href="/advisor/summary">Summary</a>
+          </li>
+          <li class="{% block nav_clients %}{% endblock %}">
+            <a href="/advisor/clients">Clients</a>
+          </li>
+
+          <li class="{% block nav_agreements %}{% endblock %}">
+            <a href="/advisor/agreements">Agreements</a>
+          </li>
+          
+          <li class="{% block nav_support %}{% endblock %}">
+            <a href="/advisor/support">Support</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  {% elif is_legal_view %}
+    <nav class="nav-bar">
+      <div>
+        <ul>
+          <li class="{% block firm_nav_summary %}{% endblock %}">
+            <a href="/firm/summary">Summary</a>
+          </li>
+          <li class="{% block firm_nav_users %}{% endblock %}">
+            <a href="/firm/users">Users</a>
+          </li>
+          <li class="{% block firm_nav_activity %}{% endblock %}">
+            <a href="/firm/activity">Activity</a>
+          </li>
+          <!--OBSOLETED li class="{% block firm_nav_agreements %}{% endblock %}">
+            <a href="/firm/agreements">Agreements</a>
+          </li-->
+          <li class="{% block firm_nav_application %}{% endblock %}">
+            <a href="/firm/application">Application manager</a>
+          </li>
+          <li class="{% block firm_nav_support %}{% endblock %}">
+            <a href="/firm/support">Support</a>
+          </li>
+          <li class="{% block firm_nav_analytics %}{% endblock %}">
+            <a href="/firm/analytics">Analytics</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  {% endif %}
+
+  {% include "partials/flashes.html" %}
+  <div class="main-content">
+  {% block main_content %}
+  {% endblock %}
+  </div>
+
+  {% include "partials/footer.html" %}
+</body>
+</html>

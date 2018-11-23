@@ -1,0 +1,38 @@
+{% load static from staticfiles %}
+<div class="a4-page" id="moderate">
+  <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+    Moderate Portfolio
+  </h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 chart-div">
+        <p class="title">Portfolio Performance Summary to {{current_date}}</p>
+        <p class="subtitle">&nbsp;</p>
+        <!-- <img class="chart" src="{% static 'images/firm_portfolio_report/portfolio-performance.png' %}"> -->
+        {% if type == 'html' %}
+          <div id="portfolio_performance" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.portfolio_performance }}" class="chart-img" / alt="" class="chart-img" />
+        {% endif %}
+        
+      </div>
+      <div class="col-sm-6 chart-div">
+        <p class="title">Investment Growth to {{ current_date }}</p>
+        <p class="subtitle">Growth of $100 invested since inception</p>
+        {% if type == 'html' %}
+          <div id="investment_growth" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.investment_growth }}" class="chart-img" / alt="" class="chart-img" />
+        {% endif %}
+        <!-- <img class="chart" src="{% static 'images/firm_portfolio_report/investment-growth.jpg' %}"> -->
+      </div>
+      <div class="chart-last"></div>      
+    </div>
+  </div>
+  
+  {% include "statements/firm_portfolio_report/partials/portfolio_commentary.html" %}
+
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

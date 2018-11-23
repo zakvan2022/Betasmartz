@@ -1,0 +1,129 @@
+li.active a {
+  color: white !important;
+}
+
+.statistics-table tr td {
+  border: none !important;
+}
+
+tr.even {
+  background : #faf9f7;
+}
+
+.scroll-table-wrap {
+  display: block;
+  height: 230px;
+  overflow-y: auto;
+}
+
+.holdings {
+  margin: 0 !important;
+}
+
+.holdings tr {
+  background : #faf9f7;
+}
+
+.holdings tbody tr:hover {
+  background: white;
+}
+
+.holdings td:first-child {
+  cursor: pointer;
+  width: 70%;
+}
+
+.holdings th {
+  border: 1px solid #ddd !important
+}
+
+.holdings td {
+  border: 1px solid #ddd
+}
+
+.holdings .fa-link {
+  margin-right: 10px;
+}
+
+.holdings__tickers-row > td {
+  padding: 0 !important;
+}
+
+.holdings__tickers-row td a {
+  color: green;
+}
+
+.holdings__tickers-table {
+  border: none !important;
+  margin: 0 !important;
+}
+
+.holdings__tickers-table td:first-child {
+  border-left: 0;
+  padding-left: 30px;
+}
+
+.holdings__tickers-table td:last-child {
+  border-right: 0;
+}
+
+.expand-sign {
+  color: green;
+  margin-right:10px;
+}
+
+.expand-sign.expanded i {
+  transform: rotate(90deg);
+}
+
+.holdings .pie {
+  float: left;
+  margin-right: 10px;
+  transform: rotate(-90deg);
+  width: 40px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.holdings .pie + div {
+  margin-top:10px;
+}
+
+.holdings .pie circle {
+  fill: none;
+  stroke: gold;
+  stroke-width: 32;
+  animation: rotate 1.5s ease-in;
+}
+
+.holdings__tickers {
+  width: 100%;
+}
+
+#client-table {
+  width: 100% !important;
+}
+
+#client-table td {
+  border: 0;
+}
+
+#client-table tr td:first-child {
+  text-align: center;
+}
+
+.filter-advisor {
+  width: 200px;
+}
+
+.client-download-bar {
+  width: 200px;
+}
+
+.client-download-bar .btn-group {
+  width: 100%;
+}
+
+.client-download-bar button {
+  width: 50%;
+}

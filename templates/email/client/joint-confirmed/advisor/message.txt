@@ -1,0 +1,6 @@
+Dear {{ advisor.user.first_name }},
+
+Your clients, {{ client.user.full_name }} ({{ client.id }}) and {{ confirmation.cosignee.user.full_name }} ({{ confirmation.cosignee.id }}), have created a joint account (Account number: {{ confirmation.account.id }}). The account is now live and can be accessed from your advisor login.
+
+Regards,
+{{ firm }}.

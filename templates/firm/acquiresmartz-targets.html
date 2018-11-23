@@ -1,0 +1,72 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css_new/acquiresmartz.css' %}">
+{% endblock %}
+
+{% block foot_js %}
+<script type="text/javascript" src="{% static 'js/firm/acquiresmartz.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+<section>
+  <div class="container">
+    <h3>Cognitive client acquisition</h3>
+    <div class="row">
+        {% include "firm/partials/acquiresmartz-tabs.html" %}
+        {% include "firm/partials/acquiresmartz-period.html" %}
+    </div>
+    <div class="row">
+      {% include "firm/partials/acquiresmartz-sidebar.html" %}
+      <div class="col-lg-9 col-md-8 rightBig">
+        <div class="table-responsive">
+          <table id="bigTable" class="table table-hover table-acquiresmartz">
+            <thead>
+              <tr>
+                <th><span class="caret"></span></th>
+                <th>Handle</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if target_user_filter %}
+                {% for item in target_user_filter %}
+                  <tr>
+                    <td><span class="tweet-icon"><i class="fa fa-twitter"></i></span></td>
+                    <td>
+                      <p>@{{item.twitter_username}}</p>
+                      <div class="text-primary tweet-body">{{item.body}}</div>
+                    </td>
+                    <td>{{item.twitter_display_name}}</td>
+                    <td></td>
+                    <td>{{item.posted_time|time}}</td>
+                    <td>
+                      <p>{{item.posted_time|date}}<p>
+                      <p>
+                        <a href="#" class="action-icon" title="Message" data-target="#msgModal" data-toggle="modal"><i class="fa fa-envelope-o"></i></a>
+                        <a href="{% url 'firm:acquiresmartz:personality-insights' pk=item.id %}" class="action-icon" title="Personality" data-target="#personalityModal" data-toggle="modal"><i class="fa fa-user"></i></a>
+                        <a href="#" class="action-icon" title="Target" data-target="#starModal" data-toggle="modal"><i class="fa fa-chevron-right"></i></a>
+                      </p>
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+              <tr><td colspan="6" class="text-center">No target users added.</td></tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "firm/partials/modal-acquiresmartz-campaign.html" %}
+{% include "firm/partials/modal-acquiresmartz-send-message.html" %}
+{% include "firm/partials/modal-acquiresmartz-personality.html" %}
+{% include "firm/partials/modal-acquiresmartz-chart.html" %}
+{% endblock %}

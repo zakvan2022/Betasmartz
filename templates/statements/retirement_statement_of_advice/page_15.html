@@ -1,0 +1,90 @@
+{% load static from staticfiles %}
+{% load humanize %}
+{% load i18n filters %}
+<div id="page17-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark twolines">Supplementary Information 4</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <h3 class="page-subtitle">
+    Assumptions used for Your Retirement Plan:
+  </h3>
+  <h4 class="page-subtitle-h4">
+    These notes and assumptions should be read in conjunction with the projection.
+  </h4>
+  <p style="margin-bottom: 20pt;">
+    It is important to remember the amounts projected are illustrations only and your actual
+    results are not guaranteed in any way. Your actual future benefit amounts will vary
+    depending on the actual contributions, investment returns, fees, and other external
+    factors (such as tax and inflation).
+  </p>
+  <div style="margin: 0 -10pt;">
+    <div class="fl" style="width: 50%; padding: 10pt;">
+      <h4 class="page-subtitle-h4">
+        Today's dollars
+      </h4>
+      <p>
+        The results are shown in "today's dollars" so they are consistent with today's
+        living standards. The inflation rate used varies based on our long term inflation
+        forecast that we update monthly.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Administration fees
+      </h4>
+      <p>
+        For the period up to the retirement age, an administration fee of
+        $1.25 per week, plus an indirect administration cost of <advisor_fee> <!-- TODO: implement advisor_fee -->
+        per annum of your account balance has been included in the projections.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Income account payments
+      </h4>
+      <p>
+        The total pension payment in retirement (i.e. Income account payments from
+        the super accounts plus the Government pension where relevant) has been indexed
+        annually at 3.0% per annum. The minimum annual income payment percentages from
+        your super account can be found at www.ato.gov.au/super. The Government pension
+        rules are set by Parliament. The amount of the Government pension and other
+        thresholds are updated regularly.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Investment return
+      </h4>
+      <p>
+        The assumed annual investment return is customized according to your Risk Profile
+        which determines your annual target return in excess of inflation. The higher your
+        Risk Profile then the higher will be your excess return over inflation each year.
+      </p>
+    </div>
+    <div class="fl" style="width: 50%; padding: 10pt;">
+      <h4 class="page-subtitle-h4">
+        Contributions and taxes
+      </h4>
+      <p>
+        All regular contributions have been indexed based on our long term inflation forecast.
+        Contributions have been assumed to be paid regularly during each year. We optimize
+        your retirement after- tax income based on your projected marginal tax rate.
+      </p>
+      <p>
+        No allowance has been made for the application of the Superannuation Guarantee (SG)
+        maximum threshold, any tax payable on the projected super benefit at your retirement
+        age and any tax payable or rebates on the projected pension payments in retirement.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Life expectancy
+      </h4>
+      <p>
+        We calculate your life expectancy based on the standard ife tables published by the
+        Social Security Administration and then adjust them based on your lifestyle choices.
+      </p>
+      <h4 class="page-subtitle-h4">
+        Social Security
+      </h4>
+      <p>
+        All estimated benefits are based solely on information provided by the Social Security Administration.
+      </p>
+    </div>
+  </div>
+</div>

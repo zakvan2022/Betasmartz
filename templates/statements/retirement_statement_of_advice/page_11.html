@@ -1,0 +1,74 @@
+{% load humanize %}
+{% load i18n filters %}
+<div id="page11-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark">Recommendations 3</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <div class="page-div-inner">
+    <div class="page-content">
+      <p class="green-color" style="font-weight: 700;">
+        Benefits of your Retirement Plan
+      </p>
+      <ul>
+        <li>Helps you understand what your retirement options will look like.</li>
+        <li>Will allow you to decide how to set up your retirement to suit your situation.</li>
+      </ul>
+      <p class="green-color" style="font-weight: 700;">
+        Things you should be aware of:
+      </p>
+      <ul>
+        <li>Investment options with a greater weighting to shares can be more volatile, and can move both up and down.</li>
+        <li>
+          These projections are based on your current income, marginal tax rate and income growth rate.
+          IRS tax rules may change over your working life. Your income and income growth rate may also
+          differ over your working life. However, in order to optimize your after—tax outcomes we have
+          assumed the current tax, your income and your projected income growth rate remain the same
+          over the remainder of your working life. As and when they change we will adjust your plan
+          accordingly in a timely manner.
+        </li>
+      </ul>
+      <p class="green-color" style="font-weight: 700;">
+        What your Retirement Plan is based on:
+      </p>
+      <p style="padding-left: 15pt;">
+        Social Security status: Individual <!-- TODO: implement social security status: individual/joint -->
+        <br />
+        Homeowner: Yes <!-- TODO: implement homeowner -->
+      </p>
+    </div>
+    <div class="sidebar" style="bottom: 0;">
+      <div class="banner banner-grey full-height">
+        <h4 class="green-color italic">
+          Important Information
+        </h4>
+        <p class="justified">
+          You have chosen this retirement plan using RetireSmartz. You should also read
+          the relevant product brochure for more information including terms, conditions
+          and definitions.
+        </p>
+        <p class="justified">
+          {{firm.name}} and its affiliates do not provide tax, legal or accounting advice.
+          This material has been prepared for informational purposes only, and is not intended
+          to provide, and should not be relied on for, tax, legal or accounting advice.
+          You should consult your own tax, legal and accounting advisors before engaging
+          in any transaction.
+        </p>
+        <h4 class="green-color italic" style="margin-top: 60pt;">
+          How to stay on track
+        </h4>
+        <p class="justified">
+          You can get more help with your retirement accounts by using RetireSmartz as part of your online account.
+        </p>
+        <p class="justified">
+          You can find more information and ideas and use the RetireSmartz online planning
+          tools to help you make the right decisions. If you have any questions or concerns
+          please call your advisor, {{advisor.first_name}}, on {{advisor.phone_num}} before
+          implementing the advice.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

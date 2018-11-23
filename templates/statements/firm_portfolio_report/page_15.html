@@ -1,0 +1,29 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}">  
+      Market Information
+    </h3>
+  {% else %}
+    <div class="separate-line"></div>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <p class="title">Fixed Income</p>
+        {% if type == 'html' %}
+          <div id="fixed_income">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.fixed_income }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+
+      {% include "statements/firm_portfolio_report/partials/market_commentary.html" %}
+
+    </div>
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

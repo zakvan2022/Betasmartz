@@ -1,0 +1,7 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+
+	Your client {{ account.primary_owner }} has elected to take direct custody of the assets held in their {{ account.name }} ({{ account.id }}). As such the account will be closed and the assets delivered to the client or liquidated where this is not possible.
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+{% block foot_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".acquiresmartz-sidebar .campaign-item-left").click(function() {
+      $(".acquiresmartz-sidebar .campaign-item").removeClass("bg-primary active");
+      $(this).parent().addClass("bg-primary active");
+    });
+  });
+
+</script>
+{% endblock %}
+
+<div class="col-lg-3 col-md-4 m-b">
+    <div class="acquiresmartz-sidebar">
+        <table class="table table-acquiresmartz">
+          <thead><tr><th>Campaign</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>
+                <form method="get">
+                  {% bootstrap_field campaign_filter.form.search show_label=False show_help=False bound_css_class='campaign-search-box' addon_before='<span class="icon icon-magnifying-glass"></span>' %}
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0">
+                {% for item in campaign_filter %}
+                  <div class="campaign-item{% if pk == item.pk %} bg-primary active {% endif %}">
+                    <a class="campaign-item-left" href="{% if view|to_class_name == 'FirmAcquireSmartzTargets' %}{% url 'firm:acquiresmartz:targets-campaign' pk=item.pk %}{% elif view|to_class_name == 'FirmAcquireSmartzCognitics' %}{% url 'firm:acquiresmartz:cognitics-campaign' pk=item.pk %}{% else %}{% url 'firm:acquiresmartz:leads-campaign' pk=item.pk %}{% endif %}">
+                      <h4 class="left">{{item.title}}</h4>
+                      <p class="left">{{item.description}}</p>
+                    </a>
+                    <div class="campaign-item-right">
+                      <a href="{% url 'firm:acquiresmartz:campaign-edit' pk=item.id %}" class="btn btn-link pull-right" data-toggle="modal" data-target="#editCampaignModal">Edit</a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="text-right">
+                <a href="{% url 'firm:acquiresmartz:campaign-new' %}" class="btn btn-link" data-toggle="modal" data-target="#editCampaignModal">
+                  Add a new campaign
+                  <i class="fa fa-plus-circle"></i>
+                </a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+    </div>
+</div>

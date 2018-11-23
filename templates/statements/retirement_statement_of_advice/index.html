@@ -1,0 +1,280 @@
+{% load static from staticfiles %}
+{% load humanize %}
+<!DOCTYPE html>
+<head>
+<title>SOA Retirement Document - {{statement.create_date|date:"b d Y"|upper}}</title>
+<style type="text/css">
+  @page {
+    margin: 0.76in 0.5in 0.815in;
+  }
+  body {
+    margin: 0;
+  }
+  .footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-bottom: -0.9in;
+    height: 0.9in;
+    font-size: 7.5pt;
+    padding-top: 12pt;
+    line-height: 1.2;
+  }
+</style>
+</head>
+<body bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<style type="text/css">
+<!--
+  body { font-family: Roboto, Arial, Helvetica; box-sizing: border-box; }
+  body * { box-sizing: border-box; }
+	p {font-size: 11pt; line-height: 1.2; margin-top: 0; margin-bottom: 16pt;}
+  ul, ol { padding-left: 8pt; margin-left: 5pt; }
+  li { line-height: 1.2; font-size: 11pt; }
+  .justified { text-align: justify; }
+  .firm_logo { max-width: 1.87in; max-height: 1in; width: auto; height: auto; }
+  .footer-text { margin-left: 2in; }
+  .clearfix:after { clear: both; content: ''; display: table; }
+  .fl { float: left; }
+  .fr { float: right; }
+  .green-color { color: #44A247; }
+  .italic { font-style: italic; }
+  .full-height { height: 100%; }
+  .full-width { width: 100%; }
+  .text-center { text-align: center; }
+
+	.sidebar { position: absolute; right: 0; top: 0; width: 1.85in; }
+  .firm_row { font-size: 8pt; }
+  .banner { width: 100%; border-radius: 5pt; padding: 0.15in 0.09in; }
+  .banner-intro { height: 4.8647in; position: absolute; left: 0; top: 2in; background-color: #333; color: #fff; }
+  .banner-grey { background-color: #E7E8E9; }
+  .banner h3 { font-size: 13pt; line-height: 1; margin-top: 0; margin-bottom: 5pt; padding-bottom: 0; }
+  .banner h4 { font-size: 11pt; line-height: 1; margin-top: 0; margin-bottom: 5pt; padding-bottom: 0; }
+  .banner p { font-size: 9pt; }
+  .intro-footer { position: absolute; bottom: 0; right: 0; left: 0; background-color: #f2f2f3; font-family: 'RobotoLight'; font-size: 8pt; z-index: 999; margin-left: -0.53in; margin-right: -0.53in; padding: 5pt 0.53in; color: #818386; }
+
+  .page-header { margin-top: -0.76in; height: 0.8in; margin-bottom: 0.4in; }
+  .page-header .headline { border-bottom-left-radius: 5pt; margin-left: auto; border-bottom-right-radius: 5pt; background-color: #44A247; color: #fff; height: 100%; padding-top: 0.38in; font-size: 13pt; width: 1.85in; text-align: center; }
+  .page-header .headline.dark { background-color: #231F20; }
+  .page-header .headline.twolines { padding-top: 0.23in; }
+  .page-title { line-height: 1; font-size: 18pt; color: #44A247; font-style: italic; }
+  .page-subtitle { line-height: 1; font-size: 15pt; color: #44A247; font-weight: 700; font-style: italic; margin: 0 0 5pt 0; }
+  .page-subtitle-h4 { font-weight: 700; font-size: 12pt; margin-bottom: 5pt; color: #44A247; font-style: italic; }
+
+  .outline-box { border-radius: 5pt; padding: 10pt; border: 1pt solid #6d6f71; }
+  .stars-box-wrapper { display: inline-block; text-align: center; font-size: 8pt; color: white; line-height: 1.2; }
+  .stars-box-desc { border-radius: 5pt; border: 1px solid #fff; background-color: #44A247; padding: 3pt 0 8pt; }
+  .stars-box { border-radius: 5pt; border: 1px solid #fff; background-color: #FAA71C; padding: 1pt 0; margin-top: -6pt; /*box-shadow: 0 -3pt 3pt rgba(0, 0, 0, 0.3);*/ text-align: center; font-size: 11pt; }
+  .stars-box .stars-box-inner { display: inline-block; text-align: left; position: relative; padding: 0 5pt;}
+  .stars-box .bg-stars { color: rgba(255, 255, 255, .3); }
+  .stars-box .value-stars { position: absolute; left: 5pt; top: 0; }
+
+  .lifestyle-plans { margin: 0 -3pt; }
+  .lifestyle-plans .plan-item { width: 25%; padding: 3pt; text-align: center; float: left; }
+  .lifestyle-plans .plan-item-inner { border-radius: 5pt; background-color: #A8D48C; padding-top: 10pt; }
+  .lifestyle-plans .title { margin-top: 7pt; }
+  .lifestyle-plans hr { border-top: none; border-bottom: 2pt solid #fff; margin: 7pt 0; }
+  .lifestyle-plans .target { font-size: 11pt; line-height: 1; height: 15pt; padding-bottom: 5pt; text-transform: uppercase; }
+  .lifestyle-plans .lifestyle-desc { padding: 0 5pt; font-size: 9.5pt; height: 24pt; }
+  .lifestyle-plans .lifestyle-image { padding: 0 7pt 7pt; }
+  .lifestyle-plans .lifestyle-image img { width: 100%; height: auto; }
+
+  .waterfall-chart { position: relative; padding: 15pt 30pt 1in 0.7in; }
+  .waterfall-chart .x-axis { position: absolute; bottom: -1in; height: 1in; width: 100%; border-top: 1pt solid #E7E8E9; }
+  .waterfall-chart .x-axis-item { float: left; position: relative; }
+  .waterfall-chart .x-label { transform: rotate(40deg); transform-origin: left top; display: inline-block; font-size: 7pt; white-space: nowrap; position: relative; top: 9pt; left: 50%; }
+  .waterfall-chart .x-axis-item:last-child { margin-right: -100%; }
+  .waterfall-chart .x-axis-item:before { content: ''; position: absolute; left: 50%; margin-left: -0.5pt; height: 5pt; border-right: 1pt solid #E7E8E9; }
+  .waterfall-chart .y-axis { position: absolute; left: 0; top: 0; height: 100%; width: 100%; }
+  .waterfall-chart .y-axis-item { position: relative; }
+  .waterfall-chart .y-axis-item:before { clear: both; display: table; content: ''; }
+  .waterfall-chart .y-axis-item:after { content: ''; position: absolute; top: 0; left: -7pt; right: 0; border-top: 1pt solid #E7E8E9; }
+  .waterfall-chart .y-label { margin-left: -0.7in; margin-top: -5pt; width: 0.7in; padding-right: 10pt; font-size: 9pt; text-align: right; }
+  .waterfall-chart .waterfall-chart-inner { height: 4in; position: relative; border: 1pt solid #E7E8E9; }
+  .waterfall-chart .bars { height: 100%; position: relative; }
+  .waterfall-chart .bar-item { background-clip: content-box; padding: 0 2pt; position: relative; }
+  .waterfall-chart .bar-amt { display: block; position: absolute; bottom: -10pt; text-align: center; left: 0; right: 0; font-size: 8pt; }
+  .waterfall-chart .bar-item:last-child .bar-amt { bottom: auto; top: -10pt; }
+  .waterfall-chart .legends { position: absolute; top: 5pt; right: 5pt; background-color: #fff; border: 1pt solid #E7E8E9; padding: 0 3pt; }
+  .waterfall-chart .legend-item { margin: 2pt 0; font-size: 8pt; }
+  .waterfall-chart .legend-colorbox { margin-right: 2pt; width: 8pt; height: 8pt; display: inline-block; border: 1pt solid #231F20; vertical-align: middle; }
+  .waterfall-chart .legend-label { vertical-align: middle; }
+
+  .income-chart { display: inline-block; position: relative; border: 1px solid #ccc; padding: 5pt 15pt; box-sizing: content-box; transform: translate(-50%, -50%) rotate(-90deg); left: 50%; top: 50%;}
+  .income-chart .chart-title { font-size: 11pt; font-weight: bold; text-align: center; margin-bottom: 10pt; }
+  .income-chart-inner { padding-left: 40pt; }
+  .income-chart-bars { position: relative; height: 3in; margin-bottom: 30pt; border: 1pt solid #ccc; margin-right: -1pt; }
+  .income-chart .chart-item { height: 100%; position: relative; float: left; }
+  .income-chart .chart-item:after { content: ''; position: absolute; top: 100%; width: 100%; display: block; border-right: 1pt solid #ccc; height: 3pt; }
+  .income-chart .bar { position: absolute; bottom: 0; height: 100%; width: 100%; padding: 0 2pt; }
+  .income-chart .x-label { top: 100%; position: absolute; font-size: 7pt; width: 100%; transform: rotate(45deg); transform-origin: left top; left: 50%; top: 100%; margin-top: 5pt; white-space: nowrap; }
+  .income-chart .y-label { text-align: right; margin-top: -4pt; margin-bottom: 4pt; position: relative; }
+  .income-chart .y-label:before { content: ''; border-top: 1px solid #ccc; width: 3pt; position: absolute; right: -7pt; top: 4pt; }
+  .income-chart .y-axis { position: absolute; width: 40pt; height: 100%; top: 0; font-size: 7pt; left: -40pt; padding-right: 7pt; }
+  .income-chart .y-seg { }
+  .income-chart .legend { font-size: 7pt; float: left; min-width: 100pt; margin: 0 5pt 2pt 0; }
+  .income-chart .legend-color { width: 10pt; height: 2pt; display: inline-block; vertical-align: middle; }
+  .income-chart .legend-label { vertical-align: middle; }
+  .income-chart .desired-income { height: 1px; background-color: #f00; width: 100%; position: absolute; }
+
+  .page3-table-clients { width: 100%; }
+  .page3-table-clients td { padding: 5pt 0; }
+
+  .page5-table { font-style: italic; font-size: 10pt; border-collapse: collapse; line-height: 1.2; }
+  .page5-table th { text-align: center; padding: 8pt; }
+  .page5-table td { padding: 8pt; border: none; width: 30%; }
+  .page5-table td:first-child { font-weight: 700; }
+  .page5-table tbody tr:nth-child(odd) { background-color: rgba(168, 212, 140, .5); }
+
+  .page7-tax-bill { padding: 60pt 1in 20pt; position: relative; margin-top: 30pt; }
+  .page7-tax-bill .tax-percents { position: relative; }
+  .page7-tax-bill .tax-percents-inner { position: absolute; top: 0; right: 0; bottom: 0; left: 0; opacity: 0.8; }
+  .page7-tax-bill .tax-item { float: left; height: 100%; position: relative; }
+  .page7-tax-bill .line { position: absolute; height: 10pt; left: 50%; border-right: 1pt solid #231F20; }
+  .page7-tax-bill .label { position: absolute; font-size: 10pt; white-space: nowrap; }
+  .page7-tax-bill .line.bottom { top: 100%; }
+  .page7-tax-bill .line.top { bottom: 100%; }
+  .page7-tax-bill .bottom .label { top: 100%; left: -5pt; margin-top: 2pt; }
+  .page7-tax-bill .top .label { bottom: 100%; text-align: right; right: -5pt; margin-bottom: 2pt; }
+  .page7-tax-bill .bg-img { width: 100%; display: block; }
+  .page8-ul li { font-size: 8pt; }
+
+  .page9-table { border-collapse: collapse; font-size: 9.75pt; width: 100%; margin-bottom: 30pt; }
+  .page9-table thead th, .page9-table tbody td { border-bottom: 1pt solid #44A247; }
+  .page9-table thead th { padding: 10pt 10pt 15pt; font-weight: 600; }
+  .page9-table td { padding: 5pt 10pt; }
+  .page9-table td:first-child { padding-left: 0; width: 40%; }
+  .page9-table.light-green td:not(:first-child), .page9-table.light-green th:not(:first-child) { background-color: #A8D48C; }
+  .page9-table.green td:not(:first-child), .page9-table.green th:not(:first-child) { background-color: #44A247; color: #fff; }
+  .page9-table.green thead th, .page9-table.green tbody td { border-bottom: 1pt solid #A8D48C; }
+  .page9-table .top-left-radius { border-top-left-radius: 10pt; }
+  .page9-table .top-right-radius { border-top-right-radius: 10pt; }
+  .page9-table .bottom-left-radius { border-bottom-left-radius: 10pt; }
+  .page9-table .bottom-right-radius { border-bottom-right-radius: 10pt; }
+
+  .page10-table { border-top: 1pt solid #44A247; width: 100%; font-size: 10pt; border-collapse: collapse; margin-bottom: 30pt; }
+  .page10-table td { border-bottom: 1pt solid #44A247; padding: 5pt 0; }
+  .page10-table td:first-child { width: 40%; font-weight: 700; }
+
+  #page12-div p, #page17-div p { font-size: 10pt; margin-bottom: 11pt; }
+  .page12-table { width: 100%; font-size: 9pt; border-collapse: collapse; margin-bottom: 10pt; }
+  .page12-table th { background-color: #44A247; color: #fff; font-weight: 400; }
+  .page12-table th, .page12-table td { padding: 3pt 5pt; }
+  .page12-table tr:not(:last-child) { border-bottom: 1pt solid #231F20; }
+  .page12-table td { background-color: #E7E8E9; }
+  .page12-table .top-left-radius { border-top-left-radius: 5pt; }
+  .page12-table .top-right-radius { border-top-right-radius: 5pt; }
+  .page12-table .bottom-left-radius { border-bottom-left-radius: 5pt; }
+  .page12-table .bottom-right-radius { border-bottom-right-radius: 5pt; }
+-->
+</style>
+<!-- Page 1 -->
+{% include "statements/retirement_statement_of_advice/page_01.html" %}
+
+<!-- Page 2 -->
+{% include "statements/retirement_statement_of_advice/page_02.html" %}
+
+<!-- Page 3 -->
+{% include "statements/retirement_statement_of_advice/page_03.html" %}
+
+<!-- Page 4 -->
+{% include "statements/retirement_statement_of_advice/page_04.html" %}
+
+<!-- Page 5 -->
+{% include "statements/retirement_statement_of_advice/page_05.html" %}
+
+<!-- Page 6 -->
+{% include "statements/retirement_statement_of_advice/page_06.html" %}
+
+<!-- Page 7 -->
+{% include "statements/retirement_statement_of_advice/page_07.html" %}
+
+<!-- Page 8 -->
+{% include "statements/retirement_statement_of_advice/page_08.html" %}
+
+<!-- Page 9 -->
+{% include "statements/retirement_statement_of_advice/page_09.html" %}
+
+<!-- Page 10 -->
+{% include "statements/retirement_statement_of_advice/page_10.html" %}
+
+<!-- Page 11 -->
+{% include "statements/retirement_statement_of_advice/page_11.html" %}
+
+<!-- Page 12 -->
+{% include "statements/retirement_statement_of_advice/page_12.html" %}
+
+<!-- Page 13 -->
+{% include "statements/retirement_statement_of_advice/page_13.html" %}
+
+<!-- Page 14 -->
+{% include "statements/retirement_statement_of_advice/page_14.html" %}
+
+<!-- Page 15 -->
+{% include "statements/retirement_statement_of_advice/page_15.html" %}
+
+<!-- Footer -->
+<footer class="footer">
+  <img src="{{ firm.colored_logo }}" class="firm_logo fl" />
+  <div class="footer-text">
+    Retirement Plan Statement of Advice (SOA) Please make sure you read each section of this SOA as
+    it explains the advice provided by a representative of {{firm.name}}. You can write to us at
+    {{firm.firm_details.postal_address.full_address}}
+    or visit us at
+    {{firm.firm_details.office_address.full_address}}.
+    Please refer to the {{firm.name}} Form ADV Part 2 and privacy disclosure.
+  </div>
+</footer>
+</body>
+<script>
+(function() {
+document.body.className = "dom-body"
+if(window.location.hash == '#borders')
+    document.body.className = "dom-body borders"
+})();
+</script>
+<style type="text/css">
+/*
+   ********************************
+   This CSS + JS is essential to centering
+   pages and aligning the frames of an HTML
+   view to the actual bounds of the PDFs generated
+   Additionally, there is a secret option --
+   Add "#borders" to the end of your url
+   ( e.g. /statements/123#borders )
+   to view the print margins
+*/
+.dom-body .page-div {
+  background: white;
+  margin: 0.76in 0.5in 0.9in;
+}
+.dom-body.borders .page-div {
+    border: red 1px solid;
+}
+.dom-body.borders .bgimg {
+    border: blue 1px dashed;
+}
+.dom-body #page1-div {
+  margin: 0.76in 0.5in 0;
+}
+.page-content {
+  position: relative;
+  width: 5.21in;
+}
+
+.page-div {
+	position: relative;
+	width: 7.27in;
+	height: 11.6in;
+}
+
+.page-div-inner {
+  position: relative;
+  height: 9.6in;
+}
+/*
+***********************************
+*/
+</style>
+</html>

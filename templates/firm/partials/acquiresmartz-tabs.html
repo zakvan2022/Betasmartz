@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load filters %}
+
+<div class="col-lg-3 col-md-4 m-b">
+  <ul class="nav nav-pills">
+    <li class="{{ request.resolver_match.view_name|menu_active:'firm:acquiresmartz:leads, firm:acquiresmartz:leads-campaign' }}">
+      <a href="{% url 'firm:acquiresmartz:leads' %}">{% trans 'Leads' %}</a>
+    </li>
+    <li class="{{ request.resolver_match.view_name|menu_active:'firm:acquiresmartz:targets' }}">
+      <a href="{% url 'firm:acquiresmartz:targets' %}">{% trans 'Targets' %}</a>
+    </li>
+    <li class="{{ request.resolver_match.view_name|menu_active:'firm:acquiresmartz:cognitics' }}">
+      <a href="{% url 'firm:acquiresmartz:cognitics' %}">{% trans 'Cognitics' %}</a>
+    </li>
+  </ul>
+</div>

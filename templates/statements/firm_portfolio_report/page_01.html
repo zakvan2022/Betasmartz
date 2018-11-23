@@ -1,0 +1,13 @@
+{% load static from staticfiles %}
+<div class="parallax">
+  <div class="landing">
+      <div class="overlay">
+      </div>
+      <div class="main">
+        <img src="{{ firm.report_logo_safe.url }}">
+      </div>
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

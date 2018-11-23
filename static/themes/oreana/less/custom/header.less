@@ -1,0 +1,121 @@
+.header-inner {
+  @media (max-width: 767px) {
+    margin: 0 -15px;
+    .navbar-brand {
+      padding: 5px 15px;
+      img {
+        max-width: 200px;
+        max-height: 40px;
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    height: 40px;
+    display: table;
+    width: 100%;
+    .navbar-collapse {
+      border-top: 0;
+      box-shadow: none;
+    }
+    .navbar-brand {
+      float: none;
+      margin: 0 !important;
+      padding: 0 !important;
+      img {
+        max-width: 280px;
+        max-height: 50px;
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}
+
+.navbar-header {
+  @media (min-width: 768px) {
+    display: table-cell;
+    vertical-align: middle;
+    width: 70%;
+    float: none;
+    padding: 0;
+  }
+}
+
+.header-actions {
+  @media (min-width: 768px) {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    position: relative;
+    .dropdown-menu {
+      background-color: rgba(255, 255, 255, .98);
+    }
+  }
+}
+
+.header-action-right {
+  position: relative;
+  display: inline-block;
+  color: white;
+  .welcome-text {
+    font-size: 16px;
+    display: inline-block;
+    padding-top: 13px;
+    padding-right: 15px;
+    vertical-align: middle;
+  }
+  .navbar-toggle {
+    display: none;
+    @media (min-width: 768px) {
+      display: block;
+      margin-right: 0;
+      border-color: transparent;
+    }
+  }
+}
+
+.brand-nav-container {
+  background-color: @brand-navbar-bg;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.brand-nav-inner {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  justify-content: space-between;
+
+  > .navbar-brand {
+    padding: 0;
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+  > .nav-bordered > li {
+    margin: 0;
+    > a {
+      padding: 20px 15px;
+      line-height: 20px;
+      font-size: 15px;
+      border: none;
+      -webkit-transition: background-color 0.2s ease-in-out;
+      -moz-transition: background-color 0.2s ease-in-out;
+      -ms-transition: background-color 0.2s ease-in-out;
+      -o-transition: background-color 0.2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
+      &, &:hover, &:focus {
+        color: #fff;
+      }
+      &:hover {
+        background-color: fade(@brand-primary, 20%);
+      }
+    }
+    &.active > a {
+      background-color: @brand-primary;
+    }
+  }
+}

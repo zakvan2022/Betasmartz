@@ -1,0 +1,110 @@
+{% extends "layouts_new/base.html" %}
+{% load static from staticfiles %}
+{% load i18n humanize filters pricing_plan %}
+
+{% block foot_js %}
+  <script type="application/javascript" src="{% static "js/widgets.js" %}"></script>
+{% endblock %}
+
+{% block css %}
+  <style>
+    table.dataTable thead > tr > th {
+      padding-left: 8px;
+    }
+
+  </style>
+{% endblock %}
+
+{% block main_content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9">
+          <h3>{{ object.full_name }}</h3>
+      </div>
+      <div class="col-sm-3 text-sm-right">
+        <div class="form-group">
+          <a class="btn btn-primary-outline" href="{% url 'client:page' object.pk %}" target="_blank">Login</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 m-b">
+        <div class="statcard statcard-primary">
+          <div class="p-a">
+            <span class="statcard-desc">Total balance</span>
+            <h2>
+              {{ object.total_balance|currency }}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 m-b">
+        <div class="statcard statcard-primary">
+          <div class="p-a">
+            <span class="statcard-desc">Total returns</span>
+            <h2>
+              {{ object.total_earnings|currency }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="table-responsive">
+        <table class="table" id="accounts">
+          <thead>
+          <tr>
+            <th>Account</th>
+            <th>Pricing Plan</th>
+            <th class="text-center" width="70">Login</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for item in accounts %}
+            {% with account=item.account %}
+            <tr class="tr-middle">
+              <td><b>{{ account.name|upper }}</b></td>
+              <td>
+                <span class="pricingPlanView">
+                  {{ account.primary_owner.my_pricing_plan|display:"total" }}
+                  <small> <a onclick="$('.pricingPlanEdit').toggle(); $('.pricingPlanView').toggle();" class="icon icon-pencil"></a></small>
+                </span>
+                <span class="pricingPlanEdit" style="display:none">
+                  <form method="post" class="form-inline" style="display: inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="object_pk" value={{object.pk}} />
+                    <input type="hidden" name="pricing_plan_pk" value="{{account.primary_owner.my_pricing_plan.pk}}"/>
+                    <input type="number" name="pricing_plan_bps" class="form-control input-sm" style="width:80px" value="{{ account.primary_owner.my_pricing_plan.bps }}" /> bps ,
+                    $<input type="number" name="pricing_plan_fixed" class="form-control input-sm" style="width:80px" value="{{ account.primary_owner.my_pricing_plan.fixed }}" />
+                    <button class="btn btn-primary btn-sm" type="submit">Save</button>
+                  </form>
+                </span>
+              </td>
+              <td class="text-center">
+                <a
+                  href="{% url "client:page" account.primary_owner.id %}"
+                  class="btn btn-primary-outline btn-sm"
+                  target="_blank">Login</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                {% if item.formset %}
+                  {% with formset=item.formset %}
+                    {% include "partials_new/formset-portfoliosets.html" %}
+                  {% endwith %}
+                {% endif %}
+              </td>
+            </tr>
+            {% endwith %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

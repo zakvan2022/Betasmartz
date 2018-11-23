@@ -1,0 +1,122 @@
+{% load app_filters %}
+{
+    "id": "{{profile.pk}}",
+    "userName": "{{profile.email}}",
+    "email": "{{profile.email}}",
+    "firstName": "{{profile.user.first_name}}",
+    "middleName": "{{profile.user.middle_name}}",
+    "lastName": "{{profile.user.last_name}}",
+    "dateOfBirth": "{{profile.date_of_birth |c_datetime}}",
+    "type": "FULL",
+    "demo": {{is_demo}},
+    "phoneNumber": "{{profile.phone_num}}",
+    "userState": "Active",
+    "firstLogin": false,
+    "lastLogin": "20150406204857",
+    "firstFundedLogin": false,
+    "employmentStatus": "{{profile.employment_status}}",
+    "occupation": "{{profile.occupation}}",
+    "employer": "{{profile.employer}}",
+    "retireGuideEnabled": true,
+    "pricingSummary": {
+        "strategy": "institutional",
+        "pricing_plan": null,
+        "annual_rate_bps": null,
+        "monthly_flat_rate_cents": null,
+        "in_free_trial": false,
+        "free_days_remaining": null
+    },
+    "annualIncome": {{profile.income}},
+    "netWorth": {{profile.net_worth}},
+    "iraSignup": false,
+    "rolloverOnSignup": false,
+    "personalReferralLink": "",
+    "memberSince": "20121031044353",
+    "advisorId": {{profile.advisor.pk}},
+    "advisor": {
+        "id": {{profile.advisor.pk}},
+        "firstName": "{{profile.advisor.user.first_name |title}}",
+        "lastName": "{{profile.advisor.user.last_name |title}}",
+        "firmId": {{profile.advisor.firm.pk}},
+        "firmName": " {{profile.advisor.firm.name | title}}"
+    },
+    "referralProgram": {
+        "promotionId": 26,
+        "senderPrize": "30 days free",
+        "senderPrizeAmount": "30.0",
+        "receiverPrize": "30 days free",
+        "receiverPrizeAmount": "30.0",
+        "minimumDeposit": "0.00",
+        "expirationDays": 90,
+        "meterSenderPrize": "90 days free",
+        "prizeType": "time"
+    },
+    "accountGroups": [
+{% for account in profile.accounts.all %}{% if forloop.counter == 1 %}{% else %},{% endif %}
+{
+        "id": {{account.pk}},
+        "name": "{{account.name |safe}}",
+        "demo": false,
+        "type": "{{account.account_type}}",
+        "funded": true,
+        "daysFree": 0,
+        "hasClosedAccounts": false,
+        "investingSince": "{{account.created_at | c_datetime}}",
+        "accountGroupState": "NORMAL",
+        "taxLossHarvestingStatus": "{{account.tax_loss_harvesting_status}}",
+        "taxLossHarvestingEnabled": true,
+        "taxLossHarvestingConsent": {% if account.tax_loss_harvesting_consent %}true{% else %}false{% endif %},
+        "taxLossHarvestingGateType": "MINIMUM_BALANCE",
+        "unrealizedLosses": "0.0",
+        "totalLossesHarvested": "0.00",
+        "annualHarvestedLosses": [{
+            "taxYear": 2016,
+            "amount": "0.00"}
+        ,{
+            "taxYear": 2015,
+            "amount": "0.00"
+        }, {
+            "taxYear": 2014,
+            "amount": "0.00"
+        }],
+        "hasNonCoveredTaxableLots": false,
+        "hasNonCoveredIRALots": false,
+        "advisorId": {{profile.advisor.pk}},
+        "feeAmount": "{{account.fee_fraction}}",
+        "bankAccount": {
+            "id": {{account.pk}},
+            "active": true,
+            "confirmed": true,
+            "accountNumber": "*************4995",
+            "routingNumber": "322271627",
+            "description": "Bank Account",
+            "plaidBankType": null,
+            "linkType": "manual",
+            "colorHex": "#3481D1",
+            "displayName": "Other Bank",
+            "logoUrl": "https://betterment-retail-public-demo.s3.amazonaws.com/assets/bank_logos/other_bank-555c24241f320b0efc2b30ad3c8c65a7.svg"
+        },
+        "averageAllocation": "0.55",
+        "accountReturn": {
+            "deposits": "1270000.00",
+            "withdrawals": "-100000.00",
+            "otherAdjustments": "0.00",
+            "fees": "-0",
+            "dividends": "0",
+            "marketChanges": "0",
+            "totalInvested": "0",
+            "totalEarned": "0",
+            "lifetimeReturn": "0.1828",
+            "lifetimePersonalReturn": "0",
+            "averageBalance": "591441.76"
+        },
+        "canCopyPersonalBankAccount": false,
+        "hasHadBankAccount": true,
+        "primaryAccountHolderId": {{profile.pk}}
+    }
+{% endfor %}
+],
+    "defaultAccountGroupId": {{profile.accounts.first.pk}},
+    "performerSession": false,
+    "advisorSession": {{is_advisor}}
+}

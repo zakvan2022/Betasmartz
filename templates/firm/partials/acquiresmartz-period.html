@@ -1,0 +1,55 @@
+{% block foot_js %}
+<script type="text/javascript">
+
+  $(function() {
+    $(".dropdown-menu li a").click(function(){
+      var $this = $(this);
+      $this.parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+      $this.parents(".dropdown").find('.btn').val($(this).data('value'));
+      if ($this.hasClass('period-custom')) {
+        $('.date-controls').show();
+      } else {
+        $('.date-controls').hide();
+      }
+    });
+  });
+</script>
+{% endblock %}
+
+<div class="col-lg-9 col-md-8 rightBig period-col">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row date-controls" style="display: none">
+        <div class="col-xs-6 m-b">
+          <input type="text" name="start" class="form-control" placeholder="Start">
+        </div>
+        <div class="col-xs-6 m-b">
+          <input type="text" name="end" class="form-control" placeholder="End">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 m-b">
+      <div class="dropdown">
+        <button class="btn btn-default btn-block dropdown-toggle btn-period" type="button" id="dropdownPeriod" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        All Time
+        <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownPeriod">
+          <li><a href="#" data-value="action" class="period-action">All Time</a></li>
+          <li><a href="#" data-value="1 mo" class="period-action">1 mo</a></li>
+          <li><a href="#" data-value="1 yr" class="period-action">1 yr</a></li>
+          <li><a href="#" data-value="YTD" class="period-custom">YTD</a></li>
+          <li><a href="#" data-value="custom" class="period-custom">Custom</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-3 col-xs-6 m-b">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <span class="icon icon-magnifying-glass"></span>
+        </span>
+        <input type="search" placeholder="Search" class="form-control search" name="search2" />
+      </div>
+    </div>
+  </div>
+</div>

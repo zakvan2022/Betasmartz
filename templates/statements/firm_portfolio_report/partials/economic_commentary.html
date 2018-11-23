@@ -1,0 +1,17 @@
+<div class="separate-line"></div>
+<div class="container chart-comment">
+  <div class="row">
+    {% if commentary.economic_key_commentary %}
+      <div class="col-sm-{%if commentary.economic_near_term_outlook %}8{% else %}12{% endif %}">
+        <p class="title">Key Commentary</p>
+        <p class="column-count-{%if commentary.economic_near_term_outlook %}2{% else %}1{% endif %}">{{ commentary.economic_key_commentary }}</p>
+      </div>
+    {% endif %}
+    {% if commentary.economic_near_term_outlook %}
+      <div class="col-sm-{%if commentary.economic_key_commentary %}4{% else %}12{% endif %}">
+        <p class="title">Near term Outlook</p>
+        <p>{{ commentary.economic_near_term_outlook }}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>

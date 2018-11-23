@@ -1,0 +1,53 @@
+{% load static from staticfiles  %}
+<footer class="main-footer m-t-lg" style='padding-top: 40px; padding-bottom: 10px;'>
+  <div class="container disclosure">
+    <div class="row">
+      <div class="col-md-4">
+        <p>
+          <b>BetaSmartz® is made available through independent investment advisors and is sponsored by BetaSmartz Advisory LLC ("BetaSmartz").  BetaSmartz  (SEC# 801-108797) is an investment adviser registered the with Securities and Exchange Commission (the “SEC”) pursuant to the Investment Advisers Act of 1940. BetaSmartz is a subsidiary of BetaSmartz Global Pte. Ltd. ("BetaSmartz Global").</b>
+        </p>
+        <p>
+          Unless otherwise specified, all return figures shown are for illustrative purposes only, and are not actual customer or model returns. Actual returns will vary greatly and depend on personal and market circumstances.  No representation, warranty or undertaking, express or implied, is given as to the accuracy or completeness of the information herein.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p>
+          Brokerage and custody services are provided by participating broker-dealers registered with the SEC pursuant to Section 15 of the Securities Exchange Act of 1934 and are members of the Financial Industry Regulatory Authority and the Securities Investor Protection Corporation.
+        </p>
+        <p>
+          Independent investment advisors and BetaSmartz are independent of each other and are not affiliated with, sponsored by, endorsed by, or supervised by each other.
+        </p>
+        <p>
+          Any links are provided purely as a convenience and not as an endorsement of any linked website or its sponsors or contributors.
+        </p>
+        <p>
+          Investing in securities involves risks, and there is always the potential of losing money when you invest in securities.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <p>
+          Before investing, consider your investment objectives and your independent investment advisor and BetaSmartz’s charges and expenses. Past performance does not guarantee future results, and the likelihood of investment outcomes are hypothetical in nature. See full disclosures for more information. Nothing herein constitutes an offer, solicitation of an offer, or advice to buy or sell securities in jurisdictions where BetaSmartz is not registered.
+        </p>
+        <p>
+          Unauthorized access is prohibited. Usage is monitored.
+        </p>
+        <p>
+          ©2017 BetaSmartz Global Pte. Ltd. All rights reserved. BetaSmartz is a trademark of BetaSmartz Global Pte. Ltd.
+        </p>
+        <p>
+          <a href="{% url 'privacy_notice' %}" target="_blank">BetaSmartz Privacy Notice</a> | <a href="{% url 'terms_of_use' %}" target="_blank">Terms of Use</a>
+        </p>
+        <p>
+          Contact: BetaSmartz, 375 Park Avenue, Suite 2607, New York, NY, 10152.
+        </p>
+      </div>
+
+      <div class='col-md-12'>
+        <div class="powered-by">Powered by</div>
+        <figure class="footer-logo text-center"><img src="{% static 'images/white_logo_mini.png' %}"
+          alt="BetaSmartz" /></figure>
+        <figcaption>©2018 BetaSmartz Global Pte. Ltd.</figcaption>
+      </div>
+    </div>
+  </div>
+</footer>

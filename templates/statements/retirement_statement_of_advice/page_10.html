@@ -1,0 +1,123 @@
+{% load humanize %}
+{% load i18n filters %}
+<div id="page10-div" class="page-div">
+  <div class="page-header">
+    <div class="headline dark">Recommendations 2</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <div class="page-div-inner">
+    <div class="page-content">
+      <p class="green-color italic">
+        Key recommendations
+      </p>
+      <!-- TODO: Fix content overflow hidden issue -->
+      <p>{{client.full_name}}</p>
+      {% if client_retirement_accounts %}
+        {% for account in client_retirement_accounts %}
+          <table class="page10-table light-green italic">
+            <tbody>
+              <tr>
+                <td>Account Type</td>
+                <td>{{account.acc_type|account_type_text}}</td>
+              </tr>
+              <tr>
+                <td>Account Name</td>
+                <td>{{account.name}}</td>
+              </tr>
+              <tr>
+                <td>Balace as</td>
+                <td>${{account.balance|intcomma}}</td>
+              </tr>
+              <tr>
+                <td>Matching %</td>
+                <td>{{account.employer_match|percentage100}}</td>
+              </tr>
+              <tr>
+                <td>Recommended Contribution</td>
+                <td>&nbsp;</td><!-- TODO: retirement_cont_rec_1 -->
+              </tr>
+              <tr>
+                <td>Maximum Contribution Limit</td>
+                <td>&nbsp;</td><!-- TODO: procduct_max_cont_amt -->
+              </tr>
+            </tbody>
+          </table>
+        {% endfor %}
+      {% else %}
+        <p>No retirement accounts added.</p>
+      {% endif %}
+
+      <p>{{partner_name}}</p>
+      {% if partner_retirement_accounts %}
+        {% for account in partner_retirement_accounts %}
+          <table class="page10-table light-green italic">
+            <tbody>
+              <tr>
+                <td>Account Type</td>
+                <td>{{account.acc_type}}</td>
+              </tr>
+              <tr>
+                <td>Account Name</td>
+                <td>{{account.name}}</td>
+              </tr>
+              <tr>
+                <td>Balace as</td>
+                <td>${{account.balance|intcomma}}</td>
+              </tr>
+              <tr>
+                <td>Matching %</td>
+                <td>{{account.employer_match|percentage100}}</td>
+              </tr>
+              <tr>
+                <td>Recommended Contribution</td>
+                <td>&nbsp;</td><!-- TODO: retirement_cont_rec_1 -->
+              </tr>
+              <tr>
+                <td>Maximum Contribution Limit</td>
+                <td>&nbsp;</td><!-- TODO: procduct_max_cont_amt -->
+              </tr>
+            </tbody>
+          </table>
+        {% endfor %}
+      {% else %}
+        <p>No Spouse's retirement accounts added.</p>
+      {% endif %}
+    </div>
+    <div class="sidebar" style="bottom: 0;">
+      <div class="banner banner-grey full-height">
+        <h4 class="green-color italic">
+          Important Information
+        </h4>
+        <p class="justified">
+          To make the changes, please complete and sign the enclosed forms indicated.
+          You should also read the relevant Product Disclosure Statement (PDS) for
+          more information including terms, conditions and definitions.
+        </p>
+        <p class="justified">
+          {{firm.name}} is registered with the Tax Practitioners Board as a tax (financial)
+          adviser which enables our representatives to include tax matters relevant to the
+          financial product advice provided.
+        </p>
+        <p class="justified">
+          Taxation laws are complex and frequently change. You should consider whether
+          there are other personal taxation matters where you need to seek advice from
+          a registered tax agent or other suitable tax professional.
+        </p>
+        <h4 class="green-color italic" style="margin-top: 30pt;">
+          How to stay on track
+        </h4>
+        <p class="justified">
+          You can get more help with your super by going online at
+          <a href="{{firm.firm_details.site_url}}">{{firm.firm_details.site_url}}</a>
+        </p>
+        <p class="justified">
+          You can find more information and ideas and even use our online planning tools
+          to help you make the right decisions. If you have any questions or concerns
+          please call us on 212‑634‑4832 before implementing the advice.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

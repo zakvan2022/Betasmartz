@@ -1,0 +1,23 @@
+.nav-pills {
+  > li {
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        font-weight: @nav-pills-active-weight;
+      }
+    }
+  }
+}
+
+.reporting-tabs {
+  li {
+    &.active a {
+      &, &:active, &:hover, &:focus {
+        background-color: @brand-primary;
+        border-color: @brand-primary;
+        color: #ffffff;
+      }
+    }
+  }
+}

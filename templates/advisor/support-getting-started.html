@@ -1,0 +1,371 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load filters %}
+{% load static from staticfiles %}
+
+{% block main_content %}
+  <div class="container">
+    <div>
+      {% include "advisor/partials/menu-support.html" %}
+    </div>
+
+    <div class="round-frame">
+      <div class="round-frame-row">
+        <div class="col-xs-3 round-frame-sidebar">
+          <div class="round-frame-sidebar-shadow"></div>
+          <div class="round-frame-sidebar-inner">
+            <div class="round-frame-sidebar-panel panel panel-default">
+              <div class="panel-body">
+                <ul class="nav nav-tabs nav-pills nav-stacked">
+                  <li role="presentation" class="active">
+                    <a href="#getting-started" data-toggle="tab">Getting Started</a>
+                  </li>
+                  <li role="presentation" class="">
+                    <a href="#advisor-signup" data-toggle="tab">Part 1: Advisor Signup</a>
+                  </li>
+                  <li>
+                    <a href="#fees-and-billing" data-toggle="tab">Part 2: Fees And Billing</a>
+                  </li>
+                  <li>
+                    <a href="#client-signup" data-toggle="tab">Part 3: Client Signup</a>
+                  </li>
+                  <li>
+                    <a href="#client-funding" data-toggle="tab">Part 4: Client Funding</a>
+                  </li>
+                    <li><a href="#dashboard-basics" data-toggle="tab">Part 5: Dashboard Basics</a>
+                  </li>
+                  <li>
+                    <a href="#resources" data-toggle="tab">Part 6: Resources</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-9">
+          <div class="round-frame-content-pane panel panel-default">
+            <div class="tab-content">
+
+              <div id='getting-started' class="tab-pane fade in active">
+                <h1>Getting Started with BetaSmartz</h1>
+
+                <p>This guide is for investment professionals only. It is not intended for use by private investors. Your use of this website is governed by our Terms of Use.</p>
+
+                <p>Welcome to BetaSmartz. Our solution is here to save you time so you can serve more clients, more efficiently. With technology designed to streamline investment management and accelerate your ability to serve your client base, BetaSmartz is the leading digital platform for you and your business.</p>
+
+                <p>This guide walks you through the basic steps to get started and contains various resources to help you take advantage of all of the great features available on the platform.</p>
+              </div>
+
+              <div id='advisor-signup' class="tab-pane fade">
+                <h1>Advisor Signup</h1>
+
+                <h2>Uploading Documents</h2>
+
+                <p>To give your clients a paperless account opening experience you will need to provide us with your Form ADV Part 2, Client Agreement, and Privacy Policy (if available). We then upload these documents to your firm’s account so that when the client goes through the signup flow, they will be able to view these documents and electronically sign them. You can learn more about our agreement automation feature, including important disclosure information, here.</p>
+
+                <p>If you decided to use the Agreement Automation feature, we will display the date and time stamp, as well as the version of the agreement that your client electronically executed on the “Agreements” tab of the advisor dashboard.</p>
+
+                <p>If your agreements change, you can email the BetaSmartz for Advisors support team and they can help upload them to your firm’s account so that they can be used for new clients going forward. Please note that BetaSmartz will not automatically send the new terms for your existing clients to agree to; you must send any updated documentation to existing clients outside of the BetaSmartz for Advisors platform.</p>
+
+                <ul>
+                  <li>
+                    <a data-toggle="collapse" href="#q1">How do we use uploaded documents?</a>
+                    <div id="q1" class="collapse">
+                      <p>BetaSmartz’s makes onboarding your new clients fast, easy, and completely paperless.</p>
+
+                      <p>By permitting your clients to execute your firm’s advisory agreement on your branded BetaSmartz signup form, you automate a manual process, giving you more time to focus on your business while providing your clients with a better experience.</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q2">How do I get started?</a>
+                    <div id="q2" class="collapse">
+                      <p>To get started, please email the following to <a href="mailto:{{firm.details.client_support_email}}">{{firm.details.client_support_email}}</a>:</p>
+
+                      <ul>
+                        <li>PDF of your advisor-client agreement, signed by the proper party at your firm.</li>
+                        <li>PDF of your firm’s ADV Part 2.</li>
+                        <li>PDF of your firm’s initial privacy disclosure.</li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q3">How does it work?</a>
+                    <div id="q3" class="collapse">
+                      <p>Overview: By allowing your firm to provide a form contract, Form ADV, and initial privacy disclosure we are then able to host these for your firm. As part of the BetaSmartz client signup, BetaSmartz will electronically deliver these documents to your clients and permit your clients to execute your firm’s form contract.</p>
+
+                      <p>Signup: As part of BetaSmartz’s electronic signup process, your clients execute the agreements between them and your firm so they do not have to execute them separately. Please note that we do not collect traditional, handwritten signatures for your agreement (consent is indicated via mouse or other electronic method of input).</p>
+
+                      <p>By using the BetaSmartz platform the consent section of the client signup will include electronic executions for your firm’s agreements.</p>
+
+                      <p>The text of the box under “Your advisor’s agreement” contains terms and a link to your agreement and your Form ADV and initial privacy disclosure.</p>
+
+                      <p>Records: In the advisor dashboard, under the “Agreements” tab, you can view which of your clients executed your agreement electronically, the date and time at which they executed the agreement, and a digital copy of the version they executed (along with your Form ADV and initial privacy disclosure).</p>
+
+                      <p>This table is your record that your client executed your agreement electronically. Note that you can view and download the agreement by clicking the “view” button on the right of the screen.</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q4">What does my firm need to consider?</a>
+                    <div id="q4" class="collapse">
+                      <p>One agreement per firm: The platform only supports one advisory agreement per firm at a time. You may change that agreement by sending a revised version to <a href="mailto:{{firm.details.client_support_email}}">{{firm.details.client_support_email}}</a>, which will then become the only version BetaSmartz will host.</p>
+
+                      <p>Fee changes: When considering the automated use of your agreements, you should take into account that advisors and firms have the ability to change the fees they charge specific clients in the advisor and firm dashboards respectively. Before using the function, you should determine how, if at all, this impacts the structure of your agreements.</p>
+
+                      <p>Always on: The agreement that you include in the client signup process will be available for all of the clients that you bring to BetaSmartz. This means that all clients you bring to BetaSmartz will have to execute the agreement you provided to BetaSmartz.</p>
+
+                      <p>Multiple signatories: Currently, the signup process does not support accounts with multiple signatories, such as trusts with multiple trustees and joint accounts. Each user must sign-up separately and can later merge accounts to form Joint Accounts from the Settings menu in the Client dashboard.</p>
+
+                      <p>Agreement amendments: We do not support amendments to your agreements with clients on our system. If you would like to amend your agreement with some of your clients, you will need to do so yourself, using whatever non-BetaSmartz mechanism and recordkeeping system you deem appropriate.</p>
+
+                      <p>Form ADV and privacy disclosure updates: We will not send any updates to your Form ADV or privacy disclosures to your clients. You are responsible for complying with SEC rules governing when and how to deliver any required disclosures and amendments to these documents to your clients.</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q5">What does the client signup text say?</a>
+                    <div id="q5" class="collapse">
+                      <p>By checking the above box and clicking submit below, you agree to be bound by your advisor’s advisory agreement and acknowledge receiving and reviewing a copy of your advisor’s Form ADV Part 2 and initial privacy disclosure also contained therein (should your advisor have included their Form ADV Part 2 and initial privacy disclosure).</p>
+
+                      <p>You understand and agree that this is solely an agreement between you and your advisor, and that BetaSmartz and its affiliates are not by any means acquiring any obligation or legal duties by permitting you and your advisor to execute the advisory agreement between you and your advisor. You understand that BetaSmartz has not reviewed the advisory agreement between you and your advisor. You further agree to hold harmless and indemnify BetaSmartz and its affiliates in connection with any content in your advisory agreement with your advisor.</p>
+
+                      <p>You consent to receive these documents in electronic form via this webpage. If you are unable to download and view these PDF documents, or do not consent to electronic delivery, you cannot submit your application using this application form. BetaSmartz will not charge you a fee to use this website, but you could incur expenses from your Internet service provider when you access information online. Your consent applies only to this transaction.</p>
+
+                      <p>By checking the above box and clicking submit below, you agree to be legally bound by your advisor’s advisory agreement’s terms and conditions. You understand that checking the above box and clicking submit below is the legal equivalent of signing your advisor’s advisory agreement by hand.</p>
+                    </div>
+                  </li>
+
+                </ul>
+
+
+                <h2>Logos</h2>
+
+                <p>When you sign-up for the platform, you upload your firm’s logo and this will be used to brand the Firm, Advisor and Client Platforms, as well as email communications to clients. Please upload a 400 x 100 PNG file and include a knocked out (white version) if available. You can always update your logos by reaching out to the BetaSmartz support team.</p>
+
+
+                <h2>Security</h2>
+
+                <p>You can view our security procedures below.</p>
+
+                <ul>
+                  <li>
+                    <a data-toggle="collapse" href="#q6">What systems do we use?</a>
+                    <div id="q6" class="collapse">
+                      <p>To keep you and your data safe we have implemented a number of security procedures, including:</p>
+
+                      <ul>
+                        <li><b>Strongest available browser encryption</b>. Connections between you and our servers are secured to industry standard specifications.</li>
+                        <li><b>Secure servers</b>. All your account information is encrypted and stored behind secure monitored firewalls in a secure facility that is safeguarded 24-hours-a-day.</li>
+                        <li><b>Systematic procedures</b>. We maintain continuous encryption, auditing, logging, backups, and safe-guarding of data.</li>
+                        <li><b>Hacker checks</b>. We run frequent internal and external security audits of our software and systems.</li>
+                      </ul>
+
+                      <p>Additionally, we have built in a number of safeguards into our software, including:</p>
+
+                      <ul>
+                        <li><b>Automatic Logout</b>. If you are inactive for an extended period of time we automatically log you out so unauthorized people cannot access your account.</li>
+                        <li><b>Contact Information Confirmation</b>. All changes to your contact information are verified with you before we make any changes.</li>
+                        <li><b>Personalized Email</b>. Emails coming from BetaSmartz will generally address you by name, so you can be confident we know who you are and the email is coming from us.</li>
+                        <li><b>Background checks</b>. Everyone on our staff must pass a criminal background check.</li>
+                        <li><b>Account Ownership Verification</b>. We verify that you have proper access to any external checking account that we electronically link to. This helps prevent people from opening an account in your name and moving money out of your external account.</li>
+                        <li><b>Identity Verification</b>. We run thorough identity verification checks on new customers to determine if the identity information provided is accurate and not suspicious or on any government watch lists.</li>
+                        <li><b>Third party Verification</b>. We have a security seal and certificate from Comodo who has also verified our identity.</li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q7">How do you keep your computer safe?</a>
+                    <div id="q7" class="collapse">
+                      <ul>
+                        <li>Make sure you are running the latest versions of your operating system and browser software, and that all security updates are installed.</li>
+                        <li>Maintain updated anti-virus, anti-spyware, and firewall software.</li>
+                        <li>Do not allow your browser to automatically log in for you.</li>
+                        <li>Choose a unique password that is hard to guess and that you don’t use elsewhere, and change it periodically.</li>
+                        <li>For more information visit the Federal Trade Commission’s <a href="https://www.consumer.ftc.gov/features/feature-0038-onguardonline">“OnGuard Online” computer security site</a>.</li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q8">How do you keep your information safe?</a>
+                    <div id="q8" class="collapse">
+                      <ul>
+                        <li>Never share your login or password with anyone.</li>
+                        <li>Never provide personal information when requested through an email or a link unless you can be certain of the site’s authenticity.</li>
+                        <li>Never input personal information into a form in a popup window or email message.</li>
+                        <li>Never open an email if you do not recognize the sender, especially if in it contains an attachment.</li>
+                        <li>Always remember to log out of BetaSmartz when you are done.</li>
+                        <li>Be careful if you are using public computers that do not belong to you, such as at a cafe or in a library.</li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q9">How do you protect yourself from phishing attacks?</a>
+                    <div id="q9" class="collapse">
+                      <p>Phishing is an illegal practice where someone tries to get you to provide your personal or financial information by making you think it is being requested from a legitimate party.</p>
+
+                      <p>The most popular form of phishing is an email that appears to originate from a financial institution asking you to validate or update your account information, usually through a link in the email that directs you to a fake website that looks legitimate.</p>
+
+                      <p>Be vigilant about phishing attacks by watching out for:</p>
+                      <ul>
+                        <li>An unsolicited email containing an attachment that appears to be coming from a legitimate company.</li>
+                        <li>An urgent sounding email claiming you must act immediately and supply the requested information
+                        Popup windows asking you for personal information.</li>
+                      </ul>
+                      <p>For more information, please visit <a href="http://www.antiphishing.org">www.antiphishing.org</a>.</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q10">How do I report a phishing attack?</a>
+                    <div id="q10" class="collapse">
+                      <p>If you receive an email from BetaSmartz that you believe may be fraudulent, please send the email to our Fraud Prevention Team: <a href="mailto:fraud@betasmartz.com">fraud@betasmartz.com</a>.</p>
+                    </div>
+                  </li>
+
+                  <li>
+                    <a data-toggle="collapse" href="#q11">How do I minimize damage from identity theft?</a>
+                    <div id="q11" class="collapse">
+                      <p>If your personal or financial information is accidentally disclosed or deliberately stolen we recommend the following steps:</p>
+
+                      <ul>
+                        <li>Report the fraud to BetaSmartz’s Fraud Prevention Team: <a href="mailto:fraud@betasmartz.com">fraud@betasmartz.com</a>.</li>
+                        <li>Place a “fraud alert” at all three major credit bureaus, and request copies of your credit reports. Note that credit bureaus are required to provide free copies of your credit report if you are a victim of identity theft:
+                          <ul>
+                            <li>TransUnion: <a href="http://www.transunion.com" target="_blank">www.transunion.com</a>, 800-680-7289</li>
+                            <li>Experian: <a href="http://www.experian.com" target="_blank">www.experian.com</a>, 888-397-3742</li>
+                            <li>Equifax: <a href="https://www.equifax.com" target="_blank">www.equifax.com</a>, 800-525-6285</li>
+                          </ul>
+
+                          <li>Close any accounts that have been tampered with or new accounts that were established fraudulently.</li>
+
+                          <li>File a police report with local law enforcement officials, which may help with clearing up your credit.</li>
+
+                          <li>Report your theft to the <a href="https://www.ftccomplaintassistant.gov/">Federal Trade Commission online</a> or by phone at 877-ID-THEFT (877-438-4338).</li>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div id='fees-and-billing' class="fade tab-pane">
+                <h1>Fees And Billing</h1>
+
+                <p>BetaSmartz charges a platform fee per client. This is arranged with your firm. Your firm has the ability to set a default advisory fee and then make adjustments to this fee for each advisor and/or each client within your firm.</p>
+
+                <p>Clients are billed on a quarterly basis, and both your advisory fee and BetaSmartz’s platform fee are taken directly out of the client’s BetaSmartz account.</p>
+
+                <h2>Fee Calculation Methodology</h2>
+                <ul>
+                  <li>BetaSmartz accrues fees for the period beginning one day before the end of the prior quarter and ending two days prior to the end of the current quarter.</li>
+                  <li>Fees are calculated pursuant to this formula: [sum of the following for each day in the preceding quarter: (the balance in a client’s account at the end of the day) * (advisory fee applicable on that day)].</li>
+                  <li>Fees will be realized by selling a portion of the client’s holdings on the last business day of the quarter to cover the accrued fee amount where cash is not held.</li>
+                  <li>This amount will then be deducted from the client’s account three business days after the transaction date, following the settlement of any resulting trade(s). Fees are billed in arrears.</li>
+                </ul>
+              </div>
+
+              <div id="client-signup" class="fade tab-pane">
+                <h1 id="client-signup">Client Signup and Reviewing Your Clients’ Accounts</h1>
+
+                <h2>On-boarding a Client</h2>
+
+                <p>The on-boarding process is housed in the “Clients” tab within your advisor dashboard.</p>
+
+                <ul>
+                  <li><b>Pre-populated Form</b>: Select “Invite client” This will allow you to select the reason for investing (Retirement/Personal Investing), and pre-populate some of your client’s personal information. Once you complete the steps, your client will receive a secure link to access the new account workflow via email. Please note that this link will only be live for 14 days after the time it is sent for security reasons. If the client does not receive the email, it can be resent to the client by going to the “Clients” tab and resending the invite link.</li>
+
+                  <li><b>Joint and Trust Account Setup Process</b>: If you would like to set up a Joint account or a Trust account for your clients, they will first need to signup for an individual account using the process above. Once the client has signed up for an individual account, they can click on the dropdown menu link next to their name in the top right hand corner of the Client dashboard and there they will see the option to open either a Trust or Joint account.</li>
+
+                  <li><b>Joint Account Setup Process</b>: In order for a client to set-up a Joint account, the other user must also have an individual account set up under the advisor already (using the processes above).
+                  </li>
+                  <li><b>Trust Account Setup Process</b>: In order for clients to set-up a Trust account, we require the Title Page and the Signature Page of the trust document. You can email the support team with these documents, or your client can upload them directly on their BetaSmartz account.</li>
+                </ul>
+
+                <h2>Reviewing your Clients’ Accounts</h2>
+
+                <p>From the overview page, you will be able to view a summary of your clients’ accounts by clicking a specific client’s name. Once you have clicked on the specific client, you will be able to see an overview of their account. On this page you can also log in as the client to manage their accounts.</p>
+
+                <p>This page will also provide you with a bit more detail on each client’s goals, their specific allocation and investment returns.</p>
+              </div>
+
+              <div id="client-funding" class="fade tab-pane">
+                <h1>Client Funding</h1>
+
+                <p>Clients can fund their accounts in four different ways: (1) linking an active checking or savings account, (2) wiring cash, (3) rolling over an existing IRA account, 401(k) account or other similar plans, and (4) transferring in eligible securities and cash from existing accounts using the ACATS system.</p>
+
+                <h2>Linking an active checking/savings account</h2>
+
+                <p>This process must be initiated by the client. The client needs to link an account during the onboarding process. They will then be guided to select a bank account. If they do not have an account at the banks on the list, they can select the manual option (which we verify by having the client confirm the amounts of two small deposits made in the account). If they select one of the listed providers, they will be prompted to enter their online banking username and password. If the client does not feel comfortable linking their account electronically, they may select the manual option and enter in the routing and account number for their bank account.</p>
+
+                <h2>Wiring cash</h2>
+                <p>Instructions can also be generated by the advisor and the clients from the “Transfer” tab. After you select the account, the instructions will be generated. The client will be able to do the same and have them emailed to themselves. Our support team can provide your firm with wiring instructions if you are unable to generate them or are having any issues.</p>
+
+                <h2>Rolling over and IRA account, 401(k), or other similar plan</h2>
+                <p>This process must be initiated by the client. We use the Direct Transfer method, which has no negative tax consequences. The client will login to their account, once logged on they will click on the “Rollover” button to the right hand side of the page.  They will be prompted for the type of account, the name of the provider for the account, the account number, and the approximate balance in the account. Finally, they will electronically agree to our IRA terms.</p>
+                <ul>
+                  <li><b>IRA</b>: BetaSmartz generates an IRA transfer form that will be emailed to the client, they will also have access to this PDF from their Activity tab. This form will need to be signed by the client and then sent to the institution they are rolling over from.</li>
+
+                  <li><b>401(k) and other retirement plan types</b>: Once a client has agreed to the terms, they will be emailed specific instructions on how the rollover check needs to be made out, as well as where the check needs to be sent. Once they receive these instructions they will need to reach out to their provider and provide them with these instructions.</li>
+                </ul>
+
+                <h2>ACATS Transfers</h2>
+                <p>Please note that at this time we are only able to accept ACATS transfers to BetaSmartz for securities that are included in our model portfolios, or cash/cash equivalent accounts.</p>
+
+                <p>Initiate a cash ACATS, follow these simple steps:</p>
+
+                <ul>
+                  <li>Have your client open an account, if they have not already.</li>
+                  <li>Liquidate all assets in the account at contra firm.</li>
+                  <li>Complete the <a href="{{ view.acats.upload.url }}">ACATS form</a>. You as the advisor or client will need to fill out the ACAT form.</li>
+                  <li>Return the completed and signed ACATS form with a recent account statement and screenshot showing that the assets have been liquidated to <a href="mailto:{{firm.details.advisor_support_email}}">{{firm.details.advisor_support_email}}</a>.</li>
+                </ul>
+
+                <p>Once we have received the required ACATS form, recent statement and screenshot, we will submit the request to the contra firm and invest the funds according to the allocation in the account when the funds are received. Please note that this process is applicable for both taxable and IRA accounts.</p>
+              </div>
+
+              <div id="dashboard-basics" class="fade tab-pane">
+                <h1>Dashboard Basics: Understanding Your Advisor Dashboard</h1>
+
+                <h2>Overview Tab</h2>
+                <p>This page provides an overview of all of the groups and accounts that you manage on the platform. By clicking on a Group or Client you can easily see whether clients are currently on/off track to meet their goals, the status of their goals, balance and returns, the portfolio strategy being used, frequency and amounts of auto deposits and the term and target amounts of goals.</p>
+
+                <ul>
+                  <li><b>Group Feature</b>: Within this tab you are able to create a group – this allows you to group your clients together for easier management and will only be available on your advisor dashboard – for example, you can group together a family or a married couple.</li>
+
+                  <li><b>Impersonation Feature</b>: Across from a client’s name, you will see a “Login” button to the right hand side, which will allow you to login as the client. This is great for a remote service model, or to help easily answer questions over the phone and provides transparency between the advisor and client.</li>
+
+                  <li><b>Fee Adjustment Feature</b>: On the “Overview” page, you will find a pencil next to where the client’s fees are listed, which will allow you to adjust your firm’s fees for a particular client.</li>
+
+                  <li><b>Portfolio Strategy Adjustment Feature</b>: A dropdown menu is available to select client’s designated “Portfolio Strategy” per goal. He you are able to adjust the portfolio strategy that the client is invested in, as well as their asset allocation.</li>
+                </ul>
+
+                <h2>Clients Tab</h2>
+                <p>This page is where you can invite clients, and track new client sign-ups and invitations sent. The “Invite Client” button on the right hand side of this page will allow you to invite the client with a pre-populated form. You must select whether the account is to be Retirement or Personal Investing in order that the client’s onboarding process is tailored to their initial needs. A Retirement client can add other types of investment goals and likewise a Personal Investing client can add retirement goals as well.</p>
+
+                <h2>Agreements Tab</h2>
+                <p>This will show you all of the clients that have agreed to your client agreement and when they have agreed to this agreement. It will also allow you to view the version of the agreement your client electronically signed. If you sent us updated documentation, please note that BetaSmartz does not send these to existing clients. You will have to send the updated documentation to clients outside of the BetaSmartz environment.</p>
+
+                <h2>Support Tab</h2>
+                <p>This will provide you with contact information for our BetaSmartz support team for both you and your clients and provides forms that may be necessary to your business.</p>
+              </div>
+
+              <div id="resources" class="fade tab-pane">
+                <h1>Resources</h1>
+
+                <p>We have a great FAQ section with more information and basic questions linked here: <a href="https://www.betasmartz.com/faqs">https://www.betasmartz.com/faqs</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

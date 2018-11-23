@@ -1,0 +1,15 @@
+<div class="stars-box-wrapper">
+  <div class="stars-box-desc">
+    {{desc}}
+  </div>
+  <div class="stars-box" {% if star_size == 'lg' %} style="font-size: 15pt;" {% endif %}>
+    <div class="stars-box-inner">
+      <div class="bg-stars">
+          &bigstar;&bigstar;&bigstar;&bigstar;&bigstar;&bigstar;
+      </div>
+      <div class="value-stars">
+        {% for num in stars %}&bigstar;{% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+{% load static from staticfiles %}
+{% load humanize %}
+{% load i18n filters %}
+
+<div id="page5-div" class="page-div">
+  <div class="page-header">
+    <div class="headline">Personal Situation 3</div>
+    <h2 class="page-title" style="margin-top: -18pt; text-align: center; padding-right: 1.5in;">
+      Your Retirement Plan
+    </h2>
+  </div>
+  <h3 class="page-subtitle" style="margin-bottom: 20pt;">
+    What we know about you
+  </h3>
+  <table class="page5-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th {% if not has_partner %} style="text-align: left;"{% endif %}>{{client.full_name}}</th>
+        {% if has_partner %}<th>{{partner_name}}</th>{% endif %}
+      </tr>
+    </thad>
+    <tbody>
+      <tr>
+        <td>Account advice applies to</td>
+        <td {% if has_partner %}colspan="2" style="text-align: center;"{% endif %}>Retirement-savings</td>
+      </tr>
+      <tr>
+        <td>Your age</td>
+        <td>{{client.age}}</td>
+        {% if has_partner %}<td></td>{% endif %}
+      </tr>
+      <tr>
+        <td>Retirement age</td>
+        <td>{{plan.retirement_age}}</td>
+        {% if has_partner %}<td></td>{% endif %}
+      </tr>
+      <tr>
+        <td>Current investment profile</td>
+        <td>{{plan.desired_risk|floatformat:2}}</td>
+        {% if has_partner %}<td>{{plan.desired_risk|floatformat:2}}</td>{% endif %} <!--TODO: confirm partner's risk_profile_group -->
+      </tr>
+      <tr>
+        <td>Your gross salary</td>
+        <td>${{client.income|intcomma}}</td>
+        {% if has_partner %}<td>${{plan.partner_data.income|intcomma}}</td>{% endif %}
+      </tr>
+      <tr>
+        <td>Projected Income Growth Rate</td>
+        <td>{{plan.income_growth|percentage}} a year</td>
+        {% if has_partner %}<td>{{plan.income_growth|percentage}} a year</td>{% endif %} <!--TODO: confirm partner's income_growth -->
+      </tr>
+      <tr>
+        <td>Tax Filing Status</td>
+        <td>{{client.filing_status_text}}</td>
+        {% if has_partner %}<td>{{client.filing_status_text}}</td>{% endif %} <!--TODO: confirm partner's filing status -->
+      </tr>
+      <tr>
+        <td>Retirement account savings – qualified plans</td>
+        <td>${{sum_of_retirement_accounts|intcomma}}</td>
+        {% if has_partner %}<td>${{sum_of_retirement_accounts|intcomma}}</td>{% endif %} <!--TODO: confirm partner's sum of retirement_accounts -->
+      </tr>
+      <tr>
+        <td>Retirement account savings – individual retirement accounts</td>
+        <td>${{sum_of_retirement_accounts_ira|intcomma}}</td> <!--TODO: confirm sum of retirement_accounts ira -->
+        {% if has_partner %}<td>${{sum_of_retirement_accounts_ira|intcomma}}</td>{% endif %} <!--TODO: confirm partner's sum of retirement_accounts ira -->
+      </tr>
+      <tr>
+        <td>Employment status</td>
+        <td>{{client.employment_status_text}}</td>
+        {% if has_partner %}<td></td>{% endif %} <!--TODO: confirm partner's employement_status -->
+      </tr>
+      <tr>
+        <td>Employer Name</td>
+        <td>{{client.employer}}</td>
+        {% if has_partner %}<td></td>{% endif %} <!--TODO: confirm partner's employer_name -->
+      </tr>
+      <tr>
+        <td>Employer Type</td>
+        <td>{{client.employer_type_text}}</td>
+        {% if has_partner %}<td></td>{% endif %} <!--TODO: confirm partner's employer_type -->
+      </tr>
+      <tr>
+        <td>Occupation</td>
+        <td>{{client.occupation_text}}</td>
+        {% if has_partner %}<td></td>{% endif %} <!--TODO: confirm partner's occupation -->
+      </tr>
+      <tr>
+        <td>Home Value</td>
+        <td>{{client.home_value|currency:0}}</td>
+        {% if has_partner %}<td></td>{% endif %} <!--TODO: confirm partner's occupation -->
+      </tr>
+      <tr>
+        <td>ReverseMortgage</td>
+        <td>{% if client.reverse_mortgage %}Yes{% else %}No{% endif %}</td>
+        {% if has_partner %}<td></td>{% endif %}
+      </tr>
+
+    </tbody>
+  </table>
+</div>

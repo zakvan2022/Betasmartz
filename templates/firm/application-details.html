@@ -1,0 +1,489 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+
+{% block main_content %}
+  <div class="container">
+
+    <h3>Edit <strong>{{client.name}}</strong></h3>
+
+    {% for item in form.errors.items %}
+      {{item}}
+    {% endfor %}
+
+    <form method="post" enctype="multipart/form-data" id="clientAppForm">
+      {% csrf_token %}
+      <h4 class="m-t">Personal Information</h4>
+      <div class="row">
+        <div class="col-sm-2">
+          {% bootstrap_field form.salutation %}
+        </div>
+        <div class="col-sm-8">
+          <div class="row">
+            <div class="col-sm-4">
+              {% bootstrap_field form.first_name %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.middle_name %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.last_name %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          {% bootstrap_field form.suffix %}
+        </div>
+      </div>
+      <h4 class="m-t">Contact Information</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.email %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.address1 %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.address2 %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.city %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.phone_num %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.post_code %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.state %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.country %}
+        </div>
+      </div>
+      <h4 class="m-t">Miscellaneous Information</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.gender %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.civil_status %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.date_of_birth %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.ssn %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_assistance_program %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_graduate_looking %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.student_loan_parent_looking %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_eligible %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_provider_name %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_state %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.hsa_coverage_type %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.politically_exposed %}
+        </div>
+      </div>
+      <h4 class="m-t">Employment</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.employment_status %}
+        </div>
+        <div class="col-sm-9">
+          <div class="row employement-row"{% if not form.employment_status.value in employed_statuses %} style="display: none"{% endif %}>
+            <div class="col-sm-4">
+              {% bootstrap_field form.industry_sector %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.occupation %}
+            </div>
+            <div class="col-sm-4">
+              {% bootstrap_field form.employer %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 income-col"{% if not form.employment_status.value in employed_statuses %} style="display: none"{% endif %}>
+          {% bootstrap_field form.income %}
+        </div>
+        <div class="col-sm-3">
+          {% bootstrap_field form.other_income %}
+        </div>
+      </div>
+
+      <h4 class="m-t">Advisor</h4>
+      <div class="row">
+        <div class="col-sm-3">
+          {% bootstrap_field form.advisor %}
+        </div>
+      </div>
+
+      <h4 class="m-t">Documents</h4>
+      <div class="row">
+        <div class="col-sm-4">
+          {% bootstrap_field form.tax_transcript %}
+        </div>
+        <div class="col-sm-4">
+          {% bootstrap_field form.social_security_statement %}
+        </div>
+        <div class="col-sm-4">
+          {% bootstrap_field form.additional_document %}
+        </div>
+      </div>
+      <hr />
+
+      {% if ib_formset %}
+        <h3 class="m-t">Interactive Brokers</h3>
+        {{ ib_formset.management_form }}
+        {% for form in ib_formset %}
+          {{ form.id }}
+          {{ form.client }}
+          <div class="row">
+            <div class="col-sm-3">
+              {% bootstrap_field form.account_number %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.account_type %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.country_of_birth show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.phone_type show_help=False %}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              {% bootstrap_field form.identif_leg_citizenship show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.num_dependents show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.fin_info_tot_assets show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.fin_info_liq_net_worth show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.fin_info_ann_net_inc show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.fin_info_net_worth show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_0_knowledge show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_0_yrs show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_0_trds_per_yr show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_1_knowledge show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_1_yrs show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.asset_exp_1_trds_per_yr show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.reg_status_broker_deal show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.reg_status_exch_memb show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.reg_status_disp show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.reg_status_investig show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.reg_status_stk_cont show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.tax_resid_0_tin_type show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.tax_resid_0_tin show_help=False %}
+            </div>
+            <div class="col-sm-3">
+              {% bootstrap_field form.signature show_help=False %}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="m-t">Tax Address</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_address1 %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_address2 %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_city %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_post_code %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_state %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.tax_country %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h4 class="m-t">Employer Address</h4>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_address1 %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_address2 %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_city %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_post_code %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_state %}
+                </div>
+                <div class="col-sm-6">
+                  {% bootstrap_field form.emp_country %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <hr />
+      {% endif %}
+
+      <div class="text-center">
+        <button class="btn btn-primary-outline" type="reset">Cancel</button>
+        <button class="btn btn-primary" type="button" id="showConfirmModal">Save</button>
+      </div>
+    </form>
+    <hr />
+    <div class="text-right">
+      <form method="post" action="{% url 'firm:application-send-email' client.id %}">
+        {% csrf_token %}
+        <div class="inline-checkbox-wrap">Email to: </div>
+        <div class="inline-checkbox-wrap">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary-outline active">
+              <input type="radio" name="email_to" value="client" autocomplete="off" checked> Client
+            </label>
+            <label class="btn btn-primary-outline">
+              <input type="radio" name="email_to" value="advisor" autocomplete="off"> Advisor
+            </label>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div tabindex="-1" class="modal fade" id="confirmSaveModal" role="dialog" aria-hidden="true" aria-labelledby="confirmSaveModalLabel">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body text-center">
+                  <h3 id="confirmSaveModalLabel" class="text-center">Save Changes</h3>
+                  <p>By confirming you wish to save changes, you will resubmit your client information to your broker dealer.</p>
+                  <p>Submitting and resubmitting details may result in a need for further information to be provided before account approval can be accepted or the suspension of an existing account. </p>
+              </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary-outline pull-left" type="button" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-primary" type="button" id="clientAppFormSubmit">Send</button>
+          </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block foot_js %}
+  <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeqDOMTcsTwwY6SBbOHIIx8Zb8jXH5jk0&libraries=places&callback=initAutocomplete" async defer></script>
+  <script type="application/javascript">
+  $(function () {
+    $('#id_ssn').mask('999-99-9999');
+    $('#id_ib_onboard-0-account_number').mask('U9999999');
+
+    $("#id_date_of_birth").datepicker({
+      format: 'yyyy-mm-dd',
+      endDate: "0d",
+      orientation: "top"
+    });
+
+    $("form button[type=reset]").click(function () {
+      window.location.href = "{% url 'firm:application' %}";
+    });
+
+    $('#id_employment_status').on('change', function(e) {
+      var val = parseInt(e.target.value);
+      if ({{employed_statuses}}.includes(val)) {
+        $('.employement-row').show();
+        $('.income-col input').attr('required', 'required');
+        $('.income-col').show();
+      } else {
+        $('.employement-row').hide();
+        $('.income-col input').removeAttr('required');
+        $('.income-col').hide();
+      }
+    });
+
+    $('#id_address1, #id_ib_onboard-0-tax_address1, #id_ib_onboard-0-emp_address1')
+      .on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+    $('#clientAppForm').on('submit', function (e) {
+      if (($("#confirmSaveModal").data('bs.modal') || {}).isShown) {
+        return true;
+      } else {
+        $('#confirmSaveModal').modal('show');
+        return false;
+      }
+    });
+
+    $('#showConfirmModal, #clientAppFormSubmit').on('click', function(e) {
+      $('#clientAppForm').submit();
+    });
+  });
+
+  var placeSearch;
+  function isComponentTypeOf(field) {
+    var func = function(component) {
+      return component.types[0] === field;
+    }
+    return func;
+  }
+  function AutoComplete(fieldMapping, autocompleteId) {
+    this.componentForm = {
+      street_number: 'long_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'short_name',
+      country: 'short_name',
+      postal_code: 'short_name'
+    };
+
+    this.fieldMapping = fieldMapping;
+
+    this.autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById(autocompleteId)),
+      {types: ['geocode']}
+    );
+    this.autocomplete.addListener('place_changed', this.fillInAddress.bind(this));
+  }
+
+  AutoComplete.prototype.fillInAddress = function() {
+    // Get the place details from the autocomplete object.
+    var place = this.autocomplete.getPlace();
+
+    for (var item of this.fieldMapping) {
+      var vals = [];
+      for (var field of item.fields) {
+        var component = place.address_components.find(isComponentTypeOf(field))
+        if (component) {
+          var type = component.types[0];
+          vals.push(component[this.componentForm[type]])
+        }
+      }
+      document.getElementById(item.elementId).value = vals.join(' ')
+    }
+  }
+
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
+
+  function initAutocomplete() {
+    new AutoComplete([
+      { elementId: 'id_address1', fields: ['street_number', 'route'] },
+      { elementId: 'id_city', fields: ['locality'] },
+      { elementId: 'id_state', fields: ['administrative_area_level_1'] },
+      { elementId: 'id_country', fields: ['country'] },
+      { elementId: 'id_post_code', fields: ['postal_code'] }
+    ], 'id_address1')
+
+    new AutoComplete([
+      { elementId: 'id_ib_onboard-0-tax_address1', fields: ['street_number', 'route'] },
+      { elementId: 'id_ib_onboard-0-tax_city', fields: ['locality'] },
+      { elementId: 'id_ib_onboard-0-tax_state', fields: ['administrative_area_level_1'] },
+      { elementId: 'id_ib_onboard-0-tax_country', fields: ['country'] },
+      { elementId: 'id_ib_onboard-0-tax_post_code', fields: ['postal_code'] }
+    ], 'id_ib_onboard-0-tax_address1')
+
+    new AutoComplete([
+      { elementId: 'id_ib_onboard-0-emp_address1', fields: ['street_number', 'route'] },
+      { elementId: 'id_ib_onboard-0-emp_city', fields: ['locality'] },
+      { elementId: 'id_ib_onboard-0-emp_state', fields: ['administrative_area_level_1'] },
+      { elementId: 'id_ib_onboard-0-emp_country', fields: ['country'] },
+      { elementId: 'id_ib_onboard-0-emp_post_code', fields: ['postal_code'] }
+    ], 'id_ib_onboard-0-emp_address1')
+  }
+
+  </script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static from staticfiles %}
+{% load i18n filters %}
+<div id="page8-div" class="page-div">
+  <div class="page-header">
+    <div class="headline">Personal Situation 6</div>
+  </div>
+  <h2 class="page-title" style="text-align: center; margin: 20pt 0;">
+    Your Retirement Plan
+  </h2>
+  <p style="margin-bottom: 5pt;">
+    <span style="font-weight: 700; font-style: italic;">
+      More on your retirement lifestyle
+    </span><br />
+    <span style="font-size: 9pt;">
+      (for more information about retirement lifestyles please visit RetireSmartz online)
+    </span>
+  </p>
+  <p>
+    Your target retirement lifestyle is {{plan.lifestyle_text}} ({{plan.lifestyle}})<br />
+    This lifestyle profile has a retirement income target of {{plan.desired_income|currency:0}}
+  </p>
+  <p style="font-size: 8pt;">
+    In preparing our recommendations we have taken into account your circumstances and
+    why you are seeking financial advice. We have researched a number of alternative
+    strategies for you and selected theone that is best suited in meeting your needs and
+    objectives. We have carried out reasonable investigations about a range of financial
+    products that may be considered suitable from our approved product list (APL).
+    Our recommendations shall meet the following criteria, if you do not believe they do,
+    please contact us immediately:
+  </p>
+  <div class="lifestyle-plans clearfix">
+    {% for lifestyle_item in lifestyle_box %}
+      {% include "statements/retirement_statement_of_advice/_plan_item.html" with lifestyle=lifestyle_item %}
+    {% endfor %}
+  </div>
+  <ul class="page8-ul">
+    <li>Is appropriate and in your best interests</li>
+    <li>Clearly explains how it will meet your objectives and personal circumstances</li>
+    <li>How it will put you in a better financial position</li>
+    <li>Alternatives to be considered</li>
+    <li>Considers your financial knowledge and experience</li>
+    <li>Is provided in language that you are likely to understand</li>
+    <li>Identity’s your objectives in quantitative terms and explains how the advice would achieve those objectives</li>
+    <li>Is provided in a logical manner</li>
+  </ul>
+</div>

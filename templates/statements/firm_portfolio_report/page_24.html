@@ -1,0 +1,20 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  <div class="page-break">
+    <div class="parallax">
+      <div class="padding-div">
+      </div>
+      <div class="last-page-board">  
+        <div class="container">
+          <img class="disc-logo" src="{{ firm.report_logo_safe.url }}" />
+          <h5>Disclaimer</h5>
+        	<p>This presentation material and all the information contained herein is the property of {{firm.full_name}}, and is protected from unauthorized copying and dissemination by copyright laws with all rights reserved. <br><br>This presentation material, original or copy, is reserved for use by authorized personnel within {{firm.name}} only and is strictly prohibited from public use and/or circulation. {{firm.name}} disclaims any responsibility from any consequences arising from the unauthorized use and/or circulation of this presentation material by any party.<br><br>This presentation material is intended to provide general information on the background and services {{firm.name}}. No information within this presentation material constitutes a solicitation or an offer to purchase or sell any securities or investment advice of any kind.<br><br>The analytical information within this presentation material is obtained from sources believed to be reliable.  With respect to the information concerning investment referenced in this presentation material, certain assumptions may have been made by the sources quoted in compiling such information and changes in such assumptions may have a material impact on the information presented in this presentation material.  In providing this presentation material, {{firm.name}} makes no (i) express warranties concerning this presentation material; (ii) implied warranties concerning this presentation material (including, without limitation, warranties of merchantability, accuracy, or fitness for a particular purpose); (iii) express or implied warranty concerning the completeness or relevancy of this presentation material and the information contained herein. Past performance of the investment referenced in this presentation material is not necessarily indicative of future performance.<br><br>Investment involves risks.  Investors should refer to the Risk Disclosure Statements & Terms and Conditions of the relevant document for further details.<br><br>This material has not been reviewed by the Securities and Futures Commission of Hong Kong.</p>
+          <hr>
+      	</div>
+      </div>
+    </div>
+  </div>
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

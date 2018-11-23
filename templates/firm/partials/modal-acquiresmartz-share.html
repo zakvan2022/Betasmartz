@@ -1,0 +1,44 @@
+<!-- Share Modal -->
+<div tabindex="-1" class="modal fade" id="shareModal" role="dialog" aria-hidden="true" aria-labelledby="shareModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-horizontal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="shareModalLabel">Share message</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </label>
+                        <div class="col-xs-9">
+                            <input type="email" name="email" placeholder="staff@example.org" class="form-control modal-input-border-bottom">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">
+                            Subject
+                        </label>
+                        <div class="col-xs-9">
+                            <input type="text" name="subject" placeholder="Moving to Chicago" class="form-control modal-input-border-bottom">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">
+                            Message
+                        </label>
+                        <div class="col-xs-9">
+                            <textarea name="message" rows="5" class="form-control modal-input-border-bottom"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary send" type="button">Send</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

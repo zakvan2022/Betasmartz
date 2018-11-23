@@ -1,0 +1,7 @@
+Dear {{ confirmation.cosignee.user.first_name }},
+
+    Click this link {{ confirmation.url }} to confirm that you agree to create a joint account with {{ confirmation.primary_owner.full_name }}.
+
+Regards,
+ {{ confirmation.cosignee.advisor.user.full_name }}
+ {{ confirmation.cosignee.firm }}

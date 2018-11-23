@@ -1,0 +1,145 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <style>
+    table.dataTable thead > tr > th {
+      padding-left: 8px;
+    }
+
+  </style>
+{% endblock %}
+
+{% block foot_js %}
+<script type="application/javascript" src="{% static "js/widgets.js" %}"></script>
+<script type="application/javascript">
+  $(function () {
+    betasmartz.widgets.searchTable("#accounts", "#search");
+  });
+</script>
+{% endblock %}
+
+{% block main_content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9">
+          <h3>Overview</h3>
+      </div>
+      <div class="col-sm-3 text-sm-right">
+        <div class="form-group">
+          <a class="btn btn-primary-outline" href="{% url 'advisor:composites:create' %}">Add Group</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 m-b">
+        <div class="statcard statcard-primary">
+          <div class="p-a">
+            <span class="statcard-desc">Total AUM</span>
+            <h2>
+              {{ profile.total_balance|currency }}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 m-b">
+        <div class="statcard statcard-primary">
+          <div class="p-a">
+            <span class="statcard-desc">Total clients</span>
+            <h2>
+              {{ profile.clients.count }}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 m-b">
+        <div class="statcard statcard-primary">
+          <div class="p-a">
+            <span class="statcard-desc">Average client balance</span>
+            <h2>
+              {{ profile.average_client_balance|currency }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <form>
+        <div class="col-sm-4 col-sm-offset-8">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><span class="icon icon-magnifying-glass"></span></span>
+              <input type="search" placeholder="Filter groups" id="search"
+                     class="form-control" aria-describedby="search">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Awful legacy code everywhere -->
+    <div class="panel panel-default">
+      <div class="table-responsive">
+        <table class="table" id="accounts">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Total balance</th>
+              <th>Total return</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for group in groups %}
+              <tr>
+                <td>
+                    <div>{{ group.pk }}</div>
+                </td>
+                <td>
+                  <div>
+                    <a href="{% url 'advisor:composites:detail' group.id %}">{{ group.name }} <i class="fa fa-external-link"></i></a>
+                  </div>
+                </td>
+                <td>
+                  {% if group.on_track %}<span style='color:green;'>On Track</span>{% else %}<span style='color:red;'>Off Track</span>{% endif %}
+                  {% if group.pending_settings_approval %}
+                    <br><span>Pending Approval</span>
+                  {% endif %}
+                </td>
+                <td>{{ group.total_balance|currency }}</td>
+                <td>
+                  <div>{{ group.total_returns|percentage }}</div>
+                  <div class="text-muted"><small><span>since</span> {{ group.since|date:'M j, Y' }}</small></div>
+                </td>
+              </tr>
+            {% endfor %}
+
+            {% for client in clients %}
+              <tr>
+                <td>
+                    <div>{{ client.pk }}</div>
+                </td>
+                <td>
+                  <div>
+                    <a href="{% url 'advisor:clients:accountsdetail' client.id %}">{{ client.name }} <i class="fa fa-external-link"></i></a>
+
+                  </div>
+                </td>
+                <td>{% if client.on_track %}<span style='color:green;'>On Track</span>{% else %}<span style='color:red;'>Off Track</span>{% endif %}</td>
+                <td>{{ client.total_balance|currency }}</td>
+                <td>
+                  <div>{{ client.total_returns|percentage }}</div>
+                  <div class="text-muted"><small><span>since</span> {{ client.since|date:'M j, Y' }}</small></div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

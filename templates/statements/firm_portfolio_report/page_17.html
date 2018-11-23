@@ -1,0 +1,34 @@
+{% load static from staticfiles %}
+<div class="a4-page" id="risk">
+  <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}"> Risk Management</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 chart-div">
+        <p class="title">Asset Contributions to Monthly Returns</p>
+        {% if type == 'html' %}
+          <div id="asset_contributions_returns">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.asset_contributions_returns }}" alt="" class="chart-img" />
+        {% endif %}
+        
+      </div>
+      <div class="col-sm-6 chart-div">
+        <p class="title">Asset Contributions to Monthly Volatility</p>
+        {% if type == 'html' %}
+          <div id="asset_contributions_volatility">
+          </div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.asset_contributions_volatility }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="chart-last"></div>
+    </div>
+  </div>
+  
+  {% include "statements/firm_portfolio_report/partials/risk_commentary.html" %}
+
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

@@ -1,0 +1,116 @@
+Collecting cairocffi
+  Using cached https://files.pythonhosted.org/packages/62/be/ad4d422b6f38d99b09ad6d046ab725e8ccac5fefd9ca256ca35a80dbf3c6/cairocffi-0.9.0.tar.gz
+    Complete output from command python setup.py egg_info:
+    Traceback (most recent call last):
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 477, in __init__
+        self.vc_ver = self.find_available_vc_vers()[-1]
+    IndexError: list index out of range
+    
+    During handling of the above exception, another exception occurred:
+    
+    Traceback (most recent call last):
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 157, in save_modules
+        yield saved
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 198, in setup_context
+        yield
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 248, in run_setup
+        DirectorySandbox(setup_dir).run(runner)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 278, in run
+        return func()
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 246, in runner
+        _execfile(setup_script, ns)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 47, in _execfile
+        exec(code, globals, locals)
+      File "C:\Users\CaesaR\AppData\Local\Temp\easy_install-hnh_z8ht\cffi-1.11.5\setup.py", line 120, in <module>
+      File "C:\Users\CaesaR\AppData\Local\Temp\easy_install-hnh_z8ht\cffi-1.11.5\setup.py", line 98, in uses_msvc
+      File "C:\Program Files\Python35\lib\distutils\command\config.py", line 227, in try_compile
+        self._compile(body, headers, include_dirs, lang)
+      File "C:\Program Files\Python35\lib\distutils\command\config.py", line 133, in _compile
+        self.compiler.compile([src], include_dirs=include_dirs)
+      File "C:\Program Files\Python35\lib\distutils\_msvccompiler.py", line 304, in compile
+        self.initialize()
+      File "C:\Program Files\Python35\lib\distutils\_msvccompiler.py", line 197, in initialize
+        vc_env = _get_vc_env(plat_spec)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 172, in msvc14_get_vc_env
+        return EnvironmentInfo(plat_spec, vc_min_ver=14.0).return_env()
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 771, in __init__
+        self.si = SystemInfo(self.ri, vc_ver)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 480, in __init__
+        raise distutils.errors.DistutilsPlatformError(err)
+    distutils.errors.DistutilsPlatformError: Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": http://landinghub.visualstudio.com/visual-cpp-build-tools
+    
+    During handling of the above exception, another exception occurred:
+    
+    Traceback (most recent call last):
+      File "<string>", line 1, in <module>
+      File "C:\Users\CaesaR\AppData\Local\Temp\pip-build-xrndb8uj\cairocffi\setup.py", line 51, in <module>
+        'test': ['pytest-runner', 'pytest-cov'],
+      File "C:\Program Files\Python35\lib\distutils\core.py", line 108, in setup
+        _setup_distribution = dist = klass(attrs)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\dist.py", line 315, in __init__
+        self.fetch_build_eggs(attrs['setup_requires'])
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\dist.py", line 361, in fetch_build_eggs
+        replace_conflicting=True,
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\pkg_resources\__init__.py", line 850, in resolve
+        dist = best[req.key] = env.best_match(req, ws, installer)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\pkg_resources\__init__.py", line 1122, in best_match
+        return self.obtain(req, installer)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\pkg_resources\__init__.py", line 1134, in obtain
+        return installer(requirement)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\dist.py", line 429, in fetch_build_egg
+        return cmd.easy_install(req)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\command\easy_install.py", line 665, in easy_install
+        return self.install_item(spec, dist.location, tmpdir, deps)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\command\easy_install.py", line 695, in install_item
+        dists = self.install_eggs(spec, download, tmpdir)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\command\easy_install.py", line 876, in install_eggs
+        return self.build_and_install(setup_script, setup_base)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\command\easy_install.py", line 1115, in build_and_install
+        self.run_setup(setup_script, setup_base, args)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\command\easy_install.py", line 1101, in run_setup
+        run_setup(setup_script, args)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 251, in run_setup
+        raise
+      File "C:\Program Files\Python35\lib\contextlib.py", line 77, in __exit__
+        self.gen.throw(type, value, traceback)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 198, in setup_context
+        yield
+      File "C:\Program Files\Python35\lib\contextlib.py", line 77, in __exit__
+        self.gen.throw(type, value, traceback)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 169, in save_modules
+        saved_exc.resume()
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 144, in resume
+        six.reraise(type, exc, self._tb)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\pkg_resources\_vendor\six.py", line 685, in reraise
+        raise value.with_traceback(tb)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 157, in save_modules
+        yield saved
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 198, in setup_context
+        yield
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 248, in run_setup
+        DirectorySandbox(setup_dir).run(runner)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 278, in run
+        return func()
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 246, in runner
+        _execfile(setup_script, ns)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\sandbox.py", line 47, in _execfile
+        exec(code, globals, locals)
+      File "C:\Users\CaesaR\AppData\Local\Temp\easy_install-hnh_z8ht\cffi-1.11.5\setup.py", line 120, in <module>
+      File "C:\Users\CaesaR\AppData\Local\Temp\easy_install-hnh_z8ht\cffi-1.11.5\setup.py", line 98, in uses_msvc
+      File "C:\Program Files\Python35\lib\distutils\command\config.py", line 227, in try_compile
+        self._compile(body, headers, include_dirs, lang)
+      File "C:\Program Files\Python35\lib\distutils\command\config.py", line 133, in _compile
+        self.compiler.compile([src], include_dirs=include_dirs)
+      File "C:\Program Files\Python35\lib\distutils\_msvccompiler.py", line 304, in compile
+        self.initialize()
+      File "C:\Program Files\Python35\lib\distutils\_msvccompiler.py", line 197, in initialize
+        vc_env = _get_vc_env(plat_spec)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 172, in msvc14_get_vc_env
+        return EnvironmentInfo(plat_spec, vc_min_ver=14.0).return_env()
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 771, in __init__
+        self.si = SystemInfo(self.ri, vc_ver)
+      File "f:\myworks\django\betasmartz\myvenv\lib\site-packages\setuptools\msvc.py", line 480, in __init__
+        raise distutils.errors.DistutilsPlatformError(err)
+    distutils.errors.DistutilsPlatformError: Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": http://landinghub.visualstudio.com/visual-cpp-build-tools
+    
+    ----------------------------------------

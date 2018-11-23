@@ -1,0 +1,104 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n bootstrap3 filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css_new/acquiresmartz.css' %}">
+{% endblock %}
+
+{% block foot_js %}
+<script type="text/javascript">
+  $(document).on("click", ".action-target-user", function () {
+    var form_id = $(this).data('id');
+    var twitter_username = '@' + $('#' + form_id).get(0).twitter_username.value;
+    $("#starModal_target_form_id").val(form_id);
+    $("#starModal_target_username").html(twitter_username);
+  });
+</script>
+{% endblock %}
+
+{% block main_content %}
+{% for item in form.errors.items %}
+  {{item}}
+{% endfor %}
+<section>
+  <div class="container">
+    <h3>Cognitive client acquisition</h3>
+    <div class="row">
+        {% include "firm/partials/acquiresmartz-tabs.html" %}
+        {% include "firm/partials/acquiresmartz-period.html" %}
+    </div>
+    <div class="row">
+      {% include "firm/partials/acquiresmartz-sidebar.html" %}
+      <div class="col-lg-9 col-md-8 rightBig">
+        <div class="table-responsive">
+          <table id="bigTable" class="table table-hover table-acquiresmartz">
+            <thead>
+              <tr>
+                <th><span class="caret"></span></th>
+                <th>Handle</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if not pk %}
+                <tr><td colspan="6" class="text-center">Please select a campaign.</td></tr>
+              {% elif tweets %}
+                {% for item in tweets %}
+                  <tr>
+                    <td><span class="tweet-icon"><i class="fa fa-twitter"></i></span></td>
+                    <td width="40%">
+                      <p>@{{item.twitter_username}}</p>
+                      <div class="text-primary tweet-body">{{item.message}}</div>
+                    </td>
+                    <td>{{item.twitter_display_name}}</td>
+                    <td></td>
+                    <td>{{item.posted_time|time}}</td>
+                    <td width="120">
+                      <p>{{item.posted_time|date}}<p>
+                      <p>
+                        <a href="#" class="action-icon" title="Message" data-target="#msgModal" data-toggle="modal">
+                          <i class="fa fa-envelope-o"></i>
+                        </a>
+                        <a href="#" class="action-icon" title="Share" data-target="#shareModal" data-toggle="modal">
+                          <i class="fa fa-share-alt"></i>
+                        </a>
+                        <a href="#" class="action-icon action-target-user{% if item.is_target_user %} active {% endif %}" title="Target" data-id="target_user_form_{{item.twitter_id}}"{% if not item.is_target_user %} data-target="#starModal" data-toggle="modal"{% endif %}>
+                          <i class="fa fa-star-o"></i>
+                          <i class="fa fa-star"></i>
+                        </a>
+                        <div class="hide">
+                          <form method="post" id="target_user_form_{{item.twitter_id}}" action="{% url 'firm:acquiresmartz:targets-add' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="campaign" value="{{pk}}" />
+                            <input type="hidden" name="twitter_id" value="{{item.twitter_id}}" />
+                            <input type="hidden" name="twitter_username" value="{{item.twitter_username}}" />
+                            <input type="hidden" name="twitter_display_name" value="{{item.twitter_display_name}}" />
+                            <input type="hidden" name="twitter_image" value="{{item.twitter_image}}" />
+                            <input type="hidden" name="message" value="{{item.message}}" />
+                            <input type="hidden" name="posted_time" value="{{item.posted_time|to_isoformat}}" />
+                            <input type="hidden" name="location" value="{{item.location}}" />
+                          </form>
+                        </div>
+                      </p>
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr><td colspan="6" class="text-center">No tweets found.</td></tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "firm/partials/modal-acquiresmartz-campaign.html" %}
+{% include "firm/partials/modal-acquiresmartz-send-message.html" %}
+{% include "firm/partials/modal-acquiresmartz-star.html" %}
+{% include "firm/partials/modal-acquiresmartz-share.html" %}
+{% endblock %}

@@ -1,0 +1,604 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n filters %}
+{% load static from staticfiles %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css_new/reporting_detail.css' %}">
+
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <h3>{{ object.name }}</h3>
+    </div>
+
+    <div class="col-sm-3 text-right">
+      <a class="btn btn-link" href="{% url 'firm:reporting' %}">Back to Reporting</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 m-b">
+      <div class="statcard statcard-default">
+        <div class="p-a">
+          <span class="statcard-desc">Total ASSETS</span>
+          <h2>
+            {{ object.total_balance|currency }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 m-b">
+      <div class="statcard statcard-default">
+        <div class="p-a">
+          <span class="statcard-desc">AVERATE RETURN</span>
+          <h2>
+            {{ object.average_return|percentage }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 m-b">
+      <div class="statcard statcard-default">
+        <div class="p-a">
+          <span class="statcard-desc">NUMBER OF CLIENTS</span>
+          <h2>
+            {{ clients_count }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reporting-tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#report" role="tab" data-toggle="tab">Report</a></li>
+        <li class=""><a href="#clients" role="tab" data-toggle="tab">Clients</a></li>
+        <li class=""><a href="#commentary" role="tab" data-toggle="tab">Commentary</a></li>
+        <li class=""><a href="#risk" role="tab" data-toggle="tab">Risk</a></li>
+    </ul>            
+    <div class="tab-content">
+      <div class="tab-pane active" id="report">
+        <div class="padding-top-lg">
+          <h4 class="text-primary pull-left margin-right-md">Investment Return</h4>
+          <a href="#" id="investment_return_print" title="Print"><i class="fa fa-print text-primary margin-right-md" aria-hidden="true"></i></a>
+          <a href="#" id="investment_return_copy" title="Copy & Download"><i class="fa fa-copy text-primary" aria-hidden="true"></i></a>
+        </div>
+
+        <div id="investment_return">
+        </div>
+        
+        <div class="padding-top-xl">
+          <h4 class="text-primary pull-left margin-right-md">Statistics</h4>
+          <a href="#" id="statistics_table_print"><i class="fa fa-print text-primary margin-right-md" aria-hidden="true"></i></a>
+          <a href="#" id="statistics_table_copy"><i class="fa fa-copy text-primary" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="panel panel-default margin-top-xl">
+          <div class="table-responsive">
+            <table class="table statistics-table" id="statistics_table">
+              <tbody>
+                <tr class="text-left">
+                  <td></td>
+                  <td>YTD</td>
+                  <td>1 year</td>
+                  <td>2 years(anzd)</td>
+                  <td>2 years(total)</td>
+                </tr>
+                <tr class="text-left even">
+                  <td>Return</td>
+                  <td>1.16</td>
+                  <td>5.52</td>
+                  <td>7.16</td>
+                  <td>14.83</td>
+                </tr>
+                <tr class="text-left">
+                  <td>Max DrowDown</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="text-left even">
+                  <td>Std Dev</td>
+                  <td></td>
+                  <td>0.25</td>
+                  <td>1.26</td>
+                  <td>0.36</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="padding-top-xl">
+          <h4 class="text-primary margin-right-md">Holdings
+            <small class="text-primary">(<a href="#" data-target="#editPortfolioSetModal" data-toggle="modal">Edit Portfolio</a>)</small>
+            <a href="#" id="portfolio_chart_print"><i class="fa fa-print text-primary margin-right-md margin-left-md" aria-hidden="true"></i></a>
+            <a href="#" id="portfolio_chart_copy"><i class="fa fa-copy text-primary" aria-hidden="true"></i></a>
+          </h4>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div id="portfolio-chart"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="scroll-table-wrap">
+                <table class="table holdings">
+                  <thead>
+                    <tr>
+                      <th>HOLDING</th>
+                      <th>ALLOCATED</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for asset in holdings %}
+                    <tr class="holdings__asset-row text-left">
+                      <td><span class="expand-sign"><i class="fa fa-angle-right"></i></span>{{ asset.display_name }}</td>
+                      <td>
+                        <svg viewBox="0 0 64 64" class="pie">
+                          <circle r="25%" cx="50%" cy="50%" style="stroke-dasharray: {{ asset.percent }} 100; stroke: {{ asset.primary_color }}; stroke-dashoffset: -{{ holdings | sum_percent:forloop.counter }}; ; animation-delay: 0.25s">
+                          </circle>
+                        </svg>
+                        <div>{{ asset.percent | percentage }}</div>
+                      </td>
+                    </tr>
+                    <tr class="holdings__tickers-row hide">
+                      <td colspan="2">
+                        <table class="table holdings__tickers-table">
+                        {% for pi in asset.items %}
+                          <tr>
+                            <td><a href="{{ pi.asset.url }}"><i class='fa fa-link'></i>{{ pi.asset.display_name }}</a></td>
+                            <td>0 SHARES</td>
+                          </tr>
+                        {% endfor %}
+                        </table>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-primary margin-bottom-xs">Download / Open</div>
+              <div class="btn-group">
+                <a class="btn btn-primary btn-holdings" href="{% url 'firm:reporting-generate' object.pk %}" target="__blank">PDF</a>
+                <a class="btn btn-default btn-holdings" href="{% url 'statements:firm_portfolio_web_report' object.pk %}" target="__blank">Web</a>
+              </div>
+              <div class="text-primary margin-top-md margin-bottom-xs">Email to</div>
+              <div class="btn-group">
+                <button class="btn btn-primary btn-holdings" id="email_to_clients">Clients</button>
+                <button class="btn btn-default btn-holdings" id="email_to_advisors">Advisors</button>
+              </div>
+              <div class="text-primary margin-top-md margin-bottom-xs">Schedule</div>
+              <a href="{% url 'firm:reporting-schedule' object.pk %}" class="btn btn-primary" data-toggle="modal" data-target="#reportingScheduleModal">Setup</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="clients">
+        <div class="padding-top-lg clearfix">
+          <h4 class="text-primary pull-left margin-right-md">Clients</h4>
+          <form method="get">
+            <input type="hidden" name="page" value="clients">
+            <div class="padding-left-xs pull-right">
+              <select class="form-control" name="worth" onchange="javascript:this.form.submit();">
+                <option value="worth">- Worth -</option>
+                <option value="any">Any</option>
+                <option value="mass">Mass affluent</option>
+                <option value="high">High net worth</option>
+                <option value="veryhigh">Very high net worth</option>
+                <option value="ultrahigh">Ultra high net worth</option>
+              </select>
+            </div>
+            <div class="filter-advisor padding-right-xs pull-right">
+              <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-filter"></i>
+                </span>
+                <input type="text"name="advisor" class="form-control" placeholder="Advisors & Clients">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="panel panel-default margin-top-md">
+          <div class="table-responsive">
+            <table id="client-table" class="table dataTable table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th><input type="checkbox">Client Name</th>
+                  <th>Balance</th>
+                  <th>Return</th>
+                  <th>Free YTD</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for client in clients %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><input type="checkbox">{{ client.name }}</td>
+                    <td>{{ client.total_balance | currency }}</td>
+                    <td>{{ client.total_returns | floatformat:2 }}%</td>
+                    <td>{{ client.fees_ytd | currency }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--
+        <div class="pull-right client-download-bar">
+          {% csrf_token %}
+          <div class="text-primary margin-bottom-xs">Download</div>
+          <div class="btn-group">
+            <a href="{% url 'firm:reporting-generate' object.pk %}" class="btn btn-primary btn-holdings" target="__blank">PDF</a>
+            <a href="{% url 'statements:firm_portfolio_report' object.pk '' %}" class="btn btn-default btn-holdings" target="__blank">CSV</a>
+          </div>
+        </div>
+        -->
+      </div>
+      <div class="tab-pane" id="commentary">
+        <div class="padding-top-lg clearfix">
+          <table class="table table-hover margin-top-lg">
+            <thead>
+              <tr>
+                <td>Key Commentary</td>
+                <td width="10%">Published at</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for commentary in portfolio_commentaries %}
+                <tr>
+                  <td>{{ commentary.key_commentary|truncatechars:200 }}</td>
+                  <td>{{ commentary.publish_at|date:'d-M-y' }}</td>
+                  <td class="text-right">
+                    <a href="{% url 'firm:reporting-commentary-edit' commentary.pk %}?portfolio={{object.pk}}&category=1" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editCommentaryModal">
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr class="text-center">
+                  <td colspan="4">
+                    No entries
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="text-right">
+            <a href="{% url 'firm:reporting-commentary-new' %}?portfolio={{object.pk}}&category=1" class="btn btn-primary" data-toggle="modal" data-target="#editCommentaryModal">New Commentary</a>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="risk">
+        <div class="padding-top-lg">
+          <h4 class="text-primary pull-left margin-right-md">Risk</h4>
+          <a href="#" id="risk_chart_print" title="Print"><i class="fa fa-print text-primary margin-right-md" aria-hidden="true"></i></a>
+          <a href="#" id="risk_chart_copy" title="Copy & Download"><i class="fa fa-copy text-primary" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="padding-top-lg clearfix">
+          <div id="risk_stock" style="height: 400px; min-width: 310px"></div>
+          <table class="table table-hover margin-top-lg">
+            <thead>
+              <tr>
+                <td>Key Commentary</td>
+                <td>Near Term Outlook</td>
+                <td width="10%">Published at</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for commentary in risk_commentaries %}
+                <tr>
+                  <td>{{ commentary.key_commentary|truncatechars:100 }}</td>
+                  <td>{{ commentary.near_term_outlook|truncatechars:100 }}</td>
+                  <td>{{ commentary.publish_at|date:'d-M-y' }}</td>
+                  <td class="text-right">
+                    <a href="{% url 'firm:reporting-commentary-edit' commentary.pk %}?portfolio={{object.pk}}&category=4" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editCommentaryModal">
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr class="text-center">
+                  <td colspan="4">
+                    No entries
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="text-right">
+            <a href="{% url 'firm:reporting-commentary-new' %}?portfolio={{object.pk}}&category=4" class="btn btn-primary" data-toggle="modal" data-target="#editCommentaryModal">New Commentary</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal -->
+<div class="modal fade" id="editPortfolioSetModal" tabindex="-1" role="dialog" aria-labelledby="editPortfolioSetModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="editPortfolioSetModalLabel">Edit Portfolio</h4>
+      </div>
+      <div class="modal-body">
+        {% include "firm/partials/liveportfolio-form.html" %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "firm/partials/modal-edit-commentary.html" %}
+{% include "firm/partials/modal-reporting-schedule.html" %}
+{% endblock %}
+
+{% block foot_js %}
+  <script type="application/javascript" src="{% static "js/widgets.js" %}"></script>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="{% static 'js_new/table2csv.js' %}"></script>
+
+  <script type="application/javascript">
+    $(function () {
+      betasmartz.widgets.searchTable("#advisors", "#search");
+      var data = { 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+      $('#email_to_clients').click(function(){
+        var url = "{% url 'firm:email-clients' object.pk %}"
+        $.ajax({
+          url: url,
+          data: data,
+          type : 'POST',
+          success: function (){
+            alert('success')
+          }
+        })
+      });
+
+      $('#email_to_advisors').click(function(){
+        var url = "{% url 'firm:email-advisors' object.pk %}"
+        $.ajax({
+          url: url,
+          data: data,
+          type : 'POST',
+          success: function (){
+            alert('success')
+          }
+        })
+      });
+
+      $("#client-table").dataTable({
+        searching: false,
+        paging: false,
+        info: false
+      });
+
+      $(".holdings__asset-row td:first-child").click(function () {
+        var next = $(this).parent().next();
+        if (next.hasClass("holdings__tickers-row")) {
+          next.toggleClass('hide');
+          $(this).find('.expand-sign').toggleClass('expanded');
+        }
+      });
+
+      $('#investment_return_print').on('click', function(e) {
+        e.preventDefault();
+        investment_return_chart.print();
+      });
+
+      $('#investment_return_copy').on('click', function(e) {
+        e.preventDefault();
+        investment_return_chart.exportChart({ name: 'investment-return', type: 'application/pdf' });
+      });
+
+      $('#portfolio_chart_print').on('click', function(e) {
+        e.preventDefault();
+        portfolio_chart.print();
+      });
+
+      $('#portfolio_chart_copy').on('click', function(e) {
+        e.preventDefault();
+        portfolio_chart.exportChart({ name: 'portfolio', type: 'application/pdf' });
+      });
+
+      $('#risk_chart_print').on('click', function(e) {
+        e.preventDefault();
+        risk_chart.print();
+      });
+
+      $('#risk_chart_copy').on('click', function(e) {
+        e.preventDefault();
+        risk_chart.exportChart({ name: 'risk', type: 'application/pdf' });
+      });
+
+      $('#statistics_table_print').on('click', function(e) {
+        e.preventDefault();
+        printData('statistics_table');
+      });
+
+      $('#statistics_table_copy').on('click', function(e) {
+        var csv = $('#statistics_table').table2CSV({
+          delivery: 'value'
+        });
+        window.location.href = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(csv);
+      })
+    });
+
+    function printData(elemId)
+    {
+      var divToPrint=document.getElementById(elemId);
+      var newWin = window.open("");
+      newWin.document.write(document.head.innerHTML);
+      newWin.document.write(divToPrint.outerHTML);
+      setTimeout(function() {
+        newWin.print();
+        newWin.close();
+      }, 100);
+    }
+
+    var data = {{ lp_returns }};
+
+    function pointFormatter() {
+      var dateStart = moment(data[0][0]);
+      var dateCurrent = moment(this.x);
+      var monthAgoM = moment(dateCurrent).subtract(1, 'months');
+      var monthAgo = monthAgoM.valueOf();
+      var startOfYear = moment(dateCurrent).startOf('year').valueOf();
+      var monthAgoVal = data[0][1];
+      var startOfYearVal = data[0][1];
+      for (var i = 0; i < data.length; i ++) {
+        if (monthAgo <= data[i][0]) {
+          monthAgoVal = data[i][1];
+          break;
+        }
+      }
+      for (var i = 0; i < data.length; i ++) {
+        if (startOfYear <= data[i][0]) {
+          startOfYearVal = data[i][1];
+          break;
+        }
+      }
+      var monthValDiff = this.y - monthAgoVal;
+      var yearValDiff = this.y - startOfYearVal;
+      var duration = moment.duration(dateCurrent.diff(dateStart));
+      var dateSegs = [];
+      var symbolUp = '<span style="color: #20842d;">▲</span>';
+      var symbolDown = '<span style="color: #f00;">▼</span>';
+      if (duration.years()) { dateSegs.push(duration.years() + ' years'); }
+      if (duration.months()) { dateSegs.push(duration.months() + ' months'); }
+      if (!duration.months() && !duration.years()) { dateSegs.push(duration.days() + ' days'); }
+
+      return '<b>' + dateCurrent.format("MMM YYYY") + '</b>' +
+        (dateSegs.length > 0 ? ' (' + dateSegs.join(', ') + ')' : '') + '<br />' +
+        this.y.toFixed(2) + '% (' +
+        (monthValDiff > 0 ? symbolUp : symbolDown) + monthValDiff.toFixed(2) + '% since ' + monthAgoM.format('MMM') + '; ' +
+        (yearValDiff > 0 ? symbolUp : symbolDown) + yearValDiff.toFixed(2) + '% YTD)';
+    }
+    
+    var investment_return_chart = Highcharts.stockChart('investment_return', {
+      credits: { enabled: false },
+      navigator: { enabled: false },
+      rangeSelector: { enabled: false },
+      scrollbar: { enabled: false },
+      title: {
+        text: ''
+      },
+      yAxis: {
+        title: '',
+        gridLineWidth: 0,
+        labels: {
+          format: '{value}%'
+        }
+      },
+      tooltip: {
+        pointFormatter: pointFormatter
+      },
+      series: [{
+        name: ' ',
+        data: data,
+        tooltip: {
+          valueDecimals: 2,
+        },
+        color: '#FF0000'
+      }],
+      exporting: {
+        enabled: false
+      }
+    });
+
+    portfolio_chart = Highcharts.chart('portfolio-chart', {
+      exporting: { enabled: false },
+      credits: {
+        enabled: false
+      },
+      chart: {
+        height:250,
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+      },
+      title: {
+        text: 'ETF | <a style="color:lightgrey">ACTIVE</a>',
+        align: 'center',
+        verticalAlign: 'middle'
+      },
+      tooltip: {
+        pointFormat: '<b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            enabled: false,
+            distance: -50,
+            style: {
+              fontWeight: 'bold',
+              color: 'white'
+            }
+          },
+          startAngle: 0,
+          endAngle: 360,
+          center: ['50%', '50%'],
+          colors: [
+          {% for asset in holdings %}
+            '{{ asset.primary_color }}',
+          {% endfor %}
+          ]
+        }
+      },
+      series: [{
+        type: 'pie',
+        innerSize: '70%',
+        data: [
+          {% for asset in holdings %}
+            ['{{ asset.display_name }}', {{ asset.percent }}],
+          {% endfor %}
+        ]
+      }]
+    });
+
+    risk_chart = Highcharts.stockChart('risk_stock', {
+      credits: { enabled: false },
+      navigator: { enabled: false },
+      rangeSelector: { enabled: false },
+      scrollbar: { enabled: false },
+      title: {
+        text: ''
+      },
+      yAxis: {
+        title: '',
+        gridLineWidth: 0,
+        labels: {
+          format: '{value}%'
+        }
+      },
+      tooltip: {
+        pointFormatter: pointFormatter
+      },
+      series: [{
+        name: ' ',
+        data: data,
+        tooltip: {
+          valueDecimals: 2,
+        },
+        color: '#FF0000'
+      }],
+      exporting: {
+        enabled: false
+      }
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load filters %}
+{% load bootstrap3 %}
+
+<div class="pull-right">
+    <div class="col-sm-3 col-sm-offset-1">
+        <h4 style='padding-top: 11px;'>Filter by:</h4></li>
+    </div>
+    <form class="col-sm-4">
+        <div class="">
+            {% bootstrap_field advisor_filter.form.advisor show_label=False show_help=False %}
+        </div>
+
+        <div class="hidden">
+            <!-- Semi-hidden fields -->
+            {% bootstrap_field client_filter.form.client show_label=False show_help=False %}
+            {% bootstrap_field filter.form.worth show_label=False show_help=False %}
+            {% bootstrap_field filter.form.risk show_label=False show_help=False %}
+        </div>
+
+    </form>
+    <form class='col-sm-4'>
+        <div class="">
+            {% bootstrap_field client_filter.form.client show_label=False show_help=False %}
+        </div>
+
+        <div class="hidden">
+            <!-- Semi-hidden fields -->
+            {% bootstrap_field advisor_filter.form.advisor show_label=False show_help=False %}
+            {% bootstrap_field filter.form.worth show_label=False show_help=False %}
+            {% bootstrap_field filter.form.risk show_label=False show_help=False %}
+        </div>
+    </form>
+</div>
+
+<div class="visible-xs m-b"></div>

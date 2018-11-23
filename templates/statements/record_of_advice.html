@@ -1,0 +1,109 @@
+{% load static from staticfiles %}
+{% load i18n filters %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+<title>Record of Advice - {{statement.create_date|date:"F d Y"}}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<style type="text/css">
+	@page {
+		margin: 1in;
+	}
+	body {
+		margin: 0;
+	}
+
+	body { font-family: Roboto, Arial, Helvetica; box-sizing: border-box; }
+	body * { box-sizing: border-box; }
+	h1 { font-size: 18pt; font-weight: 400; margin-bottom: 20pt; }
+	h2 { font-size: 10pt; margin-bottom: 5pt; font-weight: 700; }
+	pre { font-family: Roboto, Arial, Helvetica; }
+	p, pre { font-size: 10pt; line-height: 1.3; margin-top: 0; margin-bottom: 14pt; }
+	.dom-body .page-div {
+	  background: white;
+	  margin: 1in;
+	}
+	.dom-body.borders .page-div {
+	    border: red 1px solid;
+	}
+	.dom-body.borders .bgimg {
+	    border: blue 1px dashed;
+	}
+	.page-div {
+		position: relative;
+		width: 6.27in;
+		height: 11.6in;
+	}
+
+	.page-div-inner {
+	  position: relative;
+	  height: 9.6in;
+	}
+	.logo {
+		position: absolute;
+		bottom: 100%;
+		height: 1in;
+		line-height: 1in;
+	}
+	.logo img {
+		vertical-align: middle;
+	}
+	.no-margin {
+		margin: 0;
+	}
+</style>
+<div class="page-div">
+	<div class="logo">
+		<img src="{{firm.colored_logo}}" style="max-width: 200px; max-height: 150px; width: auto; height: auto;" />
+	</div>
+    <div class="page-content">
+			<h1 style="text-align: center;">Record of Advice (ROA)</h1>
+			<p>This is a record of advice given on {{statement.create_date|date:"F d, Y"}}.</p>
+			<h2><strong>Your details</strong></h2>
+			<p>
+				{{client.name}}
+				{% if account.signatories %}
+					{% for item in account.signatories.all %}
+						<br />{{item.name}}
+					{% endfor %}
+				{% endif %}
+			</p>
+			<p>This advice is further to any advice provided in any previous Statement of Advice (SOA) or Financial Plan.</P>
+
+			<h2>Client circumstances</h2>
+			<p class="no-margin">The client has advised the following changes have occurred since our last advice.</p>
+			<pre>{{object.circumstances}}</pre>
+
+			<h2>Basis of advice</h2>
+			<p class="no-margin">The client requires advice because:</p>
+			<pre>{{object.basis}}</pre>
+
+			<h2>Details of the advice provided</h2>
+			<pre>{{object.details}}</pre>
+
+			<h2>Costs & risks</h2>
+			<p>You should be aware of the costs and risks associated with this advice. Acquisition/Disposal Costs will be applied to this transaction including brokerage and asset fees.</p>
+			<p>Other significant consequences including strategy/product costs and risks are detailed by each asset issuer. The list of assets can be found on the Portfolio page.</p>
+			<p>Copies of an assets prospectus and issuing documentation can be requested directly from the asset issuer.</p>
+
+			<h2>Warnings</h2>
+			<p>Any additional warnings will be provided to you in the advice given above.</p>
+			<p>
+				{{client.advisor.name}}<br />
+				{{firm.name}}<br />
+				{{statement.create_date|date:"F d, Y"}}
+			</p>
+		</div>
+</body>
+<script>
+(function() {
+document.body.className = "dom-body"
+if(window.location.hash == '#borders')
+    document.body.className = "dom-body borders"
+})();
+</script>
+</html>

@@ -1,0 +1,35 @@
+{% extends "layouts_new/base.html" %}
+{% load i18n %}
+{% load filters %}
+
+
+{% block main_content %}
+  <div class="container">
+    <div class="row m-t">
+      <div class="col-sm-8">
+          <!--h3 class="header">Support</h3 -->
+      </div>
+    </div>
+
+    <div>
+      {% include "firm/partials/menu-support.html" %}
+    </div>
+
+    <div class="row m-t">
+      <div class="col-sm-6">
+        <div class="panel panel-default text-center">
+          No forms
+{#          <div class="panel-heading">General form</div>#}
+{#          <table class="table">#}
+{#            <tbody>#}
+{#              <tr>#}
+{#                <td width="1%"><span class="icon icon-archive"></span></td>#}
+{#                <td><a target="_blank" href="{% url 'firm:edit' %}">Firm details form</a></td>#}
+{#              </tr>#}
+{#            </tbody>#}
+{#          </table>#}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

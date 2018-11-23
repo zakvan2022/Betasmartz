@@ -1,0 +1,37 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+<table cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="color:{{text_color}};line-height:120%;font-family:{{font_family}};">
+      	<div style="font-size:12px;line-height:14px;color:{{text_color}};font-family:{{font_family}};text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><strong><span style="font-size: 20px; line-height: 24px;">Congratulations!</span></strong></p>
+
+<p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><strong><span style="font-size: 20px; line-height: 24px;">You have setup your {{ firm.name }} account.</span></strong></p>
+
+<p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><strong><span style="font-size: 20px; line-height: 24px;">You can start creating goals by logging in at</span></strong></p> <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><strong><span style="font-size: 20px; line-height: 24px;">{% if firm.firm_details %}{{ firm.firm_details.site_url }}{% endif %}</span></strong></p>
+
+<p style="margin: 0;font-size: 12px;line-height: 14px;text-align: center"><strong><span style="font-size: 20px; line-height: 24px;">or clicking the button below.
+
+
+</span></strong></p></div>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+{% with button_label='Login Here' button_url=login_url %}
+  {% include "email/partials/button.html" %}
+{% endwith %}
+
+<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td align="center" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="height: 0px;">
+        <table align="center" border="0" cellspacing="0" style="border-spacing: 0;border-collapse: collapse;vertical-align: top;border-top: 0px solid transparent;width: 100%"><tbody><tr style="vertical-align: top"><td align="center" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top"></td></tr></tbody></table>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+{% endblock %}

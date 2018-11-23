@@ -1,0 +1,34 @@
+{% load static from staticfiles %}
+<div class="a4-page">
+  {% if type == 'pdf' %}
+    <h3 class="break-before page-header"><img class="mini-logo" src="{{ firm.mini_logo_safe.url }}"> Moderate Portfolio</h3>
+  {% endif %}
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 chart-div">
+        <p class="title">Geographic Exposures - Equity Holdings</p>
+        {% if type == 'html' %}
+          <div id="geographic_exposure"></div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.geographic_exposure }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="col-sm-6 chart-div">
+        <p class="title">GICS Sector Exposures - Equity Holdings</p>
+        {% if type == 'html' %}
+          <div id="gics_sector"></div>
+        {% elif type == 'pdf' %}
+          <img src="{{ charts.gics_sector }}" alt="" class="chart-img" />
+        {% endif %}
+      </div>
+      <div class="chart-last"></div>
+    </div>
+  </div>
+  
+  {% include "statements/firm_portfolio_report/partials/economic_commentary.html" %}
+
+  {% if type == 'pdf' %}
+    <div class="footer"></div>
+  {% endif %}
+</div>

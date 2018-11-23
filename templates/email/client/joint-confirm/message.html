@@ -1,0 +1,28 @@
+{% extends 'email/email.html' %}
+
+{% block message %}
+<table cellpadding="0" cellspacing="0" width="100%" style="border-spacing: 0;border-collapse: collapse;vertical-align: top">
+  <tbody><tr style="vertical-align: top">
+    <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px">
+      <div style="color:{{text_color}};line-height:120%;font-family:{{font_family}};">
+
+        <div style="padding-bottom:20px;font-size: 18px;line-height: 24px;color:{{text_color}};font-family:{{font_family}};text-align:left;">
+          <strong>Dear {{ confirmation.cosignee.user.first_name }},</strong>
+        </div>
+
+        <div style="padding-bottom:20px;font-size: 18px;line-height: 24px;color:{{text_color}};font-family:{{font_family}};text-align:left;">
+          Click this <a href="{{confirm_url}}">here</a> to confirm that you
+          agree to create a joint account with {{ confirmation.primary_owner.full_name }}.
+        </div>
+
+        <div style="padding-bottom:20px;font-size: 18px;line-height: 24px;color:{{text_color}};font-family:{{font_family}};text-align:left;">
+          Regards,<br>
+          {{ confirmation.cosignee.advisor.user.full_name }}<br>
+          {{ firm }}
+        </div>
+
+      </div>
+    </td>
+  </tr></tbody>
+</table>
+{% endblock %}
